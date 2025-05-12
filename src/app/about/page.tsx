@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
     return (
-        <main className="container mx-auto px-4 py-16">
+        <main className="container mx-auto px-4 py-16 bg-bg text-text-primary">
             <AboutMe />
         </main>
     );
