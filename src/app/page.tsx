@@ -8,11 +8,9 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="container mx-auto px-4 py-16">
+    <main className="container mx-auto px-4">
       <Hero />
-
-      {/* Next: Projects Showcase */}
-      {/* <Projects /> */}
+      {/* …About Me, Blog sections to follow */}
     </main>
   );
 }

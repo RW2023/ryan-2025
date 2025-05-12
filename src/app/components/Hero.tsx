@@ -36,7 +36,7 @@ export default function Hero() {
                 transition={{ duration: 0.6, delay: 0.4 }}
             >
                 <Link
-                    href="#projects"
+                    href="/projects"
                     className="btn btn-primary btn-lg"
                 >
                     View Projects
