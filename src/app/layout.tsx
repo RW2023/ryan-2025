@@ -1,9 +1,10 @@
-import './globals.css';
-import { ThemeProvider } from 'next-themes';
-import DarkModeToggle from '@/app/components/DarkModeToggle';
+// app/layout.tsx
+import "./globals.css";
+import { ThemeProvider } from "next-themes";
+import Navbar from "@/app/components/Navbar";
 
 export const metadata = {
-  title: 'My Portfolio',
+  title: "My Portfolio",
 };
 
 export default function RootLayout({
@@ -16,9 +17,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider attribute="data-theme" defaultTheme="system">
           <div className="min-h-screen flex flex-col">
-            <header className="p-4 flex justify-end">
-              <DarkModeToggle />
-            </header>
+            <Navbar />
             <main className="flex-1">{children}</main>
           </div>
         </ThemeProvider>
