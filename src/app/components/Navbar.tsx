@@ -18,7 +18,7 @@ export default function Navbar() {
     const toggleMobile = () => setMobileOpen((o) => !o);
 
     return (
-        <nav className="bg-white dark:bg-gray-900 sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700 shadow">
+        <nav className="bg-bg/100 sticky top-0 z-50 border-b border-surface shadow">
             <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
                 {/* Logo / Brand */}
                 <Link href="/" className="text-xl font-bold text-primary">
@@ -31,7 +31,7 @@ export default function Navbar() {
                         <Link
                             key={item.name}
                             href={item.href}
-                            className="py-2 px-3 hover:opacity-80 transition font-medium"
+                            className="py-2 px-3 text-text-primary hover:text-accent transition font-medium"
                         >
                             {item.name}
                         </Link>
@@ -42,7 +42,7 @@ export default function Navbar() {
                 {/* Mobile Menu Button */}
                 <button
                     onClick={toggleMobile}
-                    className="lg:hidden p-2 focus:outline-none"
+                    className="lg:hidden p-2 focus:outline-none text-text-primary"
                     aria-label="Toggle menu"
                 >
                     {mobileOpen ? <XIcon size={24} /> : <MenuIcon size={24} />}
@@ -57,7 +57,7 @@ export default function Navbar() {
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: "100%", opacity: 0 }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="lg:hidden bg-white dark:bg-gray-900 shadow-inner border-t border-gray-200 dark:border-gray-700"
+                        className="lg:hidden bg-bg/100 shadow-inner border-t border-surface"
                     >
                         <div className="px-4 py-6 space-y-4">
                             {navItems.map((item) => (
@@ -65,7 +65,7 @@ export default function Navbar() {
                                     key={item.name}
                                     href={item.href}
                                     onClick={() => setMobileOpen(false)}
-                                    className="block text-lg font-medium hover:text-primary"
+                                    className="block text-lg font-medium text-text-primary hover:text-accent"
                                 >
                                     {item.name}
                                 </Link>

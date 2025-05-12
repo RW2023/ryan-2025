@@ -27,7 +27,7 @@ const allProjects: (ProjectCardProps & { category: string })[] = [
         description: "Workout tracker with Supabase backend and AI-generated summaries.",
         tech: ["Next.js", "Supabase", "OpenAI"],
         githubUrl: "https://github.com/yourusername/swoletrac",
-        liveUrl: "https://swoletrac.example.com",
+        liveUrl: "https://swoletrack.vercel.app/",
         category: "Full-stack",
     },
     // Add more projects here...

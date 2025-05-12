@@ -1,25 +1,50 @@
 @import "tailwindcss";
 
-/* Define HSL variables */
+/* Semantic HSL Color Variables */
 :root {
-  --hue: 224;
-  --saturation: 60%;
+  --color-primary: 191, 33%, 52%;
+  /* Moonstone */
+  --color-secondary: 196, 39%, 32%;
+  /* Payne's Gray */
+  --color-accent: 19, 66%, 67%;
+  /* Atomic Tangerine */
+
+  --color-neutral: 0, 0%, 93%;
+  /* Anti-flash White */
+  --color-base: 0, 0%, 100%;
+  /* White */
+
+  --color-text: 196, 39%, 32%;
+  /* Payne's Gray */
+  --color-muted: 191, 33%, 52%;
+  /* Moonstone */
 }
 
-/* Light theme */
+/* Light Theme */
 html[data-theme='light'] {
-  --light: 95%;
-  --text: 20%;
+  --bg: var(--color-base);
+  --surface: var(--color-neutral);
+  --text-primary: var(--color-text);
+  --text-muted: var(--color-muted);
+  --primary: var(--color-primary);
+  --secondary: var(--color-secondary);
+  --accent: var(--color-accent);
 }
 
-/* Dark theme */
+/* Dark Theme */
 html[data-theme='dark'] {
-  --light: 12%;
-  --text: 90%;
+  --bg: 196, 39%, 12%;
+  /* Deep Payne's Gray */
+  --surface: 196, 20%, 18%;
+  --text-primary: 0, 0%, 100%;
+  --text-muted: 191, 15%, 62%;
+  --primary: 191, 33%, 42%;
+  --secondary: 196, 39%, 22%;
+  --accent: 19, 66%, 57%;
 }
 
-/* Use them in your base styles */
+/* Base styles using semantic colors */
 body {
-  background-color: hsl(var(--hue), var(--saturation), var(--light));
-  color: hsl(var(--hue), var(--saturation), var(--text));
+  background-color: hsl(var(--bg));
+  color: hsl(var(--text-primary));
 }
