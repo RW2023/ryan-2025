@@ -1,3 +1,4 @@
+// app/components/Projects.tsx
 "use client";
 
 import { useState } from "react";
@@ -36,9 +37,15 @@ const categories = ["All", "AI", "E-commerce", "Full-stack"];
 export default function Projects() {
     const [active, setActive] = useState("All");
 
-    const filtered = active === "All"
-        ? allProjects
-        : allProjects.filter((p) => p.category === active);
+    // Normalize strings to trim whitespace and ignore case
+    const normalize = (s: string) => s.trim().toLowerCase();
+
+    const filtered =
+        normalize(active) === "all"
+            ? allProjects
+            : allProjects.filter(
+                (p) => normalize(p.category) === normalize(active)
+            );
 
     return (
         <section id="projects" className="py-20 px-4">
@@ -49,16 +56,18 @@ export default function Projects() {
                 {categories.map((cat) => (
                     <button
                         key={cat}
-                        className={`btn btn-sm ${active === cat ? "btn-primary" : "btn-outline"
-                            }`}
                         onClick={() => setActive(cat)}
+                        className={`btn btn-sm ${normalize(active) === normalize(cat)
+                                ? "btn-primary"
+                                : "btn-outline"
+                            }`}
                     >
                         {cat}
                     </button>
                 ))}
             </div>
 
-            {/* Grid */}
+            {/* Projects Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filtered.map((proj) => (
                     <ProjectCard key={proj.title} {...proj} />
