@@ -18,6 +18,10 @@
   /* Payne's Gray */
   --color-muted: 191, 33%, 52%;
   /* Moonstone */
+
+  --font-heading: 'Sora', sans-serif;
+  --font-sans: 'IBM Plex Sans', sans-serif;
+  --font-accent: 'Space Mono', monospace;
 }
 
 /* Light Theme */
@@ -47,4 +51,17 @@ html[data-theme='dark'] {
 body {
   background-color: hsl(var(--bg));
   color: hsl(var(--text-primary));
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+}
+
+button,
+nav a {
+  font-family: var(--font-accent);
 }

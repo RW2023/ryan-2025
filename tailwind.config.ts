@@ -19,6 +19,11 @@ const config: Config & { daisyui: { themes: boolean | string[]; darkTheme?: stri
         "text-primary": "hsl(var(--text-primary) / var(--tw-text-opacity, 1))",
         "text-muted": "hsl(var(--text-muted) / var(--tw-text-opacity, 1))",
       },
+      fontFamily: {
+        heading: ["var(--font-heading)"],
+        sans: ["var(--font-sans)"],
+        accent: ["var(--font-accent)"],
+      },
     },
   },
   plugins: [daisyui],
