@@ -1,14 +1,12 @@
+// app/components/Hero.tsx
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import Button from "./Button";
 
 export default function Hero() {
     return (
-        <section
-            id="hero"
-            className="pt-20 md:pt-32 px-4 text-center"
-        >
+        <section id="hero" className="pt-20 md:pt-32 px-4 text-center">
             <motion.h1
                 className="text-5xl md:text-7xl font-bold mb-4"
                 initial={{ opacity: 0, y: 20 }}
@@ -35,12 +33,13 @@ export default function Hero() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
             >
-                <Link
+                <Button
                     href="/projects"
-                    className="btn btn-primary btn-lg"
-                >
-                    View Projects
-                </Link>
+                    label="View Projects"
+                    variant="primary"
+                    size="lg"
+                    icon
+                />
             </motion.div>
         </section>
     );
