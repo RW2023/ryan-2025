@@ -1,36 +1,10 @@
+// app/projects/page.tsx
 "use client";
 
 import { useState } from "react";
-import ProjectCard, { ProjectCardProps } from "./ProjectCard";
-import { ListMotion, ItemMotion } from "./ListMotion";
-
-const allProjects: (ProjectCardProps & { category: string })[] = [
-    {
-        title: "AI-Powered Chatbot",
-        description: "A conversational agent using OpenAI’s API integrated into Next.js.",
-        tools: ["Next.js", "TypeScript", "OpenAI"],
-        githubUrl: "https://github.com/yourusername/ai-chatbot",
-        liveUrl: "https://ai-chatbot.example.com",
-        category: "AI",
-    },
-    {
-        title: "Headless Shopify Store",
-        description: "A custom storefront built with Shopify Storefront API and DaisyUI.",
-        tools: ["Next.js", "Shopify", "DaisyUI"],
-        githubUrl: "https://github.com/yourusername/shopify-store",
-        liveUrl: "https://shop.anotherseeker.com",
-        category: "E-commerce",
-    },
-    {
-        title: "SwoleTrac Workout App",
-        description: "Workout tracker with Supabase backend and AI-generated summaries.",
-        tools: ["Next.js", "Supabase", "OpenAI"],
-        githubUrl: "https://github.com/yourusername/swoletrac",
-        liveUrl: "https://swoletrack.vercel.app/",
-        category: "Full-stack",
-    },
-    // Add more projects here...
-];
+import ProjectCard from "@/app/components/ProjectCard";
+import { ListMotion, ItemMotion } from "@/app/components/ListMotion";
+import { allProjects } from "@/data/projects";
 
 const categories = ["All", "AI", "E-commerce", "Full-stack"];
 
@@ -45,7 +19,7 @@ export default function Projects() {
             : allProjects.filter((p) => normalize(p.category) === normalize(active));
 
     return (
-        <section id="projects" className="py-20 px-4 bg-gray-50 dark:bg-gray-900">
+        <section id="projects" className="py-20 px-4 bg-base-100 text-base-content">
             <h2 className="text-3xl font-bold text-center mb-8">Projects Showcase</h2>
 
             {/* Filter Bar */}
@@ -67,7 +41,7 @@ export default function Projects() {
             {/* Animated Projects Grid */}
             <ListMotion className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filtered.map((proj) => (
-                    <ItemMotion key={proj.title}>
+                    <ItemMotion key={proj.slug}>
                         <ProjectCard {...proj} />
                     </ItemMotion>
                 ))}
