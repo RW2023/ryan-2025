@@ -1,4 +1,3 @@
-// app/components/Navbar.tsx
 "use client";
 
 import Link from "next/link";
@@ -18,7 +17,7 @@ export default function Navbar() {
     const toggleMobile = () => setMobileOpen((o) => !o);
 
     return (
-        <nav className="bg-bg/100 sticky top-0 z-50 border-b border-surface shadow">
+        <nav className="bg-bg/100 sticky top-0 z-50 border-b border-surface shadow-lg shadow-black/10 dark:bg-[hsl(196,39%,12%)]">
             <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
                 {/* Logo / Brand */}
                 <Link href="/" className="text-xl font-bold text-primary">
@@ -57,7 +56,7 @@ export default function Navbar() {
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: "100%", opacity: 0 }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="lg:hidden bg-bg/100 shadow-inner border-t border-surface"
+                        className="lg:hidden bg-bg/100 shadow-inner border-t border-surface dark:bg-[hsl(196,39%,12%)]"
                     >
                         <div className="px-4 py-6 space-y-4">
                             {navItems.map((item) => (
