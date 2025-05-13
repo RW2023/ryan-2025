@@ -1,14 +1,13 @@
-// app/components/ProjectCard.tsx
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { Github, ArrowUpRight } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
-export interface ProjectCardProps {
+interface ProjectCardProps {
     title: string;
     description: string;
-    tech: string[];
+    tools?: string[];
     githubUrl: string;
     liveUrl?: string;
 }
@@ -16,62 +15,62 @@ export interface ProjectCardProps {
 export default function ProjectCard({
     title,
     description,
-    tech,
+    tools,
     githubUrl,
     liveUrl,
 }: ProjectCardProps) {
+    if (!tools) {
+        console.warn(`⚠️ ProjectCard: 'tools' prop is missing for "${title}"`);
+    }
+
     return (
         <motion.div
-            whileHover={{
-                translateY: -4,
-                boxShadow:
-                    "0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)",
-            }}
-            transition={{ duration: 0.3 }}
-            className="bg-base-100 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
+            className="border border-primary/30 dark:border-primary/40 bg-base-100 dark:bg-base-200 rounded-xl shadow-md transition-all duration-300 p-6 flex flex-col"
+            whileHover={{ y: -5, scale: 1.01 }}
+            transition={{ type: "spring", stiffness: 300 }}
         >
-            <div className="p-6 flex flex-col h-full">
-                {/* Title */}
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                    {title}
-                </h3>
+            {/* Title */}
+            <h3 className="text-xl font-bold text-primary mb-2">{title}</h3>
 
-                {/* Description */}
-                <p className="text-gray-700 dark:text-gray-300 mb-6 flex-1 leading-relaxed">
-                    {description}
-                </p>
+            {/* Description */}
+            <p className="text-base text-base-content/80 leading-relaxed mb-4">
+                {description}
+            </p>
 
-                {/* Tech Badges */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                    {tech.map((tag) => (
-                        <span
-                            key={tag}
-                            className="badge badge-outline badge-primary text-sm"
-                        >
-                            {tag}
-                        </span>
-                    ))}
-                </div>
+            {/* Divider */}
+            <hr className="border-t border-base-300 dark:border-base-700 mb-4" />
 
-                {/* Actions */}
-                <div className="mt-auto flex flex-wrap gap-4">
+            {/* Tools */}
+            <div className="flex flex-wrap gap-2 mb-6">
+                {(tools ?? []).map((tool) => (
+                    <span key={tool} className="badge badge-secondary badge-sm">
+                        {tool}
+                    </span>
+                ))}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="mt-auto flex gap-4 pt-2">
+                <Link
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-sm btn-outline border-primary text-primary hover:bg-primary hover:text-base-100"
+                >
+                    <Github className="w-4 h-4 mr-1" />
+                    GitHub
+                </Link>
+                {liveUrl && (
                     <Link
-                        href={githubUrl}
+                        href={liveUrl}
                         target="_blank"
-                        className="inline-flex items-center btn btn-sm btn-outline"
+                        rel="noopener noreferrer"
+                        className="btn btn-sm btn-outline border-primary text-primary hover:bg-primary hover:text-base-100"
                     >
-                        <Github className="mr-2 h-4 w-4" /> GitHub
+                        <ExternalLink className="w-4 h-4 mr-1" />
+                        Live Site
                     </Link>
-                    {liveUrl && (
-                        <Link
-                            href={liveUrl}
-                            target="_blank"
-                            className="inline-flex items-center btn btn-sm btn-primary"
-                        >
-                            <ArrowUpRight className="mr-2 h-4 w-4" /> Live Demo
-                        </Link>
-                    )}
-                </div>
+                )}
             </div>
         </motion.div>
     );
