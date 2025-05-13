@@ -2,10 +2,23 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: [
-      "ai-chatbot.example.com",
-      "shop.anotherseeker.com",
-      "swoletrack.vercel.app",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "placehold.co", // modern, reliable placeholder service
+      },
+      {
+        protocol: "https",
+        hostname: "ai-chatbot.example.com",
+      },
+      {
+        protocol: "https",
+        hostname: "shop.anotherseeker.com",
+      },
+      {
+        protocol: "https",
+        hostname: "swoletrack.vercel.app",
+      },
     ],
   },
 };

@@ -17,7 +17,7 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
             <h1 className="text-4xl font-bold mb-4 text-primary">{project.title}</h1>
 
             <Image
-                src={project.liveUrl + "/og.png"} // Example placeholder
+                src="https://placehold.co/800x400.png?text=Preview"
                 alt={project.title}
                 width={800}
                 height={400}
