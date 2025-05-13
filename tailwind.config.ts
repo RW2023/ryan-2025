@@ -18,6 +18,11 @@ const config: Config & { daisyui: { themes: boolean | string[]; darkTheme?: stri
         accent: "hsl(var(--accent) / var(--tw-bg-opacity, 1))",
         "text-primary": "hsl(var(--text-primary) / var(--tw-text-opacity, 1))",
         "text-muted": "hsl(var(--text-muted) / var(--tw-text-opacity, 1))",
+        card: "hsl(var(--card-bg) / var(--tw-bg-opacity, 1))",
+        "card-hover": "hsl(var(--card-hover) / var(--tw-bg-opacity, 1))",
+        foreground: "hsl(var(--foreground) / var(--tw-text-opacity, 1))",
+        "foreground-muted": "hsl(var(--foreground-muted) / var(--tw-text-opacity, 1))",
+        "accent-color": "hsl(var(--accent-color) / var(--tw-text-opacity, 1))",
       },
       fontFamily: {
         heading: ["var(--font-heading)"],
