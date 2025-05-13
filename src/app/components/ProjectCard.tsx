@@ -4,13 +4,14 @@ import { motion } from "framer-motion";
 import { Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
-interface ProjectCardProps {
+export interface ProjectCardProps {
     title: string;
     description: string;
     tools?: string[];
     githubUrl: string;
     liveUrl?: string;
 }
+  
 
 export default function ProjectCard({
     title,

@@ -1,4 +1,3 @@
-// app/components/Projects.tsx
 "use client";
 
 import { useState } from "react";
@@ -9,7 +8,7 @@ const allProjects: (ProjectCardProps & { category: string })[] = [
     {
         title: "AI-Powered Chatbot",
         description: "A conversational agent using OpenAI’s API integrated into Next.js.",
-        tech: ["Next.js", "TypeScript", "OpenAI"],
+        tools: ["Next.js", "TypeScript", "OpenAI"],
         githubUrl: "https://github.com/yourusername/ai-chatbot",
         liveUrl: "https://ai-chatbot.example.com",
         category: "AI",
@@ -17,7 +16,7 @@ const allProjects: (ProjectCardProps & { category: string })[] = [
     {
         title: "Headless Shopify Store",
         description: "A custom storefront built with Shopify Storefront API and DaisyUI.",
-        tech: ["Next.js", "Shopify", "DaisyUI"],
+        tools: ["Next.js", "Shopify", "DaisyUI"],
         githubUrl: "https://github.com/yourusername/shopify-store",
         liveUrl: "https://shop.anotherseeker.com",
         category: "E-commerce",
@@ -25,7 +24,7 @@ const allProjects: (ProjectCardProps & { category: string })[] = [
     {
         title: "SwoleTrac Workout App",
         description: "Workout tracker with Supabase backend and AI-generated summaries.",
-        tech: ["Next.js", "Supabase", "OpenAI"],
+        tools: ["Next.js", "Supabase", "OpenAI"],
         githubUrl: "https://github.com/yourusername/swoletrac",
         liveUrl: "https://swoletrack.vercel.app/",
         category: "Full-stack",
