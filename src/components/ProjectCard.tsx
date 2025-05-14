@@ -1,3 +1,4 @@
+// app/components/ProjectCard.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -44,7 +45,10 @@ export default function ProjectCard({
 
                 <div className="flex flex-wrap gap-2">
                     {(tools ?? []).map((tool) => (
-                        <span key={tool} className={`badge badge-sm ${getBadgeColor(tool)}`}>
+                        <span
+                            key={tool}
+                            className={`badge badge-sm ${getBadgeColor(tool)} text-[var(--foreground)]`}
+                        >
                             {tool}
                         </span>
                     ))}
