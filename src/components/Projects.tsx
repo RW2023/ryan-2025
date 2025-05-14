@@ -2,8 +2,8 @@
 "use client";
 
 import { useState } from "react";
-import ProjectCard from "@/app/components/ProjectCard";
-import { ListMotion, ItemMotion } from "@/app/components/ListMotion";
+import ProjectCard from "@/components/ProjectCard";
+import { ListMotion, ItemMotion } from "@/components/ListMotion";
 import { allProjects } from "@/data/projects";
 
 const categories = ["All", "AI", "E-commerce", "Full-stack"];
