@@ -36,7 +36,7 @@ export default async function ProjectDetailPage({
 
             <div className="flex flex-wrap gap-2 mb-6">
                 {project.tools.map((tag) => (
-                    <span key={tag} className="badge badge-secondary">
+                    <span key={tag} className="badge badge-secondary text-primary">
                         {tag}
                     </span>
                 ))}
@@ -55,7 +55,7 @@ export default async function ProjectDetailPage({
                 </a>
                 <a
                     href={project.liveUrl}
-                    className="btn btn-primary"
+                    className="btn btn-primary text-primary"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
