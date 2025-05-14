@@ -1,4 +1,4 @@
-// app/components/Button.tsx
+// ✅ app/components/Button.tsx
 "use client";
 
 import Link from "next/link";
@@ -19,13 +19,23 @@ export default function Button({
     size = "md",
     icon = false,
 }: ButtonProps) {
-    const base = "inline-flex items-center justify-center font-medium transition";
-    const variantClass = variant === "outline" ? "btn-outline" : "btn-primary";
+    const base =
+        "inline-flex items-center justify-center font-medium transition rounded-md";
+
     const sizeClass =
-        size === "sm" ? "btn-sm" : size === "lg" ? "btn-lg" : "";
+        size === "sm"
+            ? "text-sm px-3 py-1.5"
+            : size === "lg"
+                ? "text-lg px-5 py-2.5"
+                : "text-base px-4 py-2";
+
+    const variantClass =
+        variant === "outline"
+            ? "border border-[var(--foreground-muted)] text-[var(--foreground)] hover:bg-[var(--foreground-muted)]/10"
+            : "bg-[var(--accent-color)] text-white hover:opacity-90";
 
     return (
-        <Link href={href} className={`${base} btn ${variantClass} ${sizeClass}`}>
+        <Link href={href} className={`${base} ${variantClass} ${sizeClass}`}>
             <span>{label}</span>
             {icon && <ArrowRight className="ml-2 h-4 w-4" />}
         </Link>
