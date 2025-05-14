@@ -7,7 +7,13 @@ export function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
 }
 
-export default function ProjectDetailPage({ params }: { params: Record<string, string> }) {
+interface PageParams {
+    params: {
+        slug: string;
+    };
+}
+
+export default function ProjectDetailPage({ params }: PageParams) {
     const project = allProjects.find((p) => p.slug === params.slug);
 
     if (!project) return notFound();
