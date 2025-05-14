@@ -11,8 +11,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)"
+        background: "hsl(var(--bg) / <alpha-value>)",
+        foreground: "hsl(var(--foreground) / <alpha-value>)",
+        primary: "hsl(var(--primary) / <alpha-value>)",
+        secondary: "hsl(var(--secondary) / <alpha-value>)",
+        accent: "hsl(var(--accent) / <alpha-value>)",
+        'text-primary': "hsl(var(--text-primary) / <alpha-value>)",
+        'text-muted': "hsl(var(--text-muted) / <alpha-value>)"
       }
     }
   },
