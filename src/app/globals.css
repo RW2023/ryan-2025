@@ -1,91 +1,21 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Semantic HSL Color Variables */
 :root {
-  --color-primary: 191, 33%, 52%;
-  /* Moonstone */
-  --color-secondary: 196, 39%, 32%;
-  /* Payne's Gray */
-  --color-accent: 19, 66%, 67%;
-  /* Atomic Tangerine */
-
-  --color-neutral: 0, 0%, 93%;
-  /* Anti-flash White */
-  --color-base: 0, 0%, 100%;
-  /* White */
-
-  --color-text: 196, 39%, 32%;
-  /* Payne's Gray */
-  --color-muted: 191, 33%, 52%;
-  /* Moonstone */
-
-  --font-heading: 'Sora', sans-serif;
-  --font-sans: 'IBM Plex Sans', sans-serif;
-  --font-accent: 'Space Mono', monospace;
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
-/* Light Theme */
-html[data-theme='light'] {
-  --bg: var(--color-base);
-  --surface: var(--color-neutral);
-  --text-primary: var(--color-text);
-  --text-muted: var(--color-muted);
-  --primary: var(--color-primary);
-  --secondary: var(--color-secondary);
-  --accent: var(--color-accent);
-
-  /* Navbar-related variables */
-  --card-bg: hsl(0, 0%, 100%);
-  /* white */
-  --card-hover: hsl(0, 0%, 96%);
-  /* light gray hover */
-  --foreground: hsl(222, 47%, 11%);
-  /* rich black */
-  --foreground-muted: hsl(222, 10%, 45%);
-  /* muted gray text */
-  --accent-color: hsl(191, 100%, 35%);
-  /* accent tone */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
-/* Dark Theme */
-html[data-theme='dark'] {
-  --bg: 196, 39%, 12%;
-  /* Deep Payne's Gray */
-  --surface: 196, 20%, 18%;
-  --text-primary: 0, 0%, 100%;
-  --text-muted: 191, 15%, 62%;
-  --primary: 191, 33%, 42%;
-  --secondary: 196, 39%, 22%;
-  --accent: 19, 66%, 57%;
-
-  /* Navbar-related variables */
-  --card-bg: hsl(220, 14%, 10%);
-  /* dark background */
-  --card-hover: hsl(220, 14%, 18%);
-  /* subtle hover */
-  --foreground: hsl(0, 0%, 100%);
-  /* white text */
-  --foreground-muted: hsl(220, 10%, 60%);
-  /* muted light gray text */
-  --accent-color: hsl(191, 100%, 65%);
-  /* lighter accent in dark */
-}
-
-/* Base styles using semantic colors */
 body {
-  background-color: hsl(var(--bg));
-  color: hsl(var(--text-primary));
-  font-family: var(--font-sans);
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-heading);
-}
-
-button,
-nav a {
-  font-family: var(--font-accent);
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
 }
