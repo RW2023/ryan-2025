@@ -8,6 +8,7 @@ export type Project = {
     githubUrl: string;
     liveUrl: string;
     category: string;
+    imageUrl?: string; // Optional property for project image
   };
   
   export const allProjects: Project[] = [
@@ -27,6 +28,7 @@ export type Project = {
       tools: ["Next.js", "Shopify", "DaisyUI"],
       githubUrl: "https://github.com/yourusername/shopify-store",
       liveUrl: "https://shop.anotherseeker.com",
+      imageUrl: "/projects/storeScreenshot.png",
       category: "E-commerce",
     },
     {

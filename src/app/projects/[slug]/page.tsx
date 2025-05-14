@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { allProjects } from "@/data/projects";
 import Image from "next/image";
 
-// ✅ Required to satisfy Next.js 15 type inference
 export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
 }
@@ -16,8 +15,10 @@ export default async function ProjectDetailPage({
     params: { slug: string };
 }) {
     const project = allProjects.find((p) => p.slug === params.slug);
-
     if (!project) return notFound();
+
+    const imageSrc = project.imageUrl ||
+        `https://placehold.co/800x400.png?text=Preview`;
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-12">
@@ -26,7 +27,7 @@ export default async function ProjectDetailPage({
             {/* Responsive image container for fill mode */}
             <div className="relative w-full h-[200px] md:h-[300px] mb-6">
                 <Image
-                    src="https://placehold.co/800x400.png?text=Preview"
+                    src={imageSrc}
                     alt={project.title}
                     fill
                     className="object-cover rounded-lg shadow"
