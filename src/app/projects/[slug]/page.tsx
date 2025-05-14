@@ -3,17 +3,11 @@ import { notFound } from "next/navigation";
 import { allProjects } from "@/data/projects";
 import Image from "next/image";
 
-interface ProjectDetailPageProps {
-    params: {
-        slug: string;
-    };
-}
-
 export function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
 }
 
-export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
+export default function ProjectDetailPage({ params }: { params: Record<string, string> }) {
     const project = allProjects.find((p) => p.slug === params.slug);
 
     if (!project) return notFound();
