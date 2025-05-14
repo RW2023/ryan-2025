@@ -20,7 +20,7 @@ export default function Button({
     icon = false,
 }: ButtonProps) {
     const base =
-        "inline-flex items-center justify-center font-medium transition rounded-md";
+        "inline-flex items-center justify-center font-medium transition rounded-md shadow-sm";
 
     const sizeClass =
         size === "sm"
