@@ -55,7 +55,7 @@ export default async function ProjectDetailPage({
                 </a>
                 <a
                     href={project.liveUrl}
-                    className="btn btn-primary text-primary"
+                    className="btn btn-success"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
