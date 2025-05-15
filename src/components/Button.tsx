@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { twMerge } from "tailwind-merge";
 
 interface ButtonProps {
     href: string;
@@ -32,10 +33,10 @@ export default function Button({
     const variantClass =
         variant === "outline"
             ? "border border-[var(--foreground-muted)] text-[var(--foreground)] hover:bg-[var(--foreground-muted)]/10"
-            : "bg-[var(--accent-color)] text-white hover:opacity-90";
+            : "bg-[var(--accent-color)] text-white hover:brightness-110";
 
     return (
-        <Link href={href} className={`${base} ${variantClass} ${sizeClass}`}>
+        <Link href={href} className={twMerge(base, variantClass, sizeClass)}>
             <span>{label}</span>
             {icon && <ArrowRight className="ml-2 h-4 w-4" />}
         </Link>
