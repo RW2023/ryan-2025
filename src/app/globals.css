@@ -48,7 +48,7 @@ html[data-theme='dark'] {
   --card-hover: hsl(220, 14%, 18%);
   --foreground: hsl(0, 0%, 100%);
   --foreground-muted: hsl(220, 10%, 60%);
-  --accent-color: hsl(191, 100%, 65%);
+  --accent-color: hsl(191, 100%, 50%);
 }
 
 body {
