@@ -4,6 +4,7 @@
 import { notFound } from "next/navigation";
 import { allProjects } from "@/data/projects";
 import Image from "next/image";
+import Button from "@/components/Button";
 
 export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
@@ -62,6 +63,15 @@ export default async function ProjectDetailPage({
                 >
                     Live Demo
                 </a>
+            </div>
+            <div className="mt-8">
+                <Button
+                    href="/projects"
+                    label="Back to Projects"
+                    variant="outline"
+                    size="lg"
+                
+                />
             </div>
         </div>
     );
