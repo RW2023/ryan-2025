@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { IBM_Plex_Sans, Sora, Space_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const ibm = IBM_Plex_Sans({
   subsets: ["latin"],
@@ -42,9 +43,7 @@ export default function RootLayout({
           <div className="min-h-screen flex flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>
-            <footer className="p-4 text-center text-sm text-text-muted">
-              © {new Date().getFullYear()} Ryan Wilson
-            </footer>
+            <Footer />
           </div>
         </ThemeProvider>
       </body>
