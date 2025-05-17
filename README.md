@@ -87,7 +87,7 @@ html[data-theme='dark'] {
 
 ## 📸 Preview
 
-![Hero Section Screenshot](/projects/portfolioDark.png)
+![Hero Section Screenshot](/portfolioDark.png)
 
 
 ---
