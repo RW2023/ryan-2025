@@ -1,8 +1,8 @@
-// app/components/ProjectCard.tsx
-"use client";
+'use client';
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { getBadgeColor } from "@/utils/getBadgeColor";
 
 export interface ProjectCardProps {
     title: string;
@@ -10,17 +10,6 @@ export interface ProjectCardProps {
     tools?: string[];
     slug: string;
 }
-
-const badgeColors: Record<string, string> = {
-    "Next.js": "badge-primary",
-    TypeScript: "badge-info",
-    OpenAI: "badge-accent",
-    Supabase: "badge-success",
-    Shopify: "badge-warning",
-    DaisyUI: "badge-secondary",
-};
-
-const getBadgeColor = (tool: string) => badgeColors[tool] || "badge-neutral";
 
 export default function ProjectCard({
     title,
@@ -47,7 +36,7 @@ export default function ProjectCard({
                     {(tools ?? []).map((tool) => (
                         <span
                             key={tool}
-                            className={`badge badge-sm ${getBadgeColor(tool)} text-[var(--foreground)]`}
+                            className={`badge badge-sm ${getBadgeColor(tool)}`}
                         >
                             {tool}
                         </span>
