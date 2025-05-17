@@ -1,9 +1,9 @@
-// ✅ app/components/AboutMe.tsx
 "use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { getBadgeColor } from "@/utils/getBadgeColor";
 
 const allSkills = [
     "Next.js", "React", "TypeScript",
@@ -66,7 +66,7 @@ export default function AboutMe() {
                     {filteredSkills.map((skill) => (
                         <span
                             key={skill}
-                            className="badge badge-outline border-accent text-accent text-sm"
+                            className={`badge badge-sm ${getBadgeColor(skill)}`}
                         >
                             {skill}
                         </span>
