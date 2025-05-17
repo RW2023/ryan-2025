@@ -1,72 +1,106 @@
-# 🛻 Trailer Load Planner
+# Ryan Wilson – Portfolio Website
 
-**A mobile-friendly utility for truck drivers to quickly calculate trailer fit based on cart types and bin counts.**
+Welcome to the source code for my personal developer portfolio, built with 💙 Next.js 15, Tailwind CSS, DaisyUI, and Framer Motion.
 
-![screenshot](./screenshot.png) <!-- Replace with actual path -->
+This portfolio showcases selected projects, skills, and personal background as a full-stack developer with a flair for clean design, smooth interactions, and purpose-driven creativity.
 
----
+## ✨ Live Demo
 
-## 🚚 About This Project
-
-As a working truck driver, I built this tool to solve a real problem I face on the job: estimating how many carts and bins will fit into different trailer types.
-
-Manual calculation on the fly is time-consuming and error-prone — especially when you're dealing with multiple types of laundry carts, bins, and changing trailer specs. This app simplifies that process by letting you enter your load items and instantly get recommendations on what trailers can handle it.
-
-Whether you're loading a pup, a 50ft trailer, or a straight truck — this planner does the math so you can focus on the road.
-
----
-
-## ✨ Features
-
-- 🧮 **Real-time Load Summary**
-  - Total carts, bins, and cart-equivalent calculation.
-- 🚛 **Trailer Fit Calculator**
-  - Determines if your load fits in:
-    - Pup trailer (max 25 CE)
-    - 50ft trailer (max 38 CE)
-    - Straight truck (max 20 CE)
-- ⚠️ **Sideways Loading Alert**
-  - Automatically flags if a sideways load is required for uneven loads.
-- ♻️ **Reset Button**
-  - Quickly clear the form and recalculate for a new load.
-- 🌗 **Dark Mode Support**
-  - Fully responsive and theme-aware for day/night shifts.
-
----
-
-## 📱 Designed for Real Workflows
-
-- Fast input form with icons and large touch targets.
-- Optimized for mobile use while on the job.
-- Clean layout using Tailwind CSS and DaisyUI.
-- Subtle animations and UI polish using Framer Motion.
+🔗 [ryan-2025.vercel.app](https://ryan-2025.vercel.app)
 
 ---
 
 ## 🛠️ Tech Stack
 
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [DaisyUI](https://daisyui.com/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [FontAwesome](https://fontawesome.com/)
-- [Lucide React](https://lucide.dev/)
+* **Framework**: [Next.js 15](https://nextjs.org/)
+* **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [DaisyUI](https://daisyui.com/)
+* **Animations**: [Framer Motion](https://www.framer.com/motion/)
+* **Icons**: [Lucide React](https://lucide.dev/)
+* **Fonts**: Sora, IBM Plex Sans, Space Mono (via Google Fonts)
+* **Theme Management**: [next-themes](https://github.com/pacocoursey/next-themes)
 
 ---
 
-## 📦 Installation
+## 📁 Project Structure
 
-```bash
-git clone https://github.com/RW2023/loader/trailer-load-planner.git
-cd trailer-load-planner
-npm install
-npm run dev
+```
+app/
+├── layout.tsx              // Global layout with ThemeProvider and Navbar/Footer
+├── page.tsx                // Home route with Hero section
+├── about/                  // About section and bio
+├── projects/               // Projects listing and [slug] dynamic detail pages
+components/
+├── Hero.tsx                // Hero with animation and CTA
+├── Navbar.tsx              // Responsive nav with dark mode toggle
+├── AboutMe.tsx             // Skills, bio, quote
+├── Projects.tsx            // Project gallery with filtering
+├── ProjectCard.tsx         // Individual animated project tiles
+├── ListMotion.tsx          // Reusable motion wrappers
+├── Button.tsx              // Styled CTA buttons
+public/
+└── profile/                // Profile image assets
+styles/
+└── globals.css             // Theme variables, font assignments
 ```
 
+---
+
+## 🌗 Dark Mode
+
+Implemented using `next-themes` and Tailwind’s `data-theme` support. Fully customizable via CSS variables:
+
+```css
+html[data-theme='light'] {
+  --primary: hsl(191, 33%, 52%);
+  ...
+}
+
+html[data-theme='dark'] {
+  --primary: hsl(191, 33%, 42%);
+  ...
+}
+```
+
+---
+
+## 🔍 Features
+
+* ✅ Responsive, accessible layout
+* ✅ Light/dark theme toggle
+* ✅ Animated component transitions
+* ✅ Project filtering by category
+* ✅ Dynamic project pages with GitHub/live demo links
+* ✅ Professional design using consistent color and font palette
+* ✅ Modular and scalable architecture (prepared for backend integration)
+
+---
+
+## 🚧 Roadmap
+
+* 🔄 Migrate project data to Firebase or Supabase
+* ✍️ Add blog using MDX
+* 📃 Generate PDF Press Kit for media use
+* 🧠 Add AI-generated project summaries
+* 🌐 Add SEO metadata to dynamic routes
+
+---
+
+## 📸 Preview
+
+![Hero Section Screenshot](/projects/portfolioDark.png)
 
 
+---
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+### Created with ❤️ by Ryan Wilson
+
+*"Technology is most powerful when it reflects clarity of purpose."*
 
 ## Getting Started
 
