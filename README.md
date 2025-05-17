@@ -87,7 +87,7 @@ html[data-theme='dark'] {
 
 ## 📸 Preview
 
-![Hero Section Screenshot](/portfolioDark.png)
+![Hero Section Screenshot](https://ryan-2025.vercel.app/portfolioDark.png)
 
 
 ---
