@@ -15,7 +15,7 @@ export type Project = {
     {
       title: "Load Planner",
       slug: "load-planner",
-      description: "A conversational agent using OpenAI’s API integrated into Next.js.",
+      description: "Trucking Load Planner tool for planning assets.",
       tools: ["Next.js", "TypeScript", "Tailwind CSS", "DaisyUI", "FontAwesome", "Framer Motion"],
       githubUrl: "https://github.com/RW2023/loader",
       liveUrl: "https://lplanner.vercel.app/",
@@ -40,7 +40,7 @@ export type Project = {
       githubUrl: "https://github.com/yourusername/swoletrac",
       liveUrl: "https://swoletrack.vercel.app/",
       imageUrl: "/projects/swoletrack.png",
-      category: "Full-stack",
+      category: "Full-stack, AI",
     },
     // Add more projects as needed
   ];
