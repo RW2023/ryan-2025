@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { allProjects } from "@/data/projects";
 import Image from "next/image";
 import Button from "@/components/Button";
+import ToolsList from "@/components/ToolsList";
 
 export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
@@ -36,13 +37,8 @@ export default async function ProjectDetailPage({
                 />
             </div>
 
-            <div className="flex flex-wrap gap-2 mb-6">
-                {project.tools.map((tag) => (
-                    <span key={tag} className="badge badge-secondary text-primary">
-                        {tag}
-                    </span>
-                ))}
-            </div>
+            <ToolsList tools={project.tools} />
+
 
             <p className="text-lg leading-relaxed mb-6">{project.description}</p>
 
