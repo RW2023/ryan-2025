@@ -5,7 +5,7 @@ import ProjectCard from "@/components/ProjectCard";
 import { ListMotion, ItemMotion } from "@/components/ListMotion";
 import { allProjects } from "@/data/projects";
 
-const categories = ["All", "AI", "E-commerce", "Full-stack", "Utility App", "Custom Tool"];
+const categories = ["All", "Full-stack", "AI", "E-commerce", "Utility App"];
 
 const normalize = (s: string) => s.trim().toLowerCase();
 
