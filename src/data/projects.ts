@@ -13,13 +13,14 @@ export type Project = {
   
   export const allProjects: Project[] = [
     {
-      title: "AI-Powered Chatbot",
-      slug: "ai-powered-chatbot",
+      title: "Load Planner",
+      slug: "load-planner",
       description: "A conversational agent using OpenAI’s API integrated into Next.js.",
       tools: ["Next.js", "TypeScript", "OpenAI"],
-      githubUrl: "https://github.com/yourusername/ai-chatbot",
-      liveUrl: "https://ai-chatbot.example.com",
-      category: "AI",
+      githubUrl: "https://github.com/RW2023/loader",
+      liveUrl: "https://lplanner.vercel.app/",
+      category: "Full-stack",
+      imageUrl: "/projects/loader.png",
     },
     {
       title: "Headless Shopify Store",
