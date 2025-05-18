@@ -7,16 +7,20 @@ import { useTheme } from "next-themes";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import ts from "react-syntax-highlighter/dist/esm/languages/hljs/typescript";
 import js from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
+import jsx from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
+import html from "react-syntax-highlighter/dist/esm/languages/hljs/xml";
+import css from "react-syntax-highlighter/dist/esm/languages/hljs/css";
+import json from "react-syntax-highlighter/dist/esm/languages/hljs/json";
 import atomOneDark from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark";
 import atomOneLight from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-light";
 
 // Register languages
 SyntaxHighlighter.registerLanguage("ts", ts);
 SyntaxHighlighter.registerLanguage("js", js);
-SyntaxHighlighter.registerLanguage("jsx", js);
-SyntaxHighlighter.registerLanguage("html", js);
-SyntaxHighlighter.registerLanguage("css", js);
-SyntaxHighlighter.registerLanguage("json", js);
+SyntaxHighlighter.registerLanguage("jsx", jsx);
+SyntaxHighlighter.registerLanguage("html", html);
+SyntaxHighlighter.registerLanguage("css", css);
+SyntaxHighlighter.registerLanguage("json", json);
 
 type CodeSnippet = {
     title: string;
