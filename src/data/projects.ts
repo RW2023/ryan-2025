@@ -15,7 +15,7 @@ export const allProjects: Project[] = [
   {
     title: "Load Planner",
     slug: "load-planner",
-    description: "Trucking Load Planner tool for planning assets.",
+    description: "Trucking Load Planner tool for planning loads. Allow Realtime determination of load configuration.",
     tools: [
       "Next.js", "TypeScript", "Tailwind CSS",
       "DaisyUI", "FontAwesome", "Framer Motion"
