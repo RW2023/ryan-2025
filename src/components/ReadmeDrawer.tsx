@@ -14,6 +14,28 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
     const [markdown, setMarkdown] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [hasReadme, setHasReadme] = useState<boolean | null>(null);
+
+    useEffect(() => {
+        if (!githubUrl) return;
+
+        const checkReadmeExists = async () => {
+            try {
+                const match = githubUrl.match(/github\.com\/(.+?)\/(.+?)(?:\.git)?(?:\/|$)/);
+                if (!match) return setHasReadme(false);
+
+                const [, user, repo] = match;
+                const readmeUrl = `https://raw.githubusercontent.com/${user}/${repo}/main/README.md`;
+
+                const res = await fetch(readmeUrl, { method: 'HEAD' });
+                setHasReadme(res.ok);
+            } catch {
+                setHasReadme(false);
+            }
+        };
+
+        checkReadmeExists();
+    }, [githubUrl]);
 
     useEffect(() => {
         if (!isOpen || !githubUrl) return;
@@ -44,14 +66,18 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
         fetchReadme();
     }, [isOpen, githubUrl]);
 
+    if (hasReadme === false) return null;
+
     return (
         <div className="mt-8">
-            <button
-                className="btn btn-outline btn-primary mb-4"
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                {isOpen ? 'Hide README' : 'Show README'}
-            </button>
+            {hasReadme && (
+                <button
+                    className="btn btn-outline btn-primary mb-4"
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    {isOpen ? 'Hide README' : 'Show README'}
+                </button>
+            )}
 
             {isOpen && (
                 <div className="collapse collapse-open border border-base-300 bg-base-100 rounded-box p-4">
