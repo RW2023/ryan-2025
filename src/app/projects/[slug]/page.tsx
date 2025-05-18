@@ -10,6 +10,16 @@ import { snippetsBySlug } from "@/data/snippets";
 import SkillsGrid, { Skill } from "@/components/SkillsGrid";
 import ReadmeDrawer from "@/components/ReadmeDrawer";
 
+// Utility to check if a GitHub repo is available (public + reachable)
+async function isRepoAvailable(url: string) {
+    try {
+        const res = await fetch(url, { method: "HEAD", cache: "no-store" });
+        return res.ok;
+    } catch {
+        return false;
+    }
+}
+
 export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
 }
@@ -26,6 +36,8 @@ export default async function ProjectDetailPage({
         `https://placehold.co/800x400.png?text=Preview`;
 
     const skillProps: Skill[] = (project.tools ?? []).map((tool) => ({ name: tool }));
+
+    const showGitHub = await isRepoAvailable(project.githubUrl); // 👉 Conditional GitHub check
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-12">
@@ -50,19 +62,20 @@ export default async function ProjectDetailPage({
                 <div className="mb-10">
                     <CodeSnippetAccordion snippets={snippetsBySlug[project.slug]} />
                     <ReadmeDrawer githubUrl={project.githubUrl} />
-
                 </div>
             )}
 
             <div className="flex gap-4 mb-10">
-                <a
-                    href={project.githubUrl}
-                    className="btn btn-outline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    GitHub
-                </a>
+                {showGitHub && (
+                    <a
+                        href={project.githubUrl}
+                        className="btn btn-outline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        GitHub
+                    </a>
+                )}
                 <a
                     href={project.liveUrl}
                     className="btn btn-success"
@@ -72,6 +85,7 @@ export default async function ProjectDetailPage({
                     Live Demo
                 </a>
             </div>
+
             <div className="mt-8">
                 <Button
                     href="/projects"
