@@ -8,6 +8,7 @@ import Button from "@/components/Button";
 import CodeSnippetAccordion from "@/components/CodeSnippetAccordion";
 import { snippetsBySlug } from "@/data/snippets";
 import SkillsGrid, { Skill } from "@/components/SkillsGrid";
+import ReadmeDrawer from "@/components/ReadmeDrawer";
 
 export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
@@ -48,6 +49,8 @@ export default async function ProjectDetailPage({
             {snippetsBySlug[project.slug] && (
                 <div className="mb-10">
                     <CodeSnippetAccordion snippets={snippetsBySlug[project.slug]} />
+                    <ReadmeDrawer githubUrl={project.githubUrl} />
+
                 </div>
             )}
 
