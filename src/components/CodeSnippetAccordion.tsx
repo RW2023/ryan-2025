@@ -3,14 +3,20 @@
 
 import { useState } from "react";
 import { Code } from "lucide-react";
+import { useTheme } from "next-themes";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import ts from "react-syntax-highlighter/dist/esm/languages/hljs/typescript";
 import js from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
 import atomOneDark from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark";
+import atomOneLight from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-light";
 
 // Register languages
 SyntaxHighlighter.registerLanguage("ts", ts);
 SyntaxHighlighter.registerLanguage("js", js);
+SyntaxHighlighter.registerLanguage("jsx", js);
+SyntaxHighlighter.registerLanguage("html", js);
+SyntaxHighlighter.registerLanguage("css", js);
+SyntaxHighlighter.registerLanguage("json", js);
 
 type CodeSnippet = {
     title: string;
@@ -21,6 +27,7 @@ type CodeSnippet = {
 
 export default function CodeSnippetAccordion({ snippets }: { snippets: CodeSnippet[] }) {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
+    const { theme } = useTheme();
 
     return (
         <div className="space-y-4 mt-10">
@@ -42,18 +49,16 @@ export default function CodeSnippetAccordion({ snippets }: { snippets: CodeSnipp
                             )}
                             <SyntaxHighlighter
                                 language={snippet.language || "ts"}
-                                style={atomOneDark}
-                                wrapLongLines={true} // 👈 this is the key!
+                                style={theme === "dark" ? atomOneDark : atomOneLight}
+                                wrapLongLines={true}
                                 customStyle={{
                                     borderRadius: "0.5rem",
                                     fontSize: "0.875rem",
                                     padding: "1rem",
-                                    wordBreak: "break-word", // extra safety
                                 }}
                             >
                                 {snippet.code}
                             </SyntaxHighlighter>
-
                         </div>
                     )}
                 </div>
