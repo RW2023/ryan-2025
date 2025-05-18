@@ -43,10 +43,17 @@ export default function CodeSnippetAccordion({ snippets }: { snippets: CodeSnipp
                             <SyntaxHighlighter
                                 language={snippet.language || "ts"}
                                 style={atomOneDark}
-                                customStyle={{ borderRadius: "0.5rem", fontSize: "0.875rem", padding: "1rem" }}
+                                wrapLongLines={true} // 👈 this is the key!
+                                customStyle={{
+                                    borderRadius: "0.5rem",
+                                    fontSize: "0.875rem",
+                                    padding: "1rem",
+                                    wordBreak: "break-word", // extra safety
+                                }}
                             >
                                 {snippet.code}
                             </SyntaxHighlighter>
+
                         </div>
                     )}
                 </div>
