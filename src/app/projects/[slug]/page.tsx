@@ -5,9 +5,9 @@ import { notFound } from "next/navigation";
 import { allProjects } from "@/data/projects";
 import Image from "next/image";
 import Button from "@/components/Button";
-import ToolsList from "@/components/ToolsList";
 import CodeSnippetAccordion from "@/components/CodeSnippetAccordion";
 import { snippetsBySlug } from "@/data/snippets";
+import SkillsGrid, { Skill } from "@/components/SkillsGrid";
 
 export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
@@ -24,6 +24,8 @@ export default async function ProjectDetailPage({
     const imageSrc = project.imageUrl ||
         `https://placehold.co/800x400.png?text=Preview`;
 
+    const skillProps: Skill[] = (project.tools ?? []).map((tool) => ({ name: tool }));
+
     return (
         <div className="max-w-4xl mx-auto px-4 py-12">
             <h1 className="text-4xl font-bold mb-4 text-primary">{project.title}</h1>
@@ -39,7 +41,7 @@ export default async function ProjectDetailPage({
                 />
             </div>
 
-            <ToolsList tools={project.tools} />
+            <SkillsGrid skills={skillProps} showSearch={false} />
 
             <p className="text-lg leading-relaxed mb-6">{project.description}</p>
 

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { getBadgeColor } from "@/utils/getBadgeColor";
+import SkillsCloud, { Skill } from "./SkillsGrid"; // Adjust path as needed
 
 export interface ProjectCardProps {
     title: string;
@@ -14,9 +14,12 @@ export interface ProjectCardProps {
 export default function ProjectCard({
     title,
     description,
-    tools,
+    tools = [],
     slug,
 }: ProjectCardProps) {
+    // Convert tools to Skill[] format
+    const skillProps: Skill[] = tools.map((tool) => ({ name: tool }));
+
     return (
         <Link href={`/projects/${slug}`} className="group">
             <motion.div
@@ -32,15 +35,8 @@ export default function ProjectCard({
 
                 <hr className="border-t border-base-300 dark:border-base-700 mb-4" />
 
-                <div className="flex flex-wrap gap-2">
-                    {(tools ?? []).map((tool) => (
-                        <span
-                            key={tool}
-                            className={`badge badge-sm ${getBadgeColor(tool)}`}
-                        >
-                            {tool}
-                        </span>
-                    ))}
+                <div className="-mt-2">
+                    <SkillsCloud skills={skillProps} showSearch={false} />
                 </div>
             </motion.div>
         </Link>

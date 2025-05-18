@@ -2,29 +2,30 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { getBadgeColor } from "@/utils/getBadgeColor";
+// import { useState } from "react";
+import SkillsGrid from "./SkillsGrid";
+// import { getBadgeColor } from "@/utils/getBadgeColor";
 
-const allSkills = [
-    "Next.js", "React", "TypeScript",
-    "Tailwind CSS", "DaisyUI", "ShadCN/UI",
-    "Framer Motion", "Lucide Icons", "Headless UI",
-    "Supabase", "Firebase", "Firestore",
-    "OpenAI API", "Chart.js", "REST API Integration",
-    "Firebase Auth", "Supabase Auth", "RLS Policies",
-    "Shopify Storefront API", "Systeme.io",
-    "Zod", "tRPC", "Responsive Design",
-    "CI/CD Automation", "Open Graph SEO", "GitHub Actions",
-    "Semantic HTML", "ARIA Roles", "Accessible Components",
-    "SEO Optimization", "Meta Tags", "Structured Data"
-];
+// const allSkills = [
+//     "Next.js", "React", "TypeScript",
+//     "Tailwind CSS", "DaisyUI", "ShadCN/UI",
+//     "Framer Motion", "Lucide Icons", "Headless UI",
+//     "Supabase", "Firebase", "Firestore",
+//     "OpenAI API", "Chart.js", "REST API Integration",
+//     "Firebase Auth", "Supabase Auth", "RLS Policies",
+//     "Shopify Storefront API", "Systeme.io",
+//     "Zod", "tRPC", "Responsive Design",
+//     "CI/CD Automation", "Open Graph SEO", "GitHub Actions",
+//     "Semantic HTML", "ARIA Roles", "Accessible Components",
+//     "SEO Optimization", "Meta Tags", "Structured Data"
+// ];
 
 export default function AboutMe() {
-    const [query, setQuery] = useState("");
+    // const [query, setQuery] = useState("");
 
-    const filteredSkills = allSkills.filter((skill) =>
-        skill.toLowerCase().includes(query.toLowerCase())
-    );
+    // const filteredSkills = allSkills.filter((skill) =>
+    //     skill.toLowerCase().includes(query.toLowerCase())
+    // );
 
     return (
         <section id="about" className="py-20 px-4 text-center max-w-3xl mx-auto">
@@ -52,29 +53,9 @@ export default function AboutMe() {
             </p>
 
             <div className="mb-8">
-                <h3 className="text-xl font-semibold mb-4 text-secondary">My Relevant Skills</h3>
+                
+                <SkillsGrid />
 
-                <input
-                    type="text"
-                    placeholder="Search skills..."
-                    className="input input-bordered w-full max-w-sm mb-4 block mx-auto"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                />
-
-                <div className="flex flex-wrap gap-2 justify-center">
-                    {filteredSkills.map((skill) => (
-                        <span
-                            key={skill}
-                            className={`badge badge-sm ${getBadgeColor(skill)}`}
-                        >
-                            {skill}
-                        </span>
-                    ))}
-                    {filteredSkills.length === 0 && (
-                        <p className="text-sm text-center text-base-content/70 w-full">No matching skills</p>
-                    )}
-                </div>
             </div>
 
             <blockquote className="italic text-text-muted">
