@@ -6,6 +6,8 @@ import { allProjects } from "@/data/projects";
 import Image from "next/image";
 import Button from "@/components/Button";
 import ToolsList from "@/components/ToolsList";
+import CodeSnippetAccordion from "@/components/CodeSnippetAccordion";
+import { snippetsBySlug } from "@/data/snippets";
 
 export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
@@ -39,10 +41,15 @@ export default async function ProjectDetailPage({
 
             <ToolsList tools={project.tools} />
 
-
             <p className="text-lg leading-relaxed mb-6">{project.description}</p>
 
-            <div className="flex gap-4">
+            {snippetsBySlug[project.slug] && (
+                <div className="mb-10">
+                    <CodeSnippetAccordion snippets={snippetsBySlug[project.slug]} />
+                </div>
+            )}
+
+            <div className="flex gap-4 mb-10">
                 <a
                     href={project.githubUrl}
                     className="btn btn-outline"
@@ -66,7 +73,6 @@ export default async function ProjectDetailPage({
                     label="Back to Projects"
                     variant="outline"
                     size="lg"
-                
                 />
             </div>
         </div>
