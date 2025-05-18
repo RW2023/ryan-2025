@@ -17,9 +17,9 @@ export type CodeSnippet = {
     return total % 2 !== 0;
   }`,
         language: "ts",
-      }
+      },
     ],
-    "swoletrac": [
+    "swoletrac-workout-app": [
       {
         title: "Workout Volume Calculation",
         description: "Computes total volume from sets (weight x reps).",
@@ -27,7 +27,28 @@ export type CodeSnippet = {
     return sets.reduce((total, set) => total + set.reps * set.weight, 0);
   }`,
         language: "ts",
-      }
+      },
     ],
+    "headless-shopify-store": [
+      {
+        title: "Update Cart Quantity",
+        description: "Updates the quantity of a specific item in the cart, triggering the floating cart bar to reflect current status and support checkout visibility.",
+        code: `const updateQuantity = useCallback((id: string, quantity: number) => {
+    if (quantity < 1) return;
+    hydrateCart();
+    setCart((prev) => {
+      const item = prev.find((item) => item.id === id);
+      if (item) {
+        showNotification(\`Updated "\${item.title}" quantity\`);
+        log(\`Updated "\${item.title}" to quantity \${quantity}\`);
+      }
+      return prev.map((item) =>
+        item.id === id ? { ...item, quantity } : item
+      );
+    });
+  }, [hydrateCart, log, showNotification]);`,
+        language: "ts",
+      }
+    ]
   };
   
