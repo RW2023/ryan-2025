@@ -69,10 +69,10 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
     if (hasReadme === false) return null;
 
     return (
-        <div className="mt-8">
+        <div className="mt-8 w-full max-w-4xl mx-auto px-4">
             {hasReadme && (
                 <button
-                    className="btn btn-outline btn-primary mb-4"
+                    className="btn btn-outline btn-primary mb-4 w-full sm:w-auto"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     {isOpen ? 'Hide README' : 'Show README'}
@@ -88,25 +88,30 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
                     ) : error ? (
                         <p className="text-error">Failed to load README from GitHub.</p>
                     ) : (
-                        <ReactMarkdown
-                            remarkPlugins={[remarkGfm]}
-                            components={{
-                                h1: (props) => <h1 className="text-2xl font-bold mt-4 mb-2" {...props} />,
-                                h2: (props) => <h2 className="text-xl font-semibold mt-4 mb-2" {...props} />,
-                                p: (props) => <p className="mb-2" {...props} />,
-                                li: (props) => <li className="list-disc ml-6" {...props} />,
-                                a: (props) => (
-                                    <a
-                                        className="text-primary underline hover:text-primary-focus"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        {...props}
-                                    />
-                                ),
-                            }}
-                        >
-                            {markdown}
-                        </ReactMarkdown>
+                        <div className="prose prose-sm md:prose max-w-full dark:prose-invert">
+                            <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                                components={{
+                                    h1: (props) => <h1 className="text-2xl font-bold mt-4 mb-2" {...props} />,
+                                    h2: (props) => <h2 className="text-xl font-semibold mt-4 mb-2" {...props} />,
+                                    p: (props) => <p className="mb-2" {...props} />,
+                                    li: (props) => <li className="list-disc ml-6" {...props} />,
+                                    a: (props) => (
+                                        <a
+                                            className="text-primary underline hover:text-primary-focus"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            {...props}
+                                        />
+                                    ),
+                                    img: (props) => (
+                                        <img {...props} className="rounded-lg max-w-full h-auto border border-base-300" />
+                                    ),
+                                }}
+                            >
+                                {markdown}
+                            </ReactMarkdown>
+                        </div>
                     )}
                 </div>
             )}
