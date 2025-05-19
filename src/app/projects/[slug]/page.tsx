@@ -1,15 +1,16 @@
+// app/projects/[slug]/page.tsx
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-// app/projects/[slug]/page.tsx
+
 import { notFound } from "next/navigation";
 import { allProjects } from "@/data/projects";
 import { projectThoughts } from "@/data/projectThoughts";
+import { snippetsBySlug } from "@/data/snippets";
 import Image from "next/image";
 import Button from "@/components/Button";
 import ThoughtsSection from "@/components/ThoughtsSection";
 import ReadmeDrawer from "@/components/ReadmeDrawer";
 import CodeSnippetAccordion from "@/components/CodeSnippetAccordion";
-import { snippetsBySlug } from "@/data/snippets";
 
 export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
@@ -26,7 +27,6 @@ export default async function ProjectDetailPage({
     const imageSrc =
         project.imageUrl ||
         `https://placehold.co/800x400.png?text=Preview Unavailable`;
-    // Fallback image is unavailable for some strange reason
 
     const thoughts = projectThoughts[project.slug];
     const snippetList = snippetsBySlug[project.slug] || [];
