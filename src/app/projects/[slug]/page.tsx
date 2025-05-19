@@ -12,6 +12,16 @@ import ThoughtsSection from "@/components/ThoughtsSection";
 import ReadmeDrawer from "@/components/ReadmeDrawer";
 import CodeSnippetAccordion from "@/components/CodeSnippetAccordion";
 
+// Utility to check if a GitHub repo is available (public + reachable)
+async function isRepoAvailable(url: string) {
+    try {
+        const res = await fetch(url, { method: "HEAD", cache: "no-store" });
+        return res.ok;
+    } catch {
+        return false;
+    }
+}
+
 export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
 }
@@ -30,6 +40,8 @@ export default async function ProjectDetailPage({
 
     const thoughts = projectThoughts[project.slug];
     const snippetList = snippetsBySlug[project.slug] || [];
+
+    const showGitHub = await isRepoAvailable(project.githubUrl); // 👉 Conditional GitHub check
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-12">
@@ -65,14 +77,16 @@ export default async function ProjectDetailPage({
             <ReadmeDrawer githubUrl={project.githubUrl} />
 
             <div className="flex gap-4 mt-8">
-                <a
-                    href={project.githubUrl}
-                    className="btn btn-outline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    GitHub
-                </a>
+                {showGitHub && (
+                    <a
+                        href={project.githubUrl}
+                        className="btn btn-outline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        GitHub
+                    </a>
+                )}
                 <a
                     href={project.liveUrl}
                     className="btn btn-success"
