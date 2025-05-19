@@ -29,18 +29,25 @@ type CodeSnippet = {
     language?: string;
 };
 
-export default function CodeSnippetAccordion({ snippets }: { snippets: CodeSnippet[] }) {
+export default function CodeSnippetAccordion({
+    snippets,
+    title = "Code Snippets",
+}: {
+    snippets: CodeSnippet[];
+    title?: string;
+}) {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const { theme } = useTheme();
 
     return (
         <div className="space-y-4 mt-10">
             <h2 className="text-2xl font-semibold text-primary mb-4 flex items-center gap-2">
-                <Code className="w-5 h-5" /> Code Snippets
+                <Code className="w-5 h-5" /> {title}
             </h2>
             {snippets.map((snippet, i) => (
                 <div key={i} className="border border-base-300 rounded-lg">
                     <button
+                        type="button"
                         className="w-full text-left px-4 py-3 bg-base-200 hover:bg-base-300 transition-colors font-medium"
                         onClick={() => setOpenIndex(openIndex === i ? null : i)}
                     >
