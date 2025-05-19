@@ -10,16 +10,14 @@ Setting up authentication was a challenge. I had attempted it in the past but wi
 
 ### Proud Code
 The workout streak is literally code that motivates workouts. It’s fascinating to see the lines of code that motivate me to at least go for a walk each day. Just to keep the streak alive.
-
-Here’s the component that renders the streaks:
 `,
 
     "load-planner": `
   ### Why I Built This
-  As a trucker, I knew this problem *intimately*. I wanted a simple, fast-loading tool for real-time planning.
+  In my particular Niche as a Truck driver, this tool comes in very handy. I like letting machines handle mathematics. It can be very tedious.
   
   ### Challenges
-  The sideways loading logic and visual feedback took iteration.
+  Some challenges arise when you are not working from an example app. Fun to build and USE your own tailored software solution.
   
   ### Proud Code
   The conditional icon logic and cart equivalent calculations are clean and reusable.
