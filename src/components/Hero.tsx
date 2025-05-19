@@ -1,4 +1,3 @@
-// app/components/Hero.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -7,13 +6,16 @@ import Button from "./Button";
 
 export default function Hero() {
     return (
-        <section id="hero" className="pt-20 md:pt-32 px-4 text-center flex flex-col items-center">
+        <section
+            id="hero"
+            className="py-20 md:py-32 px-4 text-center flex flex-col items-center gap-y-6"
+        >
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="w-36 h-36 md:w-48 md:h-48 relative rounded-full overflow-hidden shadow-xl ring-4 ring-[var(--accent-color)] mb-6"
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="w-36 h-36 md:w-48 md:h-48 relative rounded-full overflow-hidden shadow-2xl ring-4 ring-[var(--accent-color)]"
             >
                 <Image
                     src="/profile/darkProfile.jpg"
@@ -25,21 +27,21 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1
-                className="text-5xl md:text-7xl font-bold mb-4 text-[var(--foreground)]"
-                initial={{ opacity: 0, y: 20 }}
+                className="text-5xl md:text-7xl font-bold font-[var(--font-heading)] text-[var(--foreground)]"
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
             >
                 Hello, I&apos;m Ryan
             </motion.h1>
 
             <motion.p
-                className="text-lg md:text-2xl text-[var(--foreground-muted)] mb-8 max-w-2xl"
-                initial={{ opacity: 0, y: 20 }}
+                className="text-lg md:text-2xl font-[var(--font-sans)] text-[var(--foreground-muted)] max-w-2xl"
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
             >
                 Creating clean, efficient web applications as a full-stack developer.
             </motion.p>
@@ -48,7 +50,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
             >
                 <Button
                     href="/projects"
