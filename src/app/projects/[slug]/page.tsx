@@ -22,7 +22,8 @@ export default async function ProjectDetailPage({
     if (!project) return notFound();
 
     const imageSrc = project.imageUrl ||
-        `https://placehold.co/800x400.png?text=Preview`;
+        `https://placehold.co/800x400.png?text=Preview Unavailable`;
+    // Fallback image is unavailable for some strange reason
 
     const thoughts = projectThoughts[project.slug];
 
