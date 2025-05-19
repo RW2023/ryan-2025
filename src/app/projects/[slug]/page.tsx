@@ -3,22 +3,11 @@
 // app/projects/[slug]/page.tsx
 import { notFound } from "next/navigation";
 import { allProjects } from "@/data/projects";
+import { projectThoughts } from "@/data/projectThoughts";
 import Image from "next/image";
 import Button from "@/components/Button";
-import CodeSnippetAccordion from "@/components/CodeSnippetAccordion";
-import { snippetsBySlug } from "@/data/snippets";
-import SkillsGrid, { Skill } from "@/components/SkillsGrid";
+import ThoughtsSection from "@/components/ThoughtsSection";
 import ReadmeDrawer from "@/components/ReadmeDrawer";
-
-// Utility to check if a GitHub repo is available (public + reachable)
-async function isRepoAvailable(url: string) {
-    try {
-        const res = await fetch(url, { method: "HEAD", cache: "no-store" });
-        return res.ok;
-    } catch {
-        return false;
-    }
-}
 
 export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
@@ -35,9 +24,7 @@ export default async function ProjectDetailPage({
     const imageSrc = project.imageUrl ||
         `https://placehold.co/800x400.png?text=Preview`;
 
-    const skillProps: Skill[] = (project.tools ?? []).map((tool) => ({ name: tool }));
-
-    const showGitHub = await isRepoAvailable(project.githubUrl); // 👉 Conditional GitHub check
+    const thoughts = projectThoughts[project.slug];
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-12">
@@ -54,28 +41,26 @@ export default async function ProjectDetailPage({
                 />
             </div>
 
-            <SkillsGrid skills={skillProps} showSearch={false} />
+            <div className="flex flex-wrap gap-2 mb-6">
+                {project.tools.map((tag) => (
+                    <span key={tag} className="badge badge-secondary text-primary">
+                        {tag}
+                    </span>
+                ))}
+            </div>
 
             <p className="text-lg leading-relaxed mb-6">{project.description}</p>
+            <ReadmeDrawer githubUrl={project.githubUrl} />
 
-            {snippetsBySlug[project.slug] && (
-                <div className="mb-10">
-                    <CodeSnippetAccordion snippets={snippetsBySlug[project.slug]} />
-                    <ReadmeDrawer githubUrl={project.githubUrl} />
-                </div>
-            )}
-
-            <div className="flex gap-4 mb-10">
-                {showGitHub && (
-                    <a
-                        href={project.githubUrl}
-                        className="btn btn-outline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        GitHub
-                    </a>
-                )}
+            <div className="flex gap-4">
+                <a
+                    href={project.githubUrl}
+                    className="btn btn-outline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    GitHub
+                </a>
                 <a
                     href={project.liveUrl}
                     className="btn btn-success"
@@ -85,6 +70,8 @@ export default async function ProjectDetailPage({
                     Live Demo
                 </a>
             </div>
+
+            {thoughts && <ThoughtsSection thoughts={thoughts} />}
 
             <div className="mt-8">
                 <Button
