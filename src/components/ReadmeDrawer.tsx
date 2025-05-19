@@ -15,70 +15,48 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
     const [markdown, setMarkdown] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    const [hasReadme, setHasReadme] = useState<boolean | null>(null);
+    const [hasReadme, setHasReadme] = useState(false);
 
     useEffect(() => {
         if (!githubUrl) return;
 
-        const checkReadmeExists = async () => {
+        const checkReadme = async () => {
             try {
                 const match = githubUrl.match(/github\.com\/(.+?)\/(.+?)(?:\.git)?(?:\/|$)/);
-                if (!match) return setHasReadme(false);
-
-                const [, user, repo] = match;
-                const readmeUrl = `https://raw.githubusercontent.com/${user}/${repo}/main/README.md`;
-
-                const res = await fetch(readmeUrl, { method: 'HEAD' });
-                setHasReadme(res.ok);
-            } catch {
-                setHasReadme(false);
-            }
-        };
-
-        checkReadmeExists();
-    }, [githubUrl]);
-
-    useEffect(() => {
-        if (!isOpen || !githubUrl) return;
-
-        const fetchReadme = async () => {
-            try {
-                setLoading(true);
-                setError(false);
-
-                const match = githubUrl.match(/github\.com\/(.+?)\/(.+?)(?:\.git)?(?:\/|$)/);
-                if (!match) throw new Error('Invalid GitHub URL');
+                if (!match) return;
 
                 const [, user, repo] = match;
                 const readmeUrl = `https://raw.githubusercontent.com/${user}/${repo}/main/README.md`;
 
                 const res = await fetch(readmeUrl);
-                if (!res.ok) throw new Error('README not found');
+                if (!res.ok) return;
 
                 const text = await res.text();
                 setMarkdown(text);
+                setHasReadme(true);
             } catch {
-                setError(true);
-            } finally {
-                setLoading(false);
+                setHasReadme(false);
             }
         };
 
-        fetchReadme();
-    }, [isOpen, githubUrl]);
+        checkReadme();
+    }, [githubUrl]);
 
-    if (hasReadme === false) return null;
+    useEffect(() => {
+        if (!isOpen || !hasReadme) return;
+        setError(false); // reset error state if retrying
+    }, [isOpen, hasReadme]);
+
+    if (!hasReadme) return null;
 
     return (
         <div className="mt-8 w-full max-w-4xl mx-auto px-4">
-            {hasReadme && (
-                <button
-                    className="btn btn-outline btn-primary mb-4 w-full sm:w-auto"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    {isOpen ? 'Hide README' : 'Show README'}
-                </button>
-            )}
+            <button
+                className="btn btn-outline btn-primary mb-4 w-full sm:w-auto"
+                onClick={() => setIsOpen(!isOpen)}
+            >
+                {isOpen ? 'Hide README' : 'Show README'}
+            </button>
 
             {isOpen && (
                 <div className="collapse collapse-open border border-base-300 bg-base-100 rounded-box p-4">
