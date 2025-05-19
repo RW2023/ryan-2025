@@ -1,7 +1,7 @@
 // components/ReadmeDrawer.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Image from 'next/image';
@@ -15,45 +15,55 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
     const [markdown, setMarkdown] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    const [hasReadme, setHasReadme] = useState(false);
+    const [fetched, setFetched] = useState(false);
 
-    useEffect(() => {
-        if (!githubUrl) return;
+    const fetchReadme = async () => {
+        setLoading(true);
+        setError(false);
 
-        const checkReadme = async () => {
-            try {
-                const match = githubUrl.match(/github\.com\/(.+?)\/(.+?)(?:\.git)?(?:\/|$)/);
-                if (!match) return;
+        try {
+            const match = githubUrl.match(/github\.com\/(.+?)\/(.+?)(?:\.git)?(?:\/|$)/);
+            if (!match) throw new Error();
 
-                const [, user, repo] = match;
-                const readmeUrl = `https://raw.githubusercontent.com/${user}/${repo}/main/README.md`;
+            const [, user, repo] = match;
+            const branches = ['main', 'master'];
+            let content = '';
+            let found = false;
 
-                const res = await fetch(readmeUrl);
-                if (!res.ok) return;
-
-                const text = await res.text();
-                setMarkdown(text);
-                setHasReadme(true);
-            } catch {
-                setHasReadme(false);
+            for (const branch of branches) {
+                const url = `https://raw.githubusercontent.com/${user}/${repo}/${branch}/README.md`;
+                const res = await fetch(url);
+                if (res.ok) {
+                    content = await res.text();
+                    found = true;
+                    break;
+                }
             }
-        };
 
-        checkReadme();
-    }, [githubUrl]);
+            if (!found) throw new Error();
 
-    useEffect(() => {
-        if (!isOpen || !hasReadme) return;
-        setError(false); // reset error state if retrying
-    }, [isOpen, hasReadme]);
+            setMarkdown(content);
+        } catch {
+            setError(true);
+        } finally {
+            setLoading(false);
+            setFetched(true);
+        }
+    };
 
-    if (!hasReadme) return null;
+    const handleToggle = () => {
+        const next = !isOpen;
+        setIsOpen(next);
+        if (next && !fetched) {
+            fetchReadme();
+        }
+    };
 
     return (
         <div className="mt-8 w-full max-w-4xl mx-auto px-4">
             <button
                 className="btn btn-outline btn-primary mb-4 w-full sm:w-auto"
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={handleToggle}
             >
                 {isOpen ? 'Hide README' : 'Show README'}
             </button>
@@ -65,7 +75,7 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
                             <span className="loading loading-bars loading-md"></span>
                         </div>
                     ) : error ? (
-                        <p className="text-error">Failed to load README from GitHub.</p>
+                        <p className="text-error">README not available or this repository is private.</p>
                     ) : (
                         <div className="prose prose-sm md:prose max-w-full dark:prose-invert">
                             <ReactMarkdown
