@@ -8,6 +8,8 @@ import Image from "next/image";
 import Button from "@/components/Button";
 import ThoughtsSection from "@/components/ThoughtsSection";
 import ReadmeDrawer from "@/components/ReadmeDrawer";
+import CodeSnippetAccordion from "@/components/CodeSnippetAccordion";
+import { snippetsBySlug } from "@/data/snippets";
 
 export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
@@ -21,11 +23,13 @@ export default async function ProjectDetailPage({
     const project = allProjects.find((p) => p.slug === params.slug);
     if (!project) return notFound();
 
-    const imageSrc = project.imageUrl ||
+    const imageSrc =
+        project.imageUrl ||
         `https://placehold.co/800x400.png?text=Preview Unavailable`;
     // Fallback image is unavailable for some strange reason
 
     const thoughts = projectThoughts[project.slug];
+    const snippetList = snippetsBySlug[project.slug] || [];
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-12">
@@ -51,9 +55,16 @@ export default async function ProjectDetailPage({
             </div>
 
             <p className="text-lg leading-relaxed mb-6">{project.description}</p>
+
+            {/* Code Snippet Accordion */}
+            {snippetList.length > 0 && (
+                <CodeSnippetAccordion snippets={snippetList} />
+            )}
+
+            {/* README Drawer */}
             <ReadmeDrawer githubUrl={project.githubUrl} />
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 mt-8">
                 <a
                     href={project.githubUrl}
                     className="btn btn-outline"
