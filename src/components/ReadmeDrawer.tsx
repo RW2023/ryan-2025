@@ -75,7 +75,7 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
                             <span className="loading loading-bars loading-md"></span>
                         </div>
                     ) : error || !markdown ? (
-                        <p className="text-error">README not available or this repository is private.</p>
+                        <p className="text-error">README not available as this repository is private.</p>
                     ) : (
                         <div className="overflow-x-auto">
                             <div className="prose prose-sm md:prose max-w-full dark:prose-invert break-words">
