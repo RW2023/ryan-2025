@@ -74,40 +74,92 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
                         <div className="flex justify-center items-center h-24">
                             <span className="loading loading-bars loading-md"></span>
                         </div>
-                    ) : error ? (
-                        <p className="text-error">README not available for private repositories.</p>
+                    ) : error || !markdown ? (
+                        <p className="text-error">README not available or this repository is private.</p>
                     ) : (
-                        <div className="prose prose-sm md:prose max-w-full dark:prose-invert">
-                            <ReactMarkdown
-                                remarkPlugins={[remarkGfm]}
-                                components={{
-                                    h1: (props) => <h1 className="text-2xl font-bold mt-4 mb-2" {...props} />,
-                                    h2: (props) => <h2 className="text-xl font-semibold mt-4 mb-2" {...props} />,
-                                    p: (props) => <p className="mb-2" {...props} />,
-                                    li: (props) => <li className="list-disc ml-6" {...props} />,
-                                    a: (props) => (
-                                        <a
-                                            className="text-primary underline hover:text-primary-focus"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            {...props}
-                                        />
-                                    ),
-                                    img: ({ src = '', alt = '' }) => (
-                                        <div className="relative w-full max-w-full my-4 rounded-lg overflow-hidden">
-                                            <Image
-                                                src={src}
-                                                alt={alt}
-                                                width={800}
-                                                height={400}
-                                                className="rounded-lg shadow-md"
-                                            />
-                                        </div>
-                                    ),
-                                }}
-                            >
-                                {markdown}
-                            </ReactMarkdown>
+                        <div className="overflow-x-auto">
+                            <div className="prose prose-sm md:prose max-w-full dark:prose-invert break-words">
+                                <ReactMarkdown
+                                    remarkPlugins={[remarkGfm]}
+                                    components={{
+                                        h1: ({ children, ...props }) => (
+                                            <h1 className="text-2xl font-bold mt-4 mb-2" {...props}>
+                                                {children}
+                                            </h1>
+                                        ),
+                                        h2: ({ children, ...props }) => (
+                                            <h2 className="text-xl font-semibold mt-4 mb-2" {...props}>
+                                                {children}
+                                            </h2>
+                                        ),
+                                        p: ({ children, ...props }) => (
+                                            <p className="mb-2" {...props}>
+                                                {children}
+                                            </p>
+                                        ),
+                                        li: ({ children, ...props }) => (
+                                            <li className="list-disc ml-6 mb-1" {...props}>
+                                                {children}
+                                            </li>
+                                        ),
+                                        a: ({ children, href, ...props }) => (
+                                            <a
+                                                href={href}
+                                                className="text-primary underline hover:text-primary-focus break-all"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                {...props}
+                                            >
+                                                {children}
+                                            </a>
+                                        ),
+                                        img: ({ src = '', alt = '' }) => (
+                                            <div className="relative w-full max-w-full my-4 rounded-lg overflow-hidden">
+                                                <Image
+                                                    src={src}
+                                                    alt={alt}
+                                                    width={800}
+                                                    height={400}
+                                                    className="rounded-lg shadow-md w-auto"
+                                                />
+                                            </div>
+                                        ),
+                                        code: (
+                                            { inline, className, children, ...props }: {
+                                                inline?: boolean;
+                                                className?: string;
+                                                children?: React.ReactNode;
+                                            } & React.HTMLAttributes<HTMLElement>
+                                        ) =>
+                                            inline ? (
+                                                <code
+                                                    className={`bg-gray-100 dark:bg-gray-800 px-1 rounded break-all ${className}`}
+                                                    {...props}
+                                                >
+                                                    {children}
+                                                </code>
+                                            ) : (
+                                                <pre
+                                                    className="w-full overflow-x-auto bg-gray-200 dark:bg-gray-900 rounded p-2 mb-4"
+                                                    {...props}
+                                                >
+                                                    <code>{children}</code>
+                                                </pre>
+                                            ),
+                                        pre: (
+                                            { children, ...props }: React.HTMLAttributes<HTMLPreElement> & {
+                                                children?: React.ReactNode;
+                                            }
+                                        ) => (
+                                            <pre className="hidden" {...props}>
+                                                {children}
+                                            </pre>
+                                        ),
+                                    }}
+                                >
+                                    {markdown}
+                                </ReactMarkdown>
+                            </div>
                         </div>
                     )}
                 </div>
