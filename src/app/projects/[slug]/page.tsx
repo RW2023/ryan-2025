@@ -36,7 +36,7 @@ export default async function ProjectDetailPage({
 
     const imageSrc =
         project.imageUrl ||
-        `https://placehold.co/800x400.png?text=Preview Unavailable`;
+        `https://placehold.co/800x400.png?text=Preview+Unavailable`;
 
     const thoughts = projectThoughts[project.slug];
     const snippetList = snippetsBySlug[project.slug] || [];
