@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import Image from 'next/image';
 
 interface ReadmeDrawerProps {
     githubUrl: string;
@@ -104,8 +105,16 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
                                             {...props}
                                         />
                                     ),
-                                    img: (props) => (
-                                        <img {...props} className="rounded-lg max-w-full h-auto border border-base-300" />
+                                    img: ({ src = '', alt = '' }) => (
+                                        <div className="relative w-full max-w-full my-4 rounded-lg overflow-hidden">
+                                            <Image
+                                                src={src}
+                                                alt={alt}
+                                                width={800}
+                                                height={400}
+                                                className="rounded-lg shadow-md"
+                                            />
+                                        </div>
                                     ),
                                 }}
                             >

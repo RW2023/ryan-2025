@@ -2,7 +2,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Workaround for Next.js 15 App Router type-checking issue
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -12,6 +11,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "ai-chatbot.example.com" },
       { protocol: "https", hostname: "shop.anotherseeker.com" },
       { protocol: "https", hostname: "swoletrack.vercel.app" },
+      { protocol: "https", hostname: "lplanner.vercel.app" }, // ✅ Add this line
     ],
   },
 };
