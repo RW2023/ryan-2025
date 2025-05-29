@@ -18,9 +18,6 @@ export default function BlogPostLayout({
     featuredImage,
     children,
 }: BlogPostLayoutProps) {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-    const shareUrl = `${siteUrl}/blog/${title.replace(/\s+/g, '-').toLowerCase()}`;
-
     return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {featuredImage && (
