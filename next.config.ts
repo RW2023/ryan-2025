@@ -1,35 +1,24 @@
 // next.config.ts
-import path from 'path';
-import mdx from '@next/mdx';
+import withMDX from '@next/mdx';
+import type { NextConfig } from 'next';
+import type { RemotePattern } from 'next/dist/shared/lib/image-config';
 
-const withMDX = mdx({ extension: /\.mdx?$/ });
+const remotePatterns: RemotePattern[] = [
+  { protocol: 'https', hostname: 'placehold.co' },
+  { protocol: 'https', hostname: 'ai-chatbot.example.com' },
+  { protocol: 'https', hostname: 'shop.anotherseeker.com' },
+  { protocol: 'https', hostname: 'swoletrack.vercel.app' },
+  { protocol: 'https', hostname: 'lplanner.vercel.app' },
+];
 
-const nextConfig = withMDX({
-  typescript: {
-    ignoreBuildErrors: true,
+const nextConfig: NextConfig = {
+  experimental: {
+    mdxRs: true, // Enable native MDX support
   },
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   images: {
-    remotePatterns: [
-      { protocol: 'https', hostname: 'placehold.co' },
-      { protocol: 'https', hostname: 'ai-chatbot.example.com' },
-      { protocol: 'https', hostname: 'shop.anotherseeker.com' },
-      { protocol: 'https', hostname: 'swoletrack.vercel.app' },
-      { protocol: 'https', hostname: 'lplanner.vercel.app' },
-    ],
+    remotePatterns,
   },
-  webpack(config) {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      react: path.resolve('./node_modules/react'),
-      'react/jsx-runtime': path.resolve('./node_modules/react/jsx-runtime'),
-    };
-    return config;
-  },
-});
-
-export default nextConfig;
-
-export const config = {
-  turbo: false,
 };
+
+export default withMDX({ extension: /\.mdx?$/ })(nextConfig);
