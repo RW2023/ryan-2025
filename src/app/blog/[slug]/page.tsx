@@ -1,35 +1,39 @@
 // src/app/blog/[slug]/page.tsx
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { notFound } from 'next/navigation';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import { getMDXComponents } from '@/components/mdx-components';
 import BlogPostLayout from '@/components/BlogPostLayout';
+import MDXWrapper from '@/components/MDXWrapper';
+import { getAllPosts, getPostBySlug } from '@/data/posts';
 
-export const dynamicParams = true;
+export async function generateStaticParams() {
+    return getAllPosts().map((post) => ({ slug: post.slug }));
+}
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function BlogPostPage({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}) {
     const { slug } = await params;
 
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
-    const res = await fetch(
-        `${baseUrl}/api/posts/${slug}`,
-        { next: { revalidate: 60 } }
-    );
+    const postMeta = getPostBySlug(slug);
+    if (!postMeta) return notFound();
 
-    if (!res.ok) return notFound();
+    try {
+        const { default: Content } = await import(`@/../posts/${slug}.mdx`);
 
-    const post = await res.json();
-    const components = getMDXComponents({});
-
-    return (
-        <BlogPostLayout
-            title={post.frontMatter.title}
-            date={post.frontMatter.date}
-            author={post.frontMatter.author}
-            featuredImage={post.frontMatter.featuredImage}
-        >
-            <MDXRemote source={post.content} components={components} />
-        </BlogPostLayout>
-    );
+        return (
+            <BlogPostLayout
+                title={postMeta.frontMatter.title}
+                date={postMeta.frontMatter.date}
+                author={postMeta.frontMatter.author}
+                featuredImage={postMeta.frontMatter.featuredImage}
+            >
+                <MDXWrapper>
+                    <Content />
+                </MDXWrapper>
+            </BlogPostLayout>
+        );
+    } catch {
+        return notFound();
+    }
 }
