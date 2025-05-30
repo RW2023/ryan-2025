@@ -29,9 +29,12 @@ const ArticleList: React.FC<ArticleListProps> = ({ posts }) => {
 
     const filteredPosts = posts.filter((post) => {
         const query = searchQuery.toLowerCase();
+        const title = post.frontMatter.title ?? '';
+        const keywordsArr = post.frontMatter.keywords ?? [];
+
         return (
-            post.frontMatter.title.toLowerCase().includes(query) ||
-            post.frontMatter.keywords?.some((keyword) => keyword.toLowerCase().includes(query))
+            title.toLowerCase().includes(query) ||
+            keywordsArr.some((kw) => (kw ?? '').toLowerCase().includes(query))
         );
     });
 
