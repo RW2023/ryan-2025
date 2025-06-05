@@ -1,11 +1,11 @@
 // app/api/posts/[slug]/route.ts
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 
 export async function GET(
-  _req: Request,
-  { params }: { params: { slug: string } }
+  _req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
 ) {
-  const { slug } = params;
+  const { slug } = await params;
 
   const { getPostBySlug } = await import('@/data/posts');
   const post = getPostBySlug(slug);
