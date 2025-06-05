@@ -6,7 +6,7 @@ export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}"
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -16,13 +16,13 @@ export default {
         primary: "hsl(var(--primary) / <alpha-value>)",
         secondary: "hsl(var(--secondary) / <alpha-value>)",
         accent: "hsl(var(--accent) / <alpha-value>)",
-        'text-primary': "hsl(var(--text-primary) / <alpha-value>)",
-        'text-muted': "hsl(var(--text-muted) / <alpha-value>)"
-      }
-    }
+        "text-primary": "hsl(var(--text-primary) / <alpha-value>)",
+        "text-muted": "hsl(var(--text-muted) / <alpha-value>)",
+      },
+    },
   },
   plugins: [daisyui],
   daisyui: {
-    themes: false
-  }
+    themes: ["cupcake"],
+  },
 } satisfies Config;

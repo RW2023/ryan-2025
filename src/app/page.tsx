@@ -1,11 +1,16 @@
 // app/page.tsx
-import Hero from "@/components/Hero";
+import HeroSection from "@/components/HeroSection";
+import Projects from "@/components/Projects";
+import AboutMe from "@/components/AboutMe";
+import ContactSection from "@/components/ContactSection";
 
 export default function HomePage() {
   return (
     <main className="container mx-auto px-4">
-      <Hero />
-      {/* AboutMe, Projects, and Blog sections go here */}
+      <HeroSection />
+      <Projects />
+      <AboutMe />
+      <ContactSection />
     </main>
   );
 }
