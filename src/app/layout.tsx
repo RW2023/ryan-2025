@@ -37,9 +37,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${ibm.variable} ${sora.variable} ${spaceMono.variable}`}>
+    <html
+      lang="en"
+      className={`${ibm.variable} ${sora.variable} ${spaceMono.variable}`}
+    >
       <body>
-        <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="data-theme" defaultTheme="cupcake">
           <div className="min-h-screen flex flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>
