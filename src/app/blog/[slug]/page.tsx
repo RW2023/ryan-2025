@@ -19,7 +19,7 @@ export default async function BlogPostPage({
     if (!postMeta) return notFound();
 
     try {
-        const { default: Content } = await import(`@/../posts/${slug}.mdx`);
+        const { default: Content } = await import(`../../../../posts/${slug}.mdx`);
 
         return (
             <BlogPostLayout
