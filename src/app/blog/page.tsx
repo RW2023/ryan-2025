@@ -2,7 +2,8 @@
 import ArticleList from '@/components/ArticleList';
 
 export default async function BlogPage() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/posts`, {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || '';
+    const res = await fetch(`${baseUrl}/api/posts`, {
         next: { revalidate: 60 },
     });
     const posts = await res.json();

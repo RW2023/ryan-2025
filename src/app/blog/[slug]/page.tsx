@@ -11,15 +11,15 @@ export async function generateStaticParams() {
 export default async function BlogPostPage({
     params,
 }: {
-    params: Promise<{ slug: string }>;
+    params: { slug: string };
 }) {
-    const { slug } = await params;
+    const { slug } = params;
 
     const postMeta = getPostBySlug(slug);
     if (!postMeta) return notFound();
 
     try {
-        const { default: Content } = await import(`@/../posts/${slug}.mdx`);
+        const { default: Content } = await import(`../../../posts/${slug}.mdx`);
 
         return (
             <BlogPostLayout

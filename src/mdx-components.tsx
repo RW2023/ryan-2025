@@ -1,14 +1,14 @@
-// src/components/mdx-components.tsx
+// src/mdx-components.tsx
 import type { MDXComponents } from 'mdx/types';
 import Image from 'next/image';
 import AudioPlayer from '@/components/AudioPlayer';
 import SEOHead from '@/components/SEOHead';
 
 /**
- * Returns the MDX components mapping.
- * Renamed from useMDXComponents to avoid React Hooks lint rules.
+ * Returns the MDX components mapping used by @next/mdx.
  */
-export function getMDXComponents(components: MDXComponents): MDXComponents {
+// This function is used by @next/mdx to provide custom components to MDX files.
+export function useMDXComponents(components: MDXComponents): MDXComponents {
     return {
         ...components,
         img: ({ src, width, height, alt, ...rest }) => {
