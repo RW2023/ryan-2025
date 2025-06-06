@@ -21,7 +21,7 @@ export default function HeroSection() {
             src="/profile/darkProfile.jpg"
             alt="Profile picture of Ryan"
             fill
-            className="object-cover"
+            className="object-cover rounded-full border-4 border-[var(--accent-color)]"
             priority
           />
         </motion.div>
