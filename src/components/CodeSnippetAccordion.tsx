@@ -45,18 +45,18 @@ export default function CodeSnippetAccordion({
                 <Code className="w-5 h-5" /> {title}
             </h2>
             {snippets.map((snippet, i) => (
-                <div key={i} className="border border-base-300 rounded-lg">
+                <div key={i} className="border border-foreground-muted/20 rounded-lg">
                     <button
                         type="button"
-                        className="w-full text-left px-4 py-3 bg-base-200 hover:bg-base-300 transition-colors font-medium"
+                        className="w-full text-left px-4 py-3 bg-surface hover:bg-[hsl(var(--card-hover))] transition-colors font-medium"
                         onClick={() => setOpenIndex(openIndex === i ? null : i)}
                     >
                         {snippet.title}
                     </button>
                     {openIndex === i && (
-                        <div className="p-4 bg-base-100">
+                        <div className="p-4 bg-card">
                             {snippet.description && (
-                                <p className="mb-2 text-sm text-base-content/70">{snippet.description}</p>
+                                <p className="mb-2 text-sm text-foreground-muted">{snippet.description}</p>
                             )}
                             <SyntaxHighlighter
                                 language={snippet.language || "ts"}

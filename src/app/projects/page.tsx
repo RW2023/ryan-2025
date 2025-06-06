@@ -23,7 +23,7 @@ export default function Projects() {
             );
 
     return (
-        <section id="projects" className="py-20 px-4 bg-base-100 text-base-content">
+        <section id="projects" className="py-20 px-4 bg-background text-foreground">
             <h2 className="text-3xl font-bold text-center mb-8">Projects Showcase</h2>
 
             {/* Filter Bar */}
@@ -34,7 +34,7 @@ export default function Projects() {
                         onClick={() => setActive(cat)}
                         className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${normalize(active) === normalize(cat)
                             ? "bg-primary text-white"
-                            : "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700"
+                            : "bg-card text-foreground-muted hover:bg-[hsl(var(--card-hover))]"
                             }`}
                     >
                         {cat.toUpperCase()}

@@ -40,5 +40,5 @@ export const badgeColors: Record<string, string> = {
     "API Integration": "bg-blue-500 text-white"
   };
   
-  export const getBadgeColor = (tool: string): string =>
-    badgeColors[tool] || "bg-base-300 text-base-content";
+export const getBadgeColor = (tool: string): string =>
+    badgeColors[tool] || "bg-card text-foreground";

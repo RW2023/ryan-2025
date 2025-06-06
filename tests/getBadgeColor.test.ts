@@ -7,6 +7,6 @@ describe('getBadgeColor', () => {
   });
 
   it('returns default color for unknown tool', () => {
-    expect(getBadgeColor('Unknown Tool')).toBe('bg-base-300 text-base-content');
+    expect(getBadgeColor('Unknown Tool')).toBe('bg-card text-foreground');
   });
 });
