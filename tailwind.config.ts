@@ -6,7 +6,9 @@ export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}"
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    // Include MDX files in the content directory for Tailwind class scanning
+    "./content/**/*.{md,mdx}"
   ],
   theme: {
     extend: {
