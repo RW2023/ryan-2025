@@ -1,11 +1,10 @@
-// app/api/posts/[slug]/route.ts
-import { NextResponse } from 'next/server';
+// src/app/api/posts/[slug]/route.ts
+import { NextResponse, type NextRequest } from 'next/server';
 
-export async function GET(
-  _req: Request,
-  { params }: { params: { slug: string } }
-) {
-  const { slug } = params;
+export async function GET(request: NextRequest, context: unknown) {
+  // Cast “context” to the shape we expect, so “params” isn’t implicitly any
+  const { params } = context as { params: { slug: string } };
+  const slug = params.slug;
 
   const { getPostBySlug } = await import('@/data/posts');
   const post = getPostBySlug(slug);
