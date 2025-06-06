@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import { getBadgeColor } from '../src/utils/getBadgeColor';
 
 describe('getBadgeColor', () => {
