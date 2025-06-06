@@ -76,7 +76,7 @@ export default function HeroSection() {
             <Github />
           </Link>
           <Link
-            href="https://www.linkedin.com/in/ryan-wilson-2025/"
+            href="https://www.linkedin.com/in/ryan-e-wilson/"
             aria-label="LinkedIn"
             className="hover:text-primary"
           >
