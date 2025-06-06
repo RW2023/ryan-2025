@@ -20,7 +20,7 @@ The workout streak is literally code that motivates workouts. It’s fascinating
   Some challenges arise when you are not working from an example app. Fun to build and USE your own tailored software solution.
   
   ### Proud Code
-  The conditional icon logic and cart equivalent calculations are clean and reusable.
+  The sideways loading check is specific to this app. It actually works pretty well in the field
   `,
   
     // Add more entries using the project's slug as the key
