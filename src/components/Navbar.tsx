@@ -9,7 +9,7 @@ import DarkModeToggle from "@/components/DarkModeToggle";
 const navItems = [
     { name: "Projects", href: "/projects" },
     { name: "About", href: "/about" },
-    { name: "Blog", href: "/blog" },
+    // { name: "Blog", href: "/blog" },
 ];
 
 export default function Navbar() {
