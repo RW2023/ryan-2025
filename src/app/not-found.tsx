@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 export default function NotFound() {
     return (
-        <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 bg-base-100 text-base-content">
+        <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 bg-background text-foreground">
             <motion.h1
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -20,7 +20,7 @@ export default function NotFound() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.5 }}
-                className="text-lg text-base-content/80 mb-6 max-w-md"
+                className="text-lg text-foreground-muted mb-6 max-w-md"
             >
                 Oops! The page you&apos;re looking for doesn&apos;t exist, has been moved, or likely Ryan has not created it yet.
             </motion.p>

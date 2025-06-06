@@ -12,10 +12,13 @@ export default {
     extend: {
       colors: {
         background: "hsl(var(--bg) / <alpha-value>)",
+        surface: "hsl(var(--surface) / <alpha-value>)",
         foreground: "hsl(var(--foreground) / <alpha-value>)",
+        "foreground-muted": "hsl(var(--foreground-muted) / <alpha-value>)",
         primary: "hsl(var(--primary) / <alpha-value>)",
         secondary: "hsl(var(--secondary) / <alpha-value>)",
         accent: "hsl(var(--accent) / <alpha-value>)",
+        card: "hsl(var(--card-bg) / <alpha-value>)",
         "text-primary": "hsl(var(--text-primary) / <alpha-value>)",
         "text-muted": "hsl(var(--text-muted) / <alpha-value>)",
       },

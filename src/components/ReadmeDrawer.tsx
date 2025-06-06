@@ -69,7 +69,7 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
             </button>
 
             {isOpen && (
-                <div className="collapse collapse-open border border-base-300 bg-base-100 rounded-box p-4">
+                <div className="collapse collapse-open border border-foreground-muted/20 bg-card rounded-box p-4">
                     {loading ? (
                         <div className="flex justify-center items-center h-24">
                             <span className="loading loading-bars loading-md"></span>
@@ -133,14 +133,14 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
                                         ) =>
                                             inline ? (
                                                 <code
-                                                    className={`bg-gray-100 dark:bg-gray-800 px-1 rounded break-all ${className}`}
+                                                    className={`bg-surface px-1 rounded break-all ${className}`}
                                                     {...props}
                                                 >
                                                     {children}
                                                 </code>
                                             ) : (
                                                 <pre
-                                                    className="w-full overflow-x-auto bg-gray-200 dark:bg-gray-900 rounded p-2 mb-4"
+                                                    className="w-full overflow-x-auto bg-surface rounded p-2 mb-4"
                                                     {...props}
                                                 >
                                                     <code>{children}</code>

@@ -25,7 +25,7 @@ export default function ProjectCard({
       <motion.article
         whileHover={{ y: -4, scale: 1.02 }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
-        className="card bg-base-100 shadow-sm hover:shadow-lg transition"
+        className="card bg-card shadow-sm hover:shadow-lg transition"
         aria-labelledby={`project-${slug}`}
       >
         <div className="card-body">
@@ -34,7 +34,7 @@ export default function ProjectCard({
             <ArrowUpRight className="h-4 w-4 opacity-60 group-hover:opacity-100" />
           </h3>
 
-          <p className="text-base text-base-content/80 leading-relaxed mb-4">
+          <p className="text-base text-foreground-muted leading-relaxed mb-4">
             {description}
           </p>
           <SkillsCloud skills={skillProps} showSearch={false} />
