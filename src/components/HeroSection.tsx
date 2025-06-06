@@ -8,7 +8,7 @@ import Button from "./Button";
 
 export default function HeroSection() {
   return (
-    <section id="hero" className="hero min-h-screen bg-base-200">
+    <section id="hero" className="hero min-h-screen bg-background">
       <div className="hero-content text-center flex-col gap-y-6">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
