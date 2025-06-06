@@ -1,94 +1,135 @@
 'use client';
 
-import { useState, FormEvent, ChangeEvent } from 'react';
-import { Mail, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { SendHorizonal } from 'lucide-react';
 
-type FormStatus = 'idle' | 'sending' | 'success' | 'error';
+const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+const formspreeAction = formspreeId
+    ? `https://formspree.io/f/${formspreeId}`
+    : undefined;
 
 export default function ContactForm() {
-    const [name, setName] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
-    const [message, setMessage] = useState<string>('');
-    const [status, setStatus] = useState<FormStatus>('idle');
-
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-        e.preventDefault();
-        setStatus('sending');
-
-        try {
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, message }),
-            });
-
-            if (!response.ok) throw new Error('Network response was not ok');
-
-            setStatus('success');
-            setName('');
-            setEmail('');
-            setMessage('');
-        } catch (error) {
-            console.error('Submit error:', error);
-            setStatus('error');
-        }
-    };
-
-    const handleInputChange = (
-        setter: React.Dispatch<React.SetStateAction<string>>
-    ) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setter(e.target.value);
-    };
+    const [submitted, setSubmitted] = useState(false);
 
     return (
-        <section id="contact" className="py-20 px-4 text-center bg-background">
-            <h2 className="text-3xl font-bold flex items-center justify-center gap-2 mb-4">
-                <Mail /> Contact
-            </h2>
-            <p className="max-w-md mx-auto text-foreground-muted mb-6">
-                Interested in collaborating? Reach out and let&apos;s build something great.
-            </p>
-            <form onSubmit={handleSubmit} className="max-w-lg mx-auto space-y-4">
-                <input
-                    type="text"
-                    placeholder="Your Name"
-                    value={name}
-                    onChange={handleInputChange(setName)}
-                    required
-                    className="input input-bordered w-full"
-                />
-                <input
-                    type="email"
-                    placeholder="Your Email"
-                    value={email}
-                    onChange={handleInputChange(setEmail)}
-                    required
-                    className="input input-bordered w-full"
-                />
-                <textarea
-                    placeholder="Your Message"
-                    value={message}
-                    onChange={handleInputChange(setMessage)}
-                    required
-                    className="textarea textarea-bordered w-full"
-                />
-                <div className="text-right">
-                    <button
-                        type="submit"
-                        className="btn btn-primary btn-md inline-flex items-center"
-                        disabled={status === 'sending'}
-                    >
-                        <span>{status === 'sending' ? 'Sending...' : 'Send Message'}</span>
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                    </button>
+        <motion.form
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            action={formspreeAction}
+            method="POST"
+            target="_blank"
+            onSubmit={() => setSubmitted(true)}
+            className="max-w-xl mx-auto p-6 rounded-2xl shadow-lg space-y-6"
+            style={{
+                backgroundColor: 'hsl(var(--card-bg))',
+                color: 'hsl(var(--text-primary))',
+            }}
+        >
+            {!formspreeAction && (
+                <div
+                    className="rounded-lg px-4 py-3 text-sm font-medium"
+                    style={{
+                        backgroundColor: 'hsl(var(--accent))',
+                        color: 'white',
+                    }}
+                >
+                    ⚠️ Formspree ID missing. Add <code>NEXT_PUBLIC_FORMSPREE_ID</code> to
+                    your `.env.local`.
                 </div>
-            </form>
-            {status === 'success' && (
-                <p className="mt-4 text-green-600">Message sent successfully!</p>
             )}
-            {status === 'error' && (
-                <p className="mt-4 text-red-600">There was an error sending your message.</p>
+
+            <h2
+                className="text-3xl font-bold text-center"
+                style={{ color: 'hsl(var(--text-primary))', fontFamily: 'var(--font-heading)' }}
+            >
+                Contact Me
+            </h2>
+
+            <div className="form-control space-y-1">
+                <label htmlFor="name" className="font-semibold" style={{ color: 'hsl(var(--text-muted))' }}>
+                    Name
+                </label>
+                <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    required
+                    placeholder="Your name"
+                    className="w-full px-4 py-2 rounded-md border outline-none"
+                    style={{
+                        backgroundColor: 'hsl(var(--surface))',
+                        color: 'hsl(var(--text-primary))',
+                        borderColor: 'hsl(var(--foreground-muted))',
+                    }}
+                />
+            </div>
+
+            <div className="form-control space-y-1">
+                <label htmlFor="email" className="font-semibold" style={{ color: 'hsl(var(--text-muted))' }}>
+                    Email
+                </label>
+                <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="you@example.com"
+                    className="w-full px-4 py-2 rounded-md border outline-none"
+                    style={{
+                        backgroundColor: 'hsl(var(--surface))',
+                        color: 'hsl(var(--text-primary))',
+                        borderColor: 'hsl(var(--foreground-muted))',
+                    }}
+                />
+            </div>
+
+            <div className="form-control space-y-1">
+                <label htmlFor="message" className="font-semibold" style={{ color: 'hsl(var(--text-muted))' }}>
+                    Message
+                </label>
+                <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={5}
+                    placeholder="Write your message..."
+                    className="w-full px-4 py-2 rounded-md border outline-none"
+                    style={{
+                        backgroundColor: 'hsl(var(--surface))',
+                        color: 'hsl(var(--text-primary))',
+                        borderColor: 'hsl(var(--foreground-muted))',
+                    }}
+                />
+            </div>
+
+            <button
+                type="submit"
+                className="w-full flex items-center justify-center gap-2 font-semibold py-3 px-4 rounded-md transition"
+                style={{
+                    backgroundColor: 'hsl(var(--primary))',
+                    color: 'white',
+                }}
+            >
+                Send Message <SendHorizonal size={18} />
+            </button>
+
+            {submitted && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="mt-4 text-center text-sm font-medium"
+                    style={{
+                        backgroundColor: 'hsl(var(--accent-color))',
+                        color: 'white',
+                        padding: '0.75rem',
+                        borderRadius: '0.5rem',
+                    }}
+                >
+                    ✅ Your message has been sent!
+                </motion.div>
             )}
-        </section>
+        </motion.form>
     );
 }
