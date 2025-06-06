@@ -1,7 +1,7 @@
-// app/projects/[slug]/page.tsx
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// src/app/projects/[slug]/page.tsx
 import { notFound } from "next/navigation";
 import { allProjects } from "@/data/projects";
 import { projectThoughts } from "@/data/projectThoughts";
@@ -26,11 +26,8 @@ export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
 }
 
-export default async function ProjectDetailPage({
-    params,
-}: {
-    params: { slug: string };
-}) {
+export default async function ProjectDetailPage(props: any) {
+    const { params } = props;
     const project = allProjects.find((p) => p.slug === params.slug);
     if (!project) return notFound();
 
@@ -40,14 +37,12 @@ export default async function ProjectDetailPage({
 
     const thoughts = projectThoughts[project.slug];
     const snippetList = snippetsBySlug[project.slug] || [];
-
-    const showGitHub = await isRepoAvailable(project.githubUrl); // 👉 Conditional GitHub check
+    const showGitHub = await isRepoAvailable(project.githubUrl);
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-12">
             <h1 className="text-4xl font-bold mb-4 text-primary">{project.title}</h1>
 
-            {/* Responsive image container for fill mode */}
             <div className="relative w-full h-[200px] md:h-[300px] mb-6">
                 <Image
                     src={imageSrc}
@@ -68,12 +63,8 @@ export default async function ProjectDetailPage({
 
             <p className="text-lg leading-relaxed mb-6">{project.description}</p>
 
-            {/* Code Snippet Accordion */}
-            {snippetList.length > 0 && (
-                <CodeSnippetAccordion snippets={snippetList} />
-            )}
+            {snippetList.length > 0 && <CodeSnippetAccordion snippets={snippetList} />}
 
-            {/* README Drawer */}
             <ReadmeDrawer githubUrl={project.githubUrl} />
 
             <div className="flex gap-4 mt-8">
@@ -100,12 +91,7 @@ export default async function ProjectDetailPage({
             {thoughts && <ThoughtsSection thoughts={thoughts} />}
 
             <div className="mt-8">
-                <Button
-                    href="/projects"
-                    label="Back to Projects"
-                    variant="outline"
-                    size="lg"
-                />
+                <Button href="/projects" label="Back to Projects" variant="outline" size="lg" />
             </div>
         </div>
     );
