@@ -12,9 +12,8 @@ export default function ContactSection() {
         Interested in collaborating? Reach out and let&apos;s build something
         great.
       </p>
-      <a href="mailto:hello@ryanwilson.dev" className="btn btn-primary">
-        Say Hello
-      </a>
+     <h2 className="text-4xl">Say Hello 👋🏾</h2>
+     <ContactSection />
     </section>
   );
 }
