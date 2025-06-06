@@ -1,11 +1,10 @@
 // app/blog/page.tsx
 import ArticleList from '@/components/ArticleList';
+import { getAllPosts } from '@/data/posts';
 
-export default async function BlogPage() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/posts`, {
-        next: { revalidate: 60 },
-    });
-    const posts = await res.json();
+export default function BlogPage() {
+    // Read all posts directly from the content directory
+    const posts = getAllPosts();
 
     return (
         <main className="max-w-6xl mx-auto px-4 py-12">

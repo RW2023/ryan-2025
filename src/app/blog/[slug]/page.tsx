@@ -19,7 +19,8 @@ export default async function BlogPostPage({
     if (!postMeta) return notFound();
 
     try {
-        const { default: Content } = await import(`@/../posts/${slug}.mdx`);
+        // Dynamically import the MDX file for this post
+        const { default: Content } = await import(`@/../content/posts/${slug}.mdx`);
 
         return (
             <BlogPostLayout
