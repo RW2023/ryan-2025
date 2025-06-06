@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "daisyui": "^5.0.35",
@@ -38,6 +39,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^29.5.14",
-    "jest-environment-jsdom": "^29.6.4"
+    "jest-environment-jsdom": "^29.6.4",
+    "xmlchars": "^2.2.0"
   }
 }

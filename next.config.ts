@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "ai-chatbot.example.com" },
       { protocol: "https", hostname: "shop.anotherseeker.com" },
       { protocol: "https", hostname: "swoletrack.vercel.app" },
-      { protocol: "https", hostname: "lplanner.vercel.app" }, // ✅ Add this line
+      { protocol: "https", hostname: "lplanner.vercel.app" },
     ],
   },
 };
