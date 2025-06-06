@@ -5,10 +5,11 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
+// Update ButtonProps interface to include new variants
 interface ButtonProps {
   href: string;
   label: string;
-  variant?: "primary" | "outline";
+  variant?: "primary" | "outline" | "success" | "alert";
   size?: "sm" | "md" | "lg";
   icon?: boolean;
 }
@@ -25,7 +26,14 @@ export default function Button({
   const sizeClass =
     size === "sm" ? "btn-sm" : size === "lg" ? "btn-lg" : "btn-md";
 
-  const variantClass = variant === "outline" ? "btn-outline" : "btn-primary";
+  const variantClass =
+    variant === "outline"
+      ? "btn-outline"
+      : variant === "success"
+      ? "btn-success"
+      : variant === "alert"
+      ? "btn-error"
+      : "btn-primary";
 
   return (
     <Link href={href} className={twMerge(base, variantClass, sizeClass)}>
