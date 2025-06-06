@@ -51,13 +51,15 @@ export default function HeroSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
+          className="bg-background/80 backdrop-blur-md p-4 rounded-lg text-primary"
         >
           <Button
             href="/projects"
             label="View Projects"
-            variant="primary"
+            variant="success"
             size="lg"
-            icon
+            
+            
           />
         </motion.div>
 
