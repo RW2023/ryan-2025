@@ -23,7 +23,7 @@ export const allProjects: Project[] = [
     githubUrl: "https://github.com/RW2023/clayton-c",
     liveUrl: 'https://clayton-c.vercel.app/',
     imageUrl: '/projects/claytonC.png',
-    category: 'Full-stack, Personal Website, E-commerce',
+    category: 'Full-stack, Personal Website, E-commerce, Utility App',
   },
   {
     title: "Load Planner",
