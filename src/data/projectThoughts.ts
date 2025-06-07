@@ -40,6 +40,22 @@ I wanted a portfolio to display what I wanted to show and how i wanted to show i
 1. Dynamic routing with project slugs keeps the site scalable as I add more work.
 2. The conditional GitHub and README rendering shows attention to UX and error-proofing.
 `,
+"pet-age-calculator": `
+## 🐾 Why I Built This
+
+My kids kept asking how old our new kitten was “in human years.” I realized most charts out there are oversimplified or inconsistent so I built something better. This was also a perfect excuse to sharpen my front-end skills with a real-world use case.
+
+## ⚔️ Challenges
+
+1. Creating a conversion logic that felt more accurate and dynamic than the usual "x7 rule."
+2. Making the UI feel fun and family-friendly without sacrificing clean code, responsiveness, and accessibility.
+
+## 🌟 Proud Code
+
+1. The **\`calculatePetAge\` function** handles dogs and cats, supports both directions, and adjusts for dog size making it far more flexible than a basic chart.
+2. The **theme-aware UI** built with Tailwind, DaisyUI, and Next.js showcases polished design and responsiveness across devices.
+`,
+
 
 
   // Add more entries using the project's slug as the key
