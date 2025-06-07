@@ -49,6 +49,74 @@ export type CodeSnippet = {
   }, [hydrateCart, log, showNotification]);`,
         language: "ts",
       }
-    ]
+    ],
+    "clayton-c-music": [
+      {
+        title: "Filter Events by Date",
+        description: "Filters events for date and puts them in upcoming of past events respectively.",
+        code: `const now = new Date();
+const pastEvents = events
+  .filter(event => new Date(event.date) < now)
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+return pastEvents.length > 0 ? (
+  <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    {pastEvents.map((event) => (
+      <motion.div
+        key={event.id}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        <EventCard event={event} />
+      </motion.div>
+    ))}
+  </div>
+) : (
+  <p className="text-center text-[hsl(var(--foreground-muted))]">
+    No past events to show yet.
+  </p>
+);`,
+        language: "ts",
+      }
+    ],
+    "pet-age-calculator": [
+  {
+    title: "Advanced Pet Age Converter",
+    description:
+      "Converts pet age to human years and vice versa for dogs and cats, supporting direction and dog size.",
+    code: `export default function calculatePetAge(
+  species: Species,
+  direction: Direction,
+  age: number,
+  size?: DogSize
+): string {
+  let converted: number;
+
+  if (species === 'dog') {
+    converted =
+      direction === 'toHuman'
+        ? calculateDogToHuman(age, size)
+        : calculateDogToPet(age, size);
+    return direction === 'toHuman'
+      ? \`A \${age}-year-old \${size ?? 'medium'} dog is about \${converted} in human years.\`
+      : \`\${age} human years is about \${converted.toFixed(1)} in \${size ?? 'medium'} dog years.\`;
+  }
+
+  if (species === 'cat') {
+    converted =
+      direction === 'toHuman'
+        ? calculateCatToHuman(age)
+        : calculateCatToPet(age);
+    return direction === 'toHuman'
+      ? \`A \${age}-year-old cat is about \${converted} in human years.\`
+      : \`\${age} human years is about \${converted.toFixed(1)} in cat years.\`;
+  }
+
+  return 'Invalid species or direction.';
+}`,
+    language: "ts",
+  },
+],
+
   };
-  

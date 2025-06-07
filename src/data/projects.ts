@@ -64,4 +64,16 @@ export const allProjects: Project[] = [
     imageUrl: "/projects/swoletrack.png",
     category: "Full-stack, AI, Fitness App",
   },
+  {
+    title: "Pet Age Calculator",
+    slug: "pet-age-calculator",
+    description: "A simple tool to calculate pet ages in human years based on veterinary guidelines.",
+    tools: [
+      "Next.js","Tailwind CSS", "DaisyUI", "Lucide React", "Chart.js"
+    ],
+    githubUrl: "https://github.com/RW2023/pet-ager",
+    liveUrl: "https://pet-ager.vercel.app/",
+    imageUrl: "/projects/pet.png",
+    category: "Full-stack, utility App,",
+  },
 ];
