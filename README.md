@@ -13,6 +13,7 @@ A modern portfolio built with **Next.js 15**, **TypeScript**, and **Tailwind CSS
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) and [DaisyUI](https://daisyui.com/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Icons**: [Lucide React](https://lucide.dev/)
+- **Fonts**: [Roboto](https://fonts.google.com/specimen/Roboto) and [Inter](https://fonts.google.com/specimen/Inter)
 - **Theme Management**: [next-themes](https://github.com/pacocoursey/next-themes)
 - **Markdown**: react-markdown & remark-gfm
 - **Testing**: Jest and @testing-library/react
