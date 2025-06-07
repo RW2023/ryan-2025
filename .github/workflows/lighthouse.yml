@@ -18,16 +18,15 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Lighthouse CI
-        run: npm install -g @lhci/cli
+      - name: Install Lighthouse tools
+        run: npm install -g @lhci/cli lighthouse-badges
 
       - name: Run Lighthouse CI
         run: lhci autorun
 
-      - name: Move badges to tracked folder
+      - name: Generate badges
         run: |
-          mkdir -p badges
-          cp .lighthouseci/*.svg badges/
+          npx lighthouse-badges --url https://ryan-2025.vercel.app --output-path badges
 
       - name: Commit and push badges
         run: |
