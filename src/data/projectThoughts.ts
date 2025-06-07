@@ -1,29 +1,32 @@
 // data/projectThoughts.ts
-
 export const projectThoughts: Record<string, string> = {
-    "swoletrac-workout-app": `
-### Why I Built This
-I wanted a fitness app that felt tailored to *actual workouts*, not generic tracking. Most apps do not provide the type of tracking I actually want.
+  "swoletrac-workout-app": `
+## 🚀 Why I Built This
+I wanted a fitness companion that **mirrors my real workouts** sets, reps, progressive overload not another calorie counter.
 
-### Challenges
-Setting up authentication was a challenge. I had attempted it in the past but with mixed results. I didn’t quite understand things like middleware and authentication flows. This time I used a starter template and that made life a lot easier.
+## ⚔️ Challenges
+- Wrangling **Next.js authentication** (middleware, callbacks, redirects).  
+- Staying motivated while learning unfamiliar patterns.
 
-### Proud Code
-The workout streak is literally code that motivates workouts. It’s fascinating to see the lines of code that motivate me to at least go for a walk each day. Just to keep the streak alive.
+## 🌟 Proud Code
+The *workout-streak* logic is tiny but mighty seeing that green streak bar motivates me to lace up for a walk just to keep it alive.
 `,
 
-    "load-planner": `
-  ### Why I Built This
-  In my particular Niche as a Truck driver, this tool comes in very handy. I like letting machines handle mathematics. It can be very tedious.
-  
-  ### Challenges
-  Some challenges arise when you are not working from an example app. Fun to build and USE your own tailored software solution.
-  
-  ### Proud Code
-  The sideways loading check is specific to this app. It actually works pretty well in the field
-  `,
-  
-    // Add more entries using the project's slug as the key
+  "load-planner": `
+## 🚚 Why I Built This
+As a local trucker I’d rather let code **do math** so I can focus on the road.
 
-  };
+## ⚔️ Challenges
+Building from scratch no starter templates meant:  
+1. Designing a custom use case app.  
+2. Testing edge cases on the job at 2 a.m.
+
+## 🌟 Proud Code
+1. The **sideways-loading check** is a nice feature to instantly let me know when the load will be a PITA. 
+2. The trailer indicator lets me know which size truck or trailer I can use at a glance. 
+`,
+
+  // Add more entries using the project's slug as the key
+};
+
   
