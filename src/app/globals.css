@@ -14,9 +14,9 @@
   --color-text: 196, 39%, 32%;
   --color-muted: 191, 33%, 52%;
 
-  --font-heading: 'Sora', sans-serif;
-  --font-sans: 'IBM Plex Sans', sans-serif;
-  --font-accent: 'Space Mono', monospace;
+  --font-heading: 'Roboto', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-accent: 'Roboto', sans-serif;
 }
 
 html[data-theme='light'] {
