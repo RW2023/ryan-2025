@@ -13,6 +13,19 @@ export type Project = {
 
 export const allProjects: Project[] = [
   {
+    title: 'Clayton C Music',
+    slug: 'clayton-c-music',
+    description: 'Official website and store for Clayton C Music, featuring e-commerce and media content.',
+    tools: [
+      "Next.js", "TypeScript", "Tailwind CSS",
+      "DaisyUI", "Shopify", "Framer Motion"
+    ],
+    githubUrl: "https://github.com/RW2023/clayton-c",
+    liveUrl: 'https://clayton-c.vercel.app/',
+    imageUrl: '/projects/claytonC.png',
+    category: 'Full-stack, Personal Website, E-commerce',
+  },
+  {
     title: "Load Planner",
     slug: "load-planner",
     description: "Trucking Load Planner tool for planning loads. Allow Realtime determination of load configuration.",
