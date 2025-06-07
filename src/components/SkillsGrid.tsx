@@ -15,6 +15,7 @@ const defaultSkills: Skill[] = [
     // Styling
     { name: "Tailwind CSS", category: "Styling" },
     { name: "DaisyUI", category: "Styling" },
+    { name: "Figma", category: "Styling" },
 
     // UI Icons
     { name: "Lucide React", category: "UI Icons" },
@@ -26,20 +27,29 @@ const defaultSkills: Skill[] = [
     // Languages
     { name: "TypeScript", category: "Languages" },
     { name: "JavaScript", category: "Languages" },
+    { name: "Python", category: "Languages" },
+    { name: "Shopify Liquid", category: "Languages" },
 
     // Backend / Databases
     { name: "Supabase", category: "Backend" },
     { name: "Firebase", category: "Backend" },
+    { name: "PostgreSQL", category: "Backend" },
+    { name: "MongoDB", category: "Backend" },
+
 
     // CMS / APIs
     { name: "Shopify Storefront API", category: "CMS / API" },
     { name: "MDX", category: "CMS / API" },
     { name: "OpenAI API", category: "CMS / API" },
+    { name: "Contentful", category: "CMS / API" },
 
     // Dev Tools
-    { name: "Vercel", category: "Dev Tools" },
     { name: "GitHub", category: "Dev Tools" },
+    { name: "Vercel", category: "Dev Tools" },
+    { name: "Docker", category: "Dev Tools" },
+    {name: "Netlify", category: "Dev Tools" },
     { name: "pnpm", category: "Dev Tools" },
+    { name: "ESLint", category: "Dev Tools" },
 
     // Auth & Security
     { name: "Firebase Auth", category: "Auth" },
@@ -47,9 +57,12 @@ const defaultSkills: Skill[] = [
 
     // State Management
     { name: "React Context", category: "State Management" },
-    { name: "useReducer", category: "State Management" },
+    { name: "Redux Toolkit", category: "State Management" },
 
     // Testing / Linting
+    { name: "Jest", category: "Testing / Linting" },
+    { name: "React Testing Library", category: "Testing / Linting" },
+    { name: "Vitest", category: "Testing / Linting" },
     { name: "ESLint", category: "Testing / Linting" },
     { name: "Prettier", category: "Testing / Linting" },
 ];
