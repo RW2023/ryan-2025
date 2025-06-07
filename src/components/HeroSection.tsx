@@ -51,15 +51,19 @@ export default function HeroSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-          className="bg-background/80 backdrop-blur-md p-4 rounded-lg text-primary"
+          className="bg-background/80 backdrop-blur-md p-4 rounded-lg text-primary flex flex-col gap-2 items-center"
         >
           <Button
             href="/projects"
             label="View Projects"
             variant="success"
             size="lg"
-            
-            
+          />
+          <Button
+            href="/contact"
+            label="Contact Me"
+            variant="outline"
+            size="lg"
           />
         </motion.div>
 
@@ -84,13 +88,7 @@ export default function HeroSection() {
           >
             <Linkedin />
           </Link>
-          {/* <Link
-            href="mailto:hello@ryanwilson.dev"
-            aria-label="Email"
-            className="hover:text-primary"
-          >
-            <Mail />
-          </Link> */}
+       
         </motion.div>
       </div>
     </section>

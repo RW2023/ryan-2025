@@ -5,11 +5,11 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
-// Update ButtonProps interface to include new variants
+// Update ButtonProps interface to include new variant
 interface ButtonProps {
   href: string;
   label: string;
-  variant?: "primary" | "outline" | "success" | "alert";
+  variant?: "primary" | "outline" | "success" | "alert" | "ghost";
   size?: "sm" | "md" | "lg";
   icon?: boolean;
 }
@@ -33,6 +33,8 @@ export default function Button({
       ? "btn-success"
       : variant === "alert"
       ? "btn-error"
+      : variant === "ghost"
+      ? "btn-ghost"
       : "btn-primary";
 
   return (
