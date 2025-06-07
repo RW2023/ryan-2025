@@ -20,7 +20,7 @@ jobs:
         with: { node-version: 20 }
 
       # ③  (Optional) install deps -- keeps lockfile fresh for dependabot
-      - run: pnpm install --frozen-lockfile
+      - run: npm ci
 
       # ④  Run Lighthouse and upload JSON/HTML reports
       - name: Audit production site
