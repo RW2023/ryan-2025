@@ -1,4 +1,4 @@
-import { getBadgeColor } from '../src/utils/getBadgeColor';
+import { getBadgeColor } from '../../src/utils/getBadgeColor';
 
 describe('getBadgeColor', () => {
   it('returns correct color for known tool', () => {
