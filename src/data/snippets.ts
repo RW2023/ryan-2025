@@ -171,6 +171,47 @@ return pastEvents.length > 0 ? (
       );
       `,
       language: "jsx",
+      
+    },
+    {
+      title: "Readme Drawer",
+      description: "Fetches a GitHub repository's README and toggles a drawer to display it.",
+      code: `const fetchReadme = async () => {
+  setLoading(true);
+  setError(false);
+
+  try {
+    const match = githubUrl.match(/github\.com\/([^/]+)\/([^/]+)(?:\.git)?/);
+    if (!match) throw new Error('Bad GitHub URL');
+
+    const [, user, repo] = match;
+    const branches = ['main', 'master'];
+
+    for (const branch of branches) {
+      const res = await fetch(
+        \`https://raw.githubusercontent.com/\${user}/\${repo}/\${branch}/README.md\`
+      );
+      if (res.ok) {
+        setMarkdown(await res.text());
+        return;
+      }
+    }
+    throw new Error('README not found');
+  } catch {
+    setError(true);
+  } finally {
+    setLoading(false);
+    setFetched(true);
+  }
+};
+
+/* Toggle drawer --------------------------------------------------- */
+const handleToggle = () => {
+  setIsOpen((prev) => !prev);
+  if (!fetched) void fetchReadme();
+};`,
+      language: "ts",
     },
   ],
+  
   };
