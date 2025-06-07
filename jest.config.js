@@ -1,4 +1,5 @@
-const nextJest = require('next/jest');
+// jest.config.ts
+import nextJest from 'next/jest';
 
 const createJestConfig = nextJest({
   dir: './',
@@ -12,4 +13,4 @@ const customJestConfig = {
   },
 };
 
-module.exports = createJestConfig(customJestConfig);
+export default createJestConfig(customJestConfig);
