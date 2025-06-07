@@ -1,25 +1,24 @@
 // app/layout.tsx
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import { IBM_Plex_Sans, Sora, Space_Mono } from "next/font/google";
+import { Inter, Roboto } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const ibm = IBM_Plex_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const sora = Sora({
+const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["400", "700"],
   variable: "--font-heading",
   display: "swap",
 });
 
-const spaceMono = Space_Mono({
+const robotoAccent = Roboto({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-accent",
@@ -39,7 +38,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${ibm.variable} ${sora.variable} ${spaceMono.variable}`}
+      className={`${inter.variable} ${roboto.variable} ${robotoAccent.variable}`}
     >
       <body>
         <ThemeProvider attribute="data-theme" defaultTheme="cupcake">
