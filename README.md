@@ -56,7 +56,7 @@ npm test
 
 ## 📸 Screenshot
 
-![Homepage screenshot](public/portfolioDark.png)
+![Homepage screenshot](/portfolioDark.png)
 
 ## 📬 Contact
 
