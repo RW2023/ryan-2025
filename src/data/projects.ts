@@ -13,8 +13,21 @@ export type Project = {
 
 export const allProjects: Project[] = [
   {
+    title: 'Personal Portfolio',
+    slug: "personal-portfolio",
+    description: 'My personal portfolio showcasing my skills, projects, and experience.',
+    tools: [
+      "Next.js", "TypeScript", "Tailwind CSS",
+      "DaisyUI", "Lucide React", "Framer Motion"
+    ],
+    githubUrl: "https://github.com/RW2023/ryan-2025",
+    liveUrl: 'https://ryan-2025.vercel.app/',
+    imageUrl: '/projects/portfolioDark.png',
+    category: 'Full-stack, Personal Website, Utility App',
+  },
+  {
     title: 'Clayton C Music',
-    slug: 'clayton-c-music',
+    slug: "clayton-c-music",
     description: 'Official website and store for Clayton C Music, featuring e-commerce and media content.',
     tools: [
       "Next.js", "TypeScript", "Tailwind CSS",
