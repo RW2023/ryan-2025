@@ -20,16 +20,10 @@ export default function Projects() {
     return (
         <section
             id="projects"
-            className="py-20 px-4"
-            style={{
-                backgroundColor: 'hsl(var(--bg))',
-                color: 'hsl(var(--foreground))',
-                fontFamily: 'var(--font-sans)',
-            }}
+            className="py-20 px-4 bg-[hsl(var(--bg))] text-[hsl(var(--foreground))] font-sans"
         >
             <h2
-                className="text-4xl md:text-5xl font-bold text-center mb-10"
-                style={{ fontFamily: 'var(--font-heading)' }}
+                className="text-4xl md:text-5xl text-center mb-10 font-[var(--font-heading)]"
             >
                 Projects Showcase
             </h2>
@@ -42,18 +36,12 @@ export default function Projects() {
                         <button
                             key={cat}
                             onClick={() => setActive(cat)}
-                            className="px-4 py-2 rounded-full text-sm font-semibold transition-colors border"
-                            style={{
-                                backgroundColor: isActive
-                                    ? 'hsl(var(--primary))'
-                                    : 'hsl(var(--card-bg))',
-                                color: isActive
-                                    ? 'white'
-                                    : 'hsl(var(--foreground-muted))',
-                                borderColor: isActive
-                                    ? 'hsl(var(--primary))'
-                                    : 'hsl(var(--card-hover))',
-                            }}
+                            className={
+                                `px-4 py-2 rounded-full text-sm font-semibold transition-colors border ` +
+                                (isActive
+                                    ? 'bg-[hsl(var(--primary))] text-white border-[hsl(var(--primary))]'
+                                    : 'bg-[hsl(var(--card-bg))] text-[hsl(var(--foreground-muted))] border-[hsl(var(--card-hover))]')
+                            }
                         >
                             {cat.toUpperCase()}
                         </button>
