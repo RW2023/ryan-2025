@@ -49,11 +49,10 @@ const defaultSkills: Skill[] = [
     { name: "React Context", category: "State Management" },
     { name: "useReducer", category: "State Management" },
 
-    // Testing / Linting (optional but recruiter-positive)
+    // Testing / Linting
     { name: "ESLint", category: "Testing / Linting" },
-    { name: "Prettier", category: "Testing / Linting" }
+    { name: "Prettier", category: "Testing / Linting" },
 ];
-
 
 export default function SkillsGrid({
     skills = defaultSkills,
@@ -63,9 +62,21 @@ export default function SkillsGrid({
     showSearch?: boolean;
 }) {
     const [query, setQuery] = useState("");
-    const filteredSkills = skills.filter((skill) =>
-        skill.name.toLowerCase().includes(query.toLowerCase())
-    );
+    const [selectedCategory, setSelectedCategory] = useState("All");
+
+    const uniqueCategories = [
+        "All",
+        ...Array.from(new Set(skills.map((s) => s.category).filter(Boolean))),
+    ];
+
+    const filteredSkills = skills.filter((skill) => {
+        const matchesCategory =
+            selectedCategory === "All" || skill.category === selectedCategory;
+        const matchesQuery = skill.name
+            .toLowerCase()
+            .includes(query.toLowerCase());
+        return matchesCategory && matchesQuery;
+    });
 
     return (
         <section className="py-12 px-4 max-w-4xl mx-auto">
@@ -74,25 +85,45 @@ export default function SkillsGrid({
                     <h2 className="text-3xl font-bold mb-4 text-center text-primary">
                         Tool-Kit
                     </h2>
-                    <input
-                        type="text"
-                        placeholder="Search tools..."
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        className="input input-bordered w-full max-w-md mx-auto block mb-6"
-                    />
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                        <input
+                            type="text"
+                            placeholder="Search tools..."
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            className="input input-bordered w-full sm:w-1/2"
+                        />
+                        <select
+                            title="Filter by category"
+                            className="select select-bordered w-full sm:w-1/3"
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
+                        >
+                            {uniqueCategories.map((cat) => (
+                                <option key={cat} value={cat}>
+                                    {cat}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </>
             )}
 
             <div className="flex flex-wrap justify-center gap-3">
-                {filteredSkills.map((skill) => (
-                    <span
-                        key={skill.name}
-                        className="badge badge-outline text-sm px-3 py-2 shadow hover:scale-105 transition-transform cursor-default"
-                    >
-                        {skill.name}
-                    </span>
-                ))}
+                {filteredSkills.length > 0 ? (
+                    filteredSkills.map((skill) => (
+                        <span
+                            key={skill.name}
+                            className="badge badge-outline text-sm px-3 py-2 shadow hover:scale-105 transition-transform cursor-default"
+                        >
+                            {skill.name}
+                        </span>
+                    ))
+                ) : (
+                    <p className="text-center text-[hsl(var(--foreground-muted))]">
+                        No matching skills found.
+                    </p>
+                )}
             </div>
         </section>
     );
