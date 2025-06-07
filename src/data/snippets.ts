@@ -170,8 +170,7 @@ return pastEvents.length > 0 ? (
         </div>
       );
       `,
-      language: "jsx",
-      
+      language: "tsx",
     },
     {
       title: "Readme Drawer",
