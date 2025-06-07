@@ -113,17 +113,26 @@ export default function ReadmeDrawer({ githubUrl }: ReadmeDrawerProps) {
                 {children}
             </a>
         ),
-        img: ({ src = '', alt = '' }) => (
-            <div className="relative w-full my-6 rounded-lg overflow-hidden">
-                <Image
-                    src={src}
-                    alt={alt}
-                    width={800}
-                    height={400}
-                    className="rounded-lg shadow-md w-auto h-auto max-w-full mx-auto"
-                />
-            </div>
-        ),
+        img: ({ src = '', alt = '' }) => {
+            const normalizedSrc = src.startsWith('http')
+                ? src
+                : src.startsWith('public/')
+                    ? src.replace('public/', '/')
+                    : src;
+
+            return (
+                <div className="relative w-full my-6 rounded-lg overflow-hidden">
+                    <Image
+                        src={normalizedSrc}
+                        alt={alt}
+                        width={800}
+                        height={400}
+                        className="rounded-lg shadow-md w-auto h-auto max-w-full mx-auto"
+                    />
+                </div>
+            );
+        },
+        
         code: codeComponent, // 👈 the correctly-typed renderer
         pre: () => null, // outer <pre> handled inside `code`
     };
