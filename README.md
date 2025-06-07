@@ -6,14 +6,6 @@ A modern portfolio built with **Next.js 15**, **TypeScript**, and **Tailwind CSS
 
 [ryan-2025.vercel.app](https://ryan-2025.vercel.app)
 
-### Lighthouse scores (automated)
-
-![Perf](https://raw.githubusercontent.com/RW2023/ryan-2025/main/badges/lighthouse_performance.svg)  
-![Accessibility](https://raw.githubusercontent.com/RW2023/ryan-2025/main/badges/lighthouse_accessibility.svg)  
-![Best Practices](https://raw.githubusercontent.com/RW2023/ryan-2025/main/badges/lighthouse_best-practices.svg)  
-![SEO](https://raw.githubusercontent.com/RW2023/ryan-2025/main/badges/lighthouse_seo.svg)
-
-
 
 ## 🛠️ Tech Stack
 
