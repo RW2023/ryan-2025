@@ -27,7 +27,7 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.h1
-          className="text-5xl md:text-7xl font-bold font-[var(--font-heading)]"
+          className="text-5xl md:text-7xl  font-[var(--font-heading)]"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
