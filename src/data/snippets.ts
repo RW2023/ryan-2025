@@ -18,6 +18,30 @@ export type CodeSnippet = {
   }`,
         language: "ts",
       },
+      {
+        title: "Trailer Logic",
+        description: "Determines which trailer types a load fits in and provides a recommendation.",
+        code: `export function getFitsIn(totalCartEquiv: number): FitsIn {
+  return {
+    pup: totalCartEquiv <= 25,
+    '50ft': totalCartEquiv <= 38,
+    straight: totalCartEquiv <= 20,
+  };
+}
+
+export function getRecommendation(fitsIn: FitsIn): string {
+  const options = [];
+  if (fitsIn.pup) options.push('Pup');
+  if (fitsIn['50ft']) options.push('50 ft');
+  if (fitsIn.straight) options.push('Straight Truck');
+
+  const allFit = fitsIn.pup && fitsIn['50ft'] && fitsIn.straight;
+  if (allFit) return 'Any Available';
+
+  return options.length > 0 ? options.join(', ') : 'None – exceeds all capacities';
+}`,
+        language: "ts",
+      }
     ],
     "swoletrac-workout-app": [
       {
