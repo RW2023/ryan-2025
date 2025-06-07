@@ -1,45 +1,40 @@
-name: Lighthouse CI + Badges
+name: Lighthouse CI
 
 on:
   push:
     branches: [main]
-  pull_request:
-
-permissions:            # allows the bot to commit badge SVGs
-  contents: write
+  workflow_dispatch:
 
 jobs:
-  audit:
+  lighthouse:
     runs-on: ubuntu-latest
+
     steps:
-      # ①  Checkout repo
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      # ②  Node runtime
-      - uses: actions/setup-node@v4
-        with: { node-version: 20 }
-
-      # ③  (Optional) install deps -- keeps lockfile fresh for dependabot
-      - run: npm ci
-
-      # ④  Run Lighthouse and upload JSON/HTML reports
-      - name: Audit production site
-        uses: treosh/lighthouse-ci-action@v12
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
-          configPath: ./lighthouserc.json
+          node-version: 18
 
-      # ⑤  Generate four SVG badges → ./public/badges
-      - name: Create Lighthouse badges
-        uses: emazzotta/lighthouse-badges@v2
-        with:
-          urls: 'https://ryan-2025.vercel.app'
-          output_path: './public/badges'
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
 
-      # ⑥  Commit the updated badges back to main
-      - name: Commit & push badges
+      - name: Run Lighthouse CI
+        run: lhci autorun
+
+      - name: Move badges to tracked folder
         run: |
-          git config --global user.name  'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add public/badges/*.svg
-          git commit -m "chore(ci): update Lighthouse badges" || echo "nothing to commit"
+          mkdir -p badges
+          cp .lighthouseci/*.svg badges/
+
+      - name: Commit and push badges
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add badges/*.svg
+          git commit -m "chore: update Lighthouse badges" || echo "No changes to commit"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
