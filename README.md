@@ -8,10 +8,10 @@ A modern portfolio built with **Next.js 15**, **TypeScript**, and **Tailwind CSS
 
 ### Lighthouse scores (automated)
 
-![Perf](public/badges/lighthouse-performance.svg)
-![Accessibility](public/badges/lighthouse-accessibility.svg)
-![Best Practices](public/badges/lighthouse-best-practices.svg)
-![SEO](public/badges/lighthouse-seo.svg)
+![Perf](public/badges/lighthouse_performance.svg)
+![Accessibility](public/badges/lighthouse_accessibility.svg)
+![Best Practices](public/badges/lighthouse_best-practices.svg)
+![SEO](public/badges/lighthouse_seo.svg)
 
 
 ## 🛠️ Tech Stack
