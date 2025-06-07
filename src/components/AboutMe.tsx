@@ -40,8 +40,8 @@ export default function AboutMe() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
             >
-                Hi, I’m Ryan — a full-stack developer focused on building clean, performant web applications using modern tools.
-                My work blends thoughtful design with real-world functionality. I also explore consciousness, metaphysics, and systems thinking—because clarity in code often begins with clarity of mind.
+                Hi, I’m Ryan  a full-stack developer focused on building clean, performant web applications using modern tools.
+                My work blends thoughtful design with real-world functionality. I also explore consciousness, metaphysics, and the nature of being. Web Development is one of my favorite avenues  to spread positivity and make a difference in the world.
             </motion.p>
 
             <div className="mb-8">
