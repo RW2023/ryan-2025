@@ -55,6 +55,22 @@ My kids kept asking how old our new kitten was “in human years.” I realized 
 1. The **\`calculatePetAge\` function** handles dogs and cats, supports both directions, and adjusts for dog size making it far more flexible than a basic chart.
 2. The **theme-aware UI** built with Tailwind, DaisyUI, and Next.js showcases polished design and responsiveness across devices.
 `,
+"clayton-c-music": `
+## 🎤 Why I Built This
+
+My brother is a solo reggae artist and needed a site that truly represented his music, style, and story. This wasn't just a portfolio—it’s a living press kit, streaming hub, and event listing all rolled into one.
+
+## ⚔️ Challenges
+
+1. Creating a layout that felt modern and clean while still having personality.
+2. Managing dynamic content like events, media embeds, and page routing without a CMS.
+
+## 🌟 Proud Code
+
+1. The **event filter logic** cleanly splits past and upcoming shows based on date, then animates them into a responsive grid layout with Framer Motion.
+2. The **streaming section** and **press kit** were built with future growth in mind easy to update and styled to match the artist's brand without bloating performance.
+`,
+
 
 
 
