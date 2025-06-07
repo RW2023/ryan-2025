@@ -1,0 +1,45 @@
+name: Lighthouse CI + Badges
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:            # allows the bot to commit badge SVGs
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      # ①  Checkout repo
+      - uses: actions/checkout@v4
+
+      # ②  Node runtime
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      # ③  (Optional) install deps -- keeps lockfile fresh for dependabot
+      - run: pnpm install --frozen-lockfile
+
+      # ④  Run Lighthouse and upload JSON/HTML reports
+      - name: Audit production site
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: ./lighthouserc.json
+
+      # ⑤  Generate four SVG badges → ./public/badges
+      - name: Create Lighthouse badges
+        uses: emazzotta/lighthouse-badges@v2
+        with:
+          urls: 'https://ryan-2025.vercel.app'
+          output_path: './public/badges'
+
+      # ⑥  Commit the updated badges back to main
+      - name: Commit & push badges
+        run: |
+          git config --global user.name  'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add public/badges/*.svg
+          git commit -m "chore(ci): update Lighthouse badges" || echo "nothing to commit"
+          git push
