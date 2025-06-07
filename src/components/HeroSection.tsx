@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, } from "lucide-react";
 import Button from "./Button";
 
 export default function HeroSection() {
@@ -84,13 +84,13 @@ export default function HeroSection() {
           >
             <Linkedin />
           </Link>
-          <Link
+          {/* <Link
             href="mailto:hello@ryanwilson.dev"
             aria-label="Email"
             className="hover:text-primary"
           >
             <Mail />
-          </Link>
+          </Link> */}
         </motion.div>
       </div>
     </section>
