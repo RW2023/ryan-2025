@@ -7,7 +7,7 @@ import { ListMotion, ItemMotion } from "@/components/ListMotion";
 
 export default function HireMePage() {
     return (
-        <main className="min-h-screen bg-gradient-to-br from-base-100 via-base-200 to-base-100 text-base-content px-6 pt-24 pb-32 space-y-24">
+        <main className="min-h-screen bg-gradient-to-br from-base-100 via-base-200 to-base-100 text-base-content px-6 pt-24 pb-12 space-y-24">
             {/* Hero Section */}
             <motion.section
                 initial={{ opacity: 0, y: 40 }}
@@ -101,7 +101,8 @@ export default function HireMePage() {
                 >
                     <Mail className="text-primary animate-pulse w-8 h-8" />
                 </motion.div>
-                <div className="mt-6">
+                {/* Wrapped the form in a container div to control bottom space */}
+                <div className="max-w-2xl mx-auto pb-0">
                     <ContactForm />
                 </div>
             </motion.section>
