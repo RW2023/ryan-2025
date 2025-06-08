@@ -1,4 +1,5 @@
 import ContactForm from '@/components/ContactForm';
+import QRCodeDisplay from '@/components/QRCodeDisplay';
 
 export default function ContactPage() {
     return (
@@ -27,6 +28,7 @@ export default function ContactPage() {
                 </section>
 
                 <ContactForm />
+                <QRCodeDisplay />
             </div>
         </main>
     );
