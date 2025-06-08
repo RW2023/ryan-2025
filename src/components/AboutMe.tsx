@@ -55,7 +55,7 @@ export default function AboutMe() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
             >
-                “I believe technology is most powerful when it reflects clarity of purpose—transforming lines of code into tools that make life a little easier.”
+                “I believe technology is most powerful when it reflects clarity of purpose. Transforming lines of code into tools that make life a little easier and help us all grow and become more.”
             </motion.blockquote>
         </section>
     );
