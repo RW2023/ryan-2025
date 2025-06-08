@@ -16,25 +16,24 @@ export default function HireMePage() {
                 transition={{ duration: 0.5 }}
                 className="max-w-2xl space-y-6"
             >
-                <h1 className="text-4xl md:text-5xl font-[var(--font-heading)] font-bold tracking-tight flex items-center justify-center gap-3 text-primary">
+                <h1 className="text-4xl md:text-5xl font-[var(--font-heading)] tracking-tight flex items-center justify-center gap-3 text-primary">
                     <Sparkles size={32} className="text-yellow-500 dark:text-yellow-400" />
                     Your Website Should Work as Hard as You Do
                 </h1>
 
                 <p className="text-lg md:text-xl text-base-content/80">
-                    Struggling with a slow or outdated site that doesn’t reflect your brand? You’re not alone  many creatives and small businesses lose traffic, trust, and sales because of underperforming websites.
+                    Don’t have a website yet? Or maybe your current one feels outdated or slow? Either way, you&apos;re missing out on opportunities to connect with customers, build trust, and grow your business.
                 </p>
 
                 <p className="text-lg md:text-xl text-base-content/80 mt-4">
-                    I build modern, responsive websites using tools like Next.js, Tailwind CSS, Firebase, and Supabase designed for speed, SEO, and serious results. Let’s turn your vision into something people can’t ignore.
+                    I design clean, professional websites that look great on any device  and work fast. No tech talk, no stress. Just a beautiful online presence that helps you stand out and get results.
                 </p>
 
                 <ListMotion className="text-left text-base list-inside space-y-3 text-base-content/80 mt-6">
-                    <ItemMotion>⚡ Lightning-fast, mobile-first performance</ItemMotion>
-                    <ItemMotion>🎯 SEO-optimized, accessible, and user-friendly</ItemMotion>
-                    <ItemMotion>📈 Built for scale, growth, and long-term success</ItemMotion>
+                    <ItemMotion>⚡ Loads fast and looks great on phones and desktops</ItemMotion>
+                    <ItemMotion>🎯 Easy for people (and Google) to find you</ItemMotion>
+                    <ItemMotion>📈 Ready to grow with your business over time</ItemMotion>
                 </ListMotion>
-
             </motion.div>
 
             {/* Contact Form comes BEFORE buttons */}
