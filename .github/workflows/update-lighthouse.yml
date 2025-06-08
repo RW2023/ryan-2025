@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run Lighthouse script
-        run: npx ts-node scripts/updateLighthouse.ts
+        run: npx ts-node --esm scripts/updateLighthouse.ts
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
