@@ -44,7 +44,7 @@ export default function AboutMe() {
                 My work blends thoughtful design with real-world functionality. I also explore consciousness, metaphysics, and the nature of being. Web Development is one of my favorite avenues  to spread positivity and make a difference in the world.
             </motion.p>
 
-            <div className="mb-8">
+            <div className="mb-8 min-h-screen">
                 <SkillsGrid />
             </div>
 
