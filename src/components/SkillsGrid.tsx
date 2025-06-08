@@ -63,7 +63,6 @@ const defaultSkills: Skill[] = [
     { name: "Jest", category: "Testing / Linting" },
     { name: "React Testing Library", category: "Testing / Linting" },
     { name: "Vitest", category: "Testing / Linting" },
-    { name: "ESLint", category: "Testing / Linting" },
     { name: "Prettier", category: "Testing / Linting" },
 ];
 
