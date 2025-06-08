@@ -28,13 +28,16 @@ export default function QRCodeDisplay() {
             </div>
 
             <div className="p-4 bg-white rounded-lg">
-                <QRCodeCanvas
-                    value={url}
-                    size={160}
-                    bgColor="#ffffff"
-                    fgColor="#000000"
-                    includeMargin={true}
-                />
+                <div className="p-2 bg-white rounded-lg flex justify-center">
+                    <QRCodeCanvas
+                        value={url}
+                        size={192} // Slightly larger for better scan distance
+                        bgColor="#ffffff"
+                        fgColor="#000000"
+                        includeMargin={false} // 🔥 Remove default margin
+                    />
+                </div>
+
             </div>
 
             <div className="text-xs text-base-content opacity-60 break-all">{url}</div>
