@@ -38,6 +38,8 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^29.5.14",
-    "jest-environment-jsdom": "^29.6.4"
+    "jest-environment-jsdom": "^29.6.4",
+    "lighthouse": "^12.6.1",
+    "ts-node": "^10.9.2"
   }
 }

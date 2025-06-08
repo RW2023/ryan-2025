@@ -60,6 +60,11 @@ npm test
 
 ![Homepage screenshot](public/portfolioDark.png)
 
+## Lighthouse Scores (Real-Time)
+<!-- LH_START -->
+Scores pending...
+<!-- LH_END -->
+
 ## 📬 Contact
 
 Feel free to reach out via [LinkedIn](https://www.linkedin.com/in/ryan-e-wilson/) or visit my [GitHub profile](https://github.com/RW2023).
