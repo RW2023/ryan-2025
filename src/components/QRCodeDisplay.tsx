@@ -24,7 +24,7 @@ export default function QRCodeDisplay() {
         <div className="w-full max-w-xs mx-auto mt-6 px-4 pt-4 pb-3 bg-base-200 rounded-xl shadow-md text-center space-y-2">
             <div className="flex items-center justify-center gap-2 text-lg font-semibold text-primary">
                 <QrCode className="w-5 h-5" />
-                <span>Scan this page</span>
+                <span>Share this page</span>
             </div>
 
             <div className="p-2 bg-white rounded-xl border border-base-300 dark:border-base-100 flex justify-center">
