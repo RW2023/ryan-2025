@@ -7,14 +7,14 @@ import { ListMotion, ItemMotion } from "@/components/ListMotion";
 
 export default function HireMePage() {
     return (
-        <main className="min-h-screen bg-gradient-to-br from-base-100 via-base-200 to-base-100 text-base-content px-6 pt-24 pb-12 space-y-24">
+        <main className="min-h-screen bg-var(--background) via-base-200 to-base-100 text-base-content px-6 pt-24 pb-12 space-y-24">
             {/* Hero Section */}
             <motion.section
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="text-center max-w-4xl mx-auto space-y-6"
+                className="text-center space-y-6 max-w-3xl mx-auto bg-base-100 shadow-xl rounded-box p-10 backdrop-blur-md bg-opacity-90"
             >
                 <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight text-primary flex items-center justify-center gap-3">
                     <motion.span
@@ -39,7 +39,7 @@ export default function HireMePage() {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.4, duration: 0.6 }}
-                    className="text-xl md:text-2xl text-base-content/80 max-w-2xl mx-auto"
+                    className="text-xl md:text-2xl text-base-content/80 max-w-2xl mx-auto "
                 >
                     I design clean, professional websites that look great on any device  and work fast. No tech talk, no stress. Just a beautiful online presence that helps you stand out and get results.
                 </motion.p>
