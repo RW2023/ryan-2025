@@ -49,7 +49,7 @@ export const allProjects: Project[] = [
     githubUrl: "https://github.com/RW2023/loader",
     liveUrl: "https://lplanner.vercel.app/",
     category: "Full-stack, Utility App, Custom Tool",
-    imageUrl: "/projects/loader.png",
+    imageUrl: "/projects/loaderDark.png",
   },
   {
     title: "Headless Shopify Store",
