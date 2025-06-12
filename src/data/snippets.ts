@@ -318,7 +318,40 @@ const handleToggle = () => {
 </section>
 );` ,
         language: "tsx",
+      },
+      {
+        title: "Fetch All Countries",
+        description: "Fetches all countries data from the REST Countries API and returns it.",
+        code: `/**
+   * Fetch *all* countries (lightweight data) from our internal '/api/countries'.
+   * This is constrained to ≤10 fields to keep external API happy & list fast.
+   */
+  export async function getCountries(): Promise<Country[]> {
+    const res = await fetch(\`\${BASE_URL}/api/countries\`, { cache: "no-store" });
+
+    if (!res.ok) throw new Error("Failed to fetch countries");
+
+    return res.json();
+  }`,
+      },
+      {
+        title: "Deep Dive into Country Details",
+        description: "This represents my first drilling expedition into the countries API. My goal was to discover and consume as much of the data as possible, including languages, currencies, and more.",
+        code: `import { notFound } from 'next/navigation';
+import CountryDeepDive from '@/components/CountryDeepDive';
+import { getCountryByCode } from '@/lib/countries';
+
+export default async function DeepPage({
+    params,
+}: {
+    params: { code: string };
+}) {
+    const country = await getCountryByCode(params.code);
+    if (!country) return notFound();
+
+    return <CountryDeepDive country={country} />;
+}`
       }
     ],
-  
+
   };
