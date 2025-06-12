@@ -88,7 +88,7 @@ When I started to learn to code one of my virtual classmates made a countries ex
 2. Making sure dynamic route generation worked properly with Next.js.
 3. Trying to pull the most out of the countries API in a creative way.
 ## 🌟 Proud Code
-I like when data starts to flow. Very satisfying to me for some reason. So setting up the API and fetching the data is always my favorite part of working with API's.
+I like when data starts to flow. Very satisfying to me for some reason. So setting up the API and fetching the data is always my favorite part of working with API's. The versions I saw years ago were SPA's that were static and didn't have any dynamic routing. My idea was to use the dynamic routing capabilities to explore more of the Countries API and create a cool little app. 
 `,
 
 
