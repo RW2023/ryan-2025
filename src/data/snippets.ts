@@ -300,7 +300,7 @@ const handleToggle = () => {
     "countries-explorer": [
       {
         title: "Pagination UI",
-        description: "Renders pagination buttons for navigating between pages in the countries explorer.",
+        description: "There are a lot of Countries! Renders pagination buttons for navigating between pages in the countries explorer.",
         code: `{/* ── pagination ─────────────────────────────────── */}
 {totalPages > 1 && (
   <div className="flex justify-center gap-2 mt-6 flex-wrap">
