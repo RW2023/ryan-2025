@@ -70,6 +70,15 @@ My brother is a solo reggae artist and needed a site that truly represented his 
 1. The **event filter logic** cleanly splits past and upcoming shows based on date, then animates them into a responsive grid layout with Framer Motion.
 2. The **streaming section** and **press kit** were built with future growth in mind easy to update and styled to match the artist's brand without bloating performance.
 `,
+"countries-explorer": `
+## 🌍 Why I Built This
+I wanted to create a simple, interactive way to explore countries and their flags. This project was a great opportunity to practice API integration and responsive design.
+## ⚔️ Challenges
+1. Working with the REST Countries API to fetch and display data dynamically.
+2. Ensuring the UI was responsive and accessible across devices.
+## 🌟 Proud Code
+The **country card component** that displays flags, names, and details in a clean, responsive layout. It uses Tailwind CSS for styling and Lucide React icons for visual appeal.
+`,
 
 
 

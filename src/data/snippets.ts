@@ -297,5 +297,28 @@ const handleToggle = () => {
       language: "ts",
     },
   ],
+    "countries-explorer": [
+      {
+        title: "Pagination UI",
+        description: "Renders pagination buttons for navigating between pages in the countries explorer.",
+        code: `{/* ── pagination ─────────────────────────────────── */}
+{totalPages > 1 && (
+  <div className="flex justify-center gap-2 mt-6 flex-wrap">
+    {Array.from({ length: totalPages }).map((_, i) => (
+      <button
+        key={i + 1}
+        onClick={() => setPage(i + 1)}
+        className={"btn btn-sm " + (i + 1 === page ? "btn-primary" : "btn-outline")}
+      >
+        {i + 1}
+      </button>
+    ))}
+  </div>
+)}
+</section>
+);` ,
+        language: "tsx",
+      }
+    ],
   
   };

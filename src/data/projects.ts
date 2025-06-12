@@ -39,6 +39,19 @@ export const allProjects: Project[] = [
     category: 'Full-stack, Personal Website, E-commerce, Utility App',
   },
   {
+    title: 'Countries Explorer',
+    slug: "countries-explorer",
+    description: 'A web app to explore countries, their flags, and details using the REST Countries API.',
+    tools: [
+      "Next.js", "TypeScript", "Tailwind CSS",
+      "DaisyUI", "Lucide React", "Framer Motion"
+    ],
+    githubUrl: "https://github.com/RW2023/countries-api",
+    liveUrl: 'https://countriesapi2025.vercel.app/',
+    imageUrl: '/projects/countries.png',
+    category: 'Full-stack, Utility App, API Integration',
+  },
+  {
     title: "Load Planner",
     slug: "load-planner",
     description: "Trucking Load Planner tool for planning loads. Allow Realtime determination of load configuration.",
@@ -89,4 +102,5 @@ export const allProjects: Project[] = [
     imageUrl: "/projects/pet.png",
     category: "Full-stack, utility App,",
   },
+
 ];
