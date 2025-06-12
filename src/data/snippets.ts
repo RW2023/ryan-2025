@@ -321,7 +321,7 @@ const handleToggle = () => {
       },
       {
         title: "Fetch All Countries",
-        description: "Fetches all countries data from the REST Countries API and returns it.",
+        description: "Fetches all countries data from the REST Countries API and returns it. We can cache this data in using our api for performance.",
         code: `/**
    * Fetch *all* countries (lightweight data) from our internal '/api/countries'.
    * This is constrained to ≤10 fields to keep external API happy & list fast.
