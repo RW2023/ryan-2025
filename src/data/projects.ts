@@ -23,7 +23,7 @@ export const allProjects: Project[] = [
     githubUrl: "https://github.com/RW2023/ryan-2025",
     liveUrl: 'https://ryan-2025.vercel.app/',
     imageUrl: '/projects/portfolioDark.png',
-    category: 'Full-stack, Personal Website, Utility App',
+    category: 'Full-stack, Personal Website, Utility App, API Integration',
   },
   {
     title: 'Clayton C Music',
@@ -36,7 +36,7 @@ export const allProjects: Project[] = [
     githubUrl: "https://github.com/RW2023/clayton-c",
     liveUrl: 'https://clayton-c.vercel.app/',
     imageUrl: '/projects/claytonC.png',
-    category: 'Full-stack, Personal Website, E-commerce, Utility App',
+    category: 'Full-stack, Personal Website, Utility App',
   },
   {
     title: 'Countries Explorer',
@@ -75,7 +75,7 @@ export const allProjects: Project[] = [
     githubUrl: "https://github.com/yourusername/shopify-store",
     liveUrl: "https://shop.anotherseeker.com",
     imageUrl: "/projects/storeScreenshot.png",
-    category: "E-commerce, Full-stack",
+    category: "E-commerce, Full-stack, API Integration",
   },
   {
     title: "SwoleTrac Workout App",
@@ -88,7 +88,7 @@ export const allProjects: Project[] = [
     githubUrl: "https://github.com/yourusername/swoletrac",
     liveUrl: "https://swoletrack.vercel.app/",
     imageUrl: "/projects/swoletrack.png",
-    category: "Full-stack, AI, Fitness App",
+    category: "Full-stack, AI, API Integration",
   },
   {
     title: "Pet Age Calculator",

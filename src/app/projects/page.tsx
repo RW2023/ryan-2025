@@ -6,11 +6,12 @@ import ProjectCard from '@/components/ProjectCard';
 import { ListMotion, ItemMotion } from '@/components/ListMotion';
 import { allProjects } from '@/data/projects';
 
-const categories = ['All', 'Full-stack', 'AI', 'E-commerce', 'Utility App'];
+const categories = ['All', 'Full-stack', 'AI', 'E-commerce', 'Utility App', 'API Integration'];
 const normalize = (s: string) => s.trim().toLowerCase();
 
 export default function Projects() {
     const [active, setActive] = useState('All');
+    console.log(categories);
 
     const filtered =
         normalize(active) === 'all'
