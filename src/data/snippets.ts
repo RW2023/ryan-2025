@@ -301,7 +301,22 @@ const handleToggle = () => {
       {
         title: "Floating Pagination UI",
         description: "There are a lot of Countries! Renders pagination buttons for navigating between pages in the countries explorer. Floating came later since the user should be able to skip pages anytime",
-        code: ` <nav
+        code: `"use client";
+
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+type Props = {
+    page: number;
+    totalPages: number;
+    onChange: (newPage: number) => void;
+};
+
+export default function PaginationFloating({ page, totalPages, onChange }: Props) {
+    const canPrev = page > 1;
+    const canNext = page < totalPages;
+
+    return (
+        <nav
             aria-label="Pagination"
             className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-4
                  rounded-full bg-[var(--surface)]/80 px-4 py-2 shadow-lg
@@ -335,7 +350,10 @@ const handleToggle = () => {
             >
                 <ChevronRight className="h-5 w-5" />
             </button>
-        </nav>` ,
+        </nav>
+    );
+}
+` ,
         language: "tsx",
       },
       {
