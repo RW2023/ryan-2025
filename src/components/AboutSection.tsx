@@ -5,19 +5,19 @@ import { motion } from "framer-motion";
 const skillCategories = [
   {
     label: "Frontend",
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "GSAP"],
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
   },
   {
     label: "Backend",
-    skills: ["Node.js", "Prisma", "Supabase", "Firebase", "PostgreSQL"],
+    skills: ["Node.js", "PostgreSQL", "Supabase", "Firebase", "Prisma", "REST APIs"],
   },
   {
-    label: "AI & APIs",
-    skills: ["OpenAI", "Claude API", "Shopify Storefront", "REST", "n8n"],
+    label: "AI & Automation",
+    skills: ["n8n", "Claude API", "OpenAI API", "Webhooks", "Resend", "Cron Jobs"],
   },
   {
-    label: "Tools",
-    skills: ["Git", "Vercel", "Docker", "Figma", "VS Code", "ESLint"],
+    label: "Infrastructure",
+    skills: ["Docker", "Linux / VPS", "Git", "Vercel", "CI/CD", "Claude Code"],
   },
 ];
 
@@ -62,19 +62,21 @@ export default function AboutSection() {
             className="lg:col-span-2 space-y-6"
           >
             <p className="text-text-muted leading-relaxed">
-              I&apos;m a self-taught full-stack developer focused on building clean,
-              performant web applications with modern tools. My work blends
-              thoughtful design with real-world functionality.
+              Full-stack developer and automation engineer building production
+              web applications and AI-powered workflows. I ship real systems
+              that run in production daily, from voice-powered PWAs to
+              end-to-end lead intake pipelines.
             </p>
             <p className="text-text-muted leading-relaxed">
-              I specialize in the React/Next.js ecosystem and love integrating AI
-              into practical products. Every project is an opportunity to push
-              what&apos;s possible on the web.
+              I specialize in the React/Next.js ecosystem, backend automation
+              with n8n, and AI integration using Claude and OpenAI APIs. My
+              focus is building reliable, well-architected systems that solve
+              real problems.
             </p>
             <p className="text-text-muted leading-relaxed">
-              When I&apos;m not coding, I explore consciousness, metaphysics, and
-              the nature of being. I believe technology is most powerful when it
-              reflects clarity of purpose.
+              I bring strong systems thinking, clean code practices, and the
+              ability to own a project end-to-end, from database schema design
+              to deployment and monitoring.
             </p>
           </motion.div>
 

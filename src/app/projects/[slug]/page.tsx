@@ -95,15 +95,32 @@ export default async function ProjectDetailPage({
                 <h1 className="text-4xl font-bold mb-4 font-heading text-text-bright">{project.title}</h1>
             </header>
 
-            <div className="relative w-full h-[200px] md:h-[300px] mb-6">
-                <Image
-                    src={imageSrc}
-                    alt={`Screenshot of ${project.title}`}
-                    fill
-                    className="object-cover rounded-lg shadow"
-                    priority
-                />
-            </div>
+            {/* Image gallery */}
+            {project.images && project.images.length > 0 ? (
+                <div className="space-y-4 mb-8">
+                    {project.images.map((img, i) => (
+                        <div key={i} className="relative w-full aspect-[16/9]">
+                            <Image
+                                src={img}
+                                alt={`${project.title} screenshot ${i + 1}`}
+                                fill
+                                className="object-cover rounded-lg shadow"
+                                priority={i === 0}
+                            />
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div className="relative w-full h-[200px] md:h-[300px] mb-8">
+                    <Image
+                        src={imageSrc}
+                        alt={`Screenshot of ${project.title}`}
+                        fill
+                        className="object-cover rounded-lg shadow"
+                        priority
+                    />
+                </div>
+            )}
 
             <div className="flex flex-wrap gap-2 mb-6" role="list" aria-label="Technologies used">
                 {project.tools.map((tag) => (
@@ -117,7 +134,9 @@ export default async function ProjectDetailPage({
                 ))}
             </div>
 
-            <p className="text-lg leading-relaxed mb-6 text-text-primary">{project.description}</p>
+            <p className="text-lg leading-relaxed mb-6 text-text-primary">
+                {project.longDescription || project.description}
+            </p>
 
             {snippetList.length > 0 && (
                 <CodeSnippetAccordion snippets={snippetList} />
@@ -126,7 +145,7 @@ export default async function ProjectDetailPage({
             <ReadmeDrawer githubUrl={project.githubUrl} />
 
             <nav className="flex gap-4 mt-8" aria-label="Project links">
-                {showGitHub && (
+                {showGitHub && project.githubUrl && (
                     <a
                         href={project.githubUrl}
                         className="px-5 py-2.5 rounded-lg border border-border text-text-primary font-medium font-heading hover:border-accent/40 hover:text-accent transition-all duration-200"
@@ -136,14 +155,16 @@ export default async function ProjectDetailPage({
                         GitHub
                     </a>
                 )}
-                <a
-                    href={project.liveUrl}
-                    className="px-5 py-2.5 rounded-lg bg-accent text-accent-on font-medium font-heading hover:shadow-lg hover:shadow-accent/20 transition-all duration-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Live Demo
-                </a>
+                {project.liveUrl && (
+                    <a
+                        href={project.liveUrl}
+                        className="px-5 py-2.5 rounded-lg bg-accent text-accent-on font-medium font-heading hover:shadow-lg hover:shadow-accent/20 transition-all duration-200"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Live Site
+                    </a>
+                )}
             </nav>
 
             {thoughts && <ThoughtsSection thoughts={thoughts} />}
