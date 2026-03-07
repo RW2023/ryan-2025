@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -16,6 +17,8 @@ const navItems = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -26,6 +29,10 @@ export default function Navbar() {
   const handleClick = (href: string) => {
     setMobileOpen(false);
     if (href.startsWith("#")) {
+      if (pathname !== "/") {
+        router.push("/" + href);
+        return;
+      }
       const el = document.querySelector(href);
       el?.scrollIntoView({ behavior: "smooth" });
     }

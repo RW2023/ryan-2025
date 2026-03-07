@@ -1,6 +1,4 @@
 // app/projects/[slug]/page.tsx
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 
 import { notFound } from "next/navigation";
 import { allProjects } from "@/data/projects";
@@ -31,9 +29,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
     params,
 }: {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-    const project = allProjects.find((p) => p.slug === params.slug);
+    const { slug } = await params;
+    const project = allProjects.find((p) => p.slug === slug);
     if (!project) return {};
 
     return {
@@ -56,9 +55,10 @@ export async function generateMetadata({
 export default async function ProjectDetailPage({
     params,
 }: {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }) {
-    const project = allProjects.find((p) => p.slug === params.slug);
+    const { slug } = await params;
+    const project = allProjects.find((p) => p.slug === slug);
     if (!project) return notFound();
 
     const imageSrc =
@@ -85,66 +85,89 @@ export default async function ProjectDetailPage({
     };
 
     return (
-        <article className="max-w-4xl mx-auto px-4 py-24">
+        <article className="max-w-5xl mx-auto px-6 py-28">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
             />
 
-            <header>
-                <h1 className="text-4xl font-bold mb-4 font-heading text-text-bright">{project.title}</h1>
+            {/* Header */}
+            <header className="mb-10">
+                <span className="text-xs font-mono text-accent tracking-widest uppercase">
+                    Project
+                </span>
+                <h1 className="text-4xl md:text-5xl font-bold mt-3 font-heading text-text-bright">
+                    {project.title}
+                </h1>
+                <div className="w-16 h-0.5 bg-accent/40 mt-4" />
             </header>
 
             {/* Image gallery */}
-            {project.images && project.images.length > 0 ? (
-                <div className="space-y-4 mb-8">
-                    {project.images.map((img, i) => (
-                        <div key={i} className="relative w-full aspect-[16/9]">
-                            <Image
-                                src={img}
-                                alt={`${project.title} screenshot ${i + 1}`}
-                                fill
-                                className="object-cover rounded-lg shadow"
-                                priority={i === 0}
-                            />
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                <div className="relative w-full h-[200px] md:h-[300px] mb-8">
-                    <Image
-                        src={imageSrc}
-                        alt={`Screenshot of ${project.title}`}
-                        fill
-                        className="object-cover rounded-lg shadow"
-                        priority
-                    />
-                </div>
-            )}
+            <div className="glass-card overflow-hidden mb-10">
+                {project.images && project.images.length > 0 ? (
+                    <div className="space-y-px">
+                        {project.images.map((img, i) => (
+                            <div key={i} className="relative w-full aspect-[16/9]">
+                                <Image
+                                    src={img}
+                                    alt={`${project.title} screenshot ${i + 1}`}
+                                    fill
+                                    className="object-cover"
+                                    priority={i === 0}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="relative w-full aspect-[16/9]">
+                        <Image
+                            src={imageSrc}
+                            alt={`Screenshot of ${project.title}`}
+                            fill
+                            className="object-cover"
+                            priority
+                        />
+                    </div>
+                )}
+            </div>
 
-            <div className="flex flex-wrap gap-2 mb-6" role="list" aria-label="Technologies used">
+            {/* Tech stack pills */}
+            <div className="flex flex-wrap gap-2 mb-8" role="list" aria-label="Technologies used">
                 {project.tools.map((tag) => (
                     <span
                         key={tag}
                         role="listitem"
-                        className="text-xs font-mono px-2.5 py-1 rounded-md bg-accent-dim text-accent border border-border"
+                        className="text-xs font-mono px-2.5 py-1 rounded-md bg-accent-dim text-accent/80 border border-accent/10"
                     >
                         {tag}
                     </span>
                 ))}
             </div>
 
-            <p className="text-lg leading-relaxed mb-6 text-text-primary">
-                {project.longDescription || project.description}
-            </p>
+            {/* Description card */}
+            <div className="glass-card p-6 md:p-8 mb-8">
+                <p className="text-lg leading-relaxed text-text-muted">
+                    {project.longDescription || project.description}
+                </p>
+            </div>
 
             {snippetList.length > 0 && (
-                <CodeSnippetAccordion snippets={snippetList} />
+                <div className="glass-card p-6 md:p-8 mb-8">
+                    <CodeSnippetAccordion snippets={snippetList} />
+                </div>
             )}
 
             <ReadmeDrawer githubUrl={project.githubUrl} />
 
-            <nav className="flex gap-4 mt-8" aria-label="Project links">
+            {/* Thoughts section in glass card */}
+            {thoughts && (
+                <div className="glass-card p-6 md:p-8 mb-8">
+                    <ThoughtsSection thoughts={thoughts} />
+                </div>
+            )}
+
+            {/* Action buttons */}
+            <nav className="flex flex-wrap gap-4 mt-10" aria-label="Project links">
                 {showGitHub && project.githubUrl && (
                     <a
                         href={project.githubUrl}
@@ -165,18 +188,13 @@ export default async function ProjectDetailPage({
                         Live Site
                     </a>
                 )}
-            </nav>
-
-            {thoughts && <ThoughtsSection thoughts={thoughts} />}
-
-            <div className="mt-8">
                 <Button
                     href="/projects"
                     label="Back to Projects"
                     variant="outline"
                     size="lg"
                 />
-            </div>
+            </nav>
         </article>
     );
 }

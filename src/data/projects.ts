@@ -30,12 +30,12 @@ export const allProjects: Project[] = [
     slug: "clayton-c-music",
     description:
       "Production client website with Shopify e-commerce integration, media galleries, and GSAP animations. Full delivery: requirements to deployment.",
-    tools: ["Next.js", "TypeScript", "Shopify", "GSAP", "DaisyUI", "Tailwind CSS"],
+    tools: ["Next.js", "TypeScript", "Shopify", "GSAP", "n8n", "Resend", "Tailwind CSS"],
     githubUrl: "https://github.com/RW2023/clayton-c",
     liveUrl: "https://www.clayton-c.com",
     imageUrl: "/projects/claytonC.png",
-    images: ["/projects/claytonC.png"],
-    longDescription: "A production client website built for a professional reggae artist. End-to-end delivery: requirements gathering, design, development, deployment, and ongoing maintenance. Integrated Shopify storefront for merchandise sales, media galleries with streaming platform deep links, and GSAP-powered animations. Demonstrates full client lifecycle management from brief to live deployment.",
+    images: ["/projects/claytonC.png", "/projects/claytonC-backend.png"],
+    longDescription: "A production client website built for a professional reggae artist. End-to-end delivery from requirements to deployment and ongoing maintenance. Shopify Storefront API integration for merchandise, GSAP scroll-driven animations, and streaming platform deep links. The backend runs on n8n: a webhook-driven workflow handles contact forms, newsletter signups, and booking inquiries, routing each to branded Resend emails and logging to Postgres. Demonstrates full-stack ownership from frontend polish to backend automation.",
     featured: true,
   },
   {

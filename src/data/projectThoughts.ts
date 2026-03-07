@@ -64,19 +64,18 @@ My kids kept asking how old our new kitten was “in human years.” I realized 
 
   // ───────────── clayton-c-music ─────────────
   "clayton-c-music": `
-## 🎤 Why I Built This
+## Why I Built This
 
-My brother is a solo reggae artist and needed a site that truly represented his music, style, and story. This wasn't just a portfolio—it’s a living press kit, streaming hub, and event listing all rolled into one.
+My brother is a solo reggae artist and needed a site that truly represented his music, style, and story. This is a living streaming hub, merch store, and event listing all in one.
 
-## ⚔️ Challenges
+## Architecture
 
-1. Creating a layout that felt modern and clean while still having personality.
-2. Managing dynamic content like events, media embeds, and page routing without a CMS.
+The frontend is Next.js with TypeScript, GSAP for scroll-driven animations, and a Shopify Storefront API integration for merchandise. The backend runs on n8n: an automation workflow handles the contact form, newsletter signups, and booking inquiries. Submissions hit a webhook, get validated, then route to the artist’s email via Resend with branded templates. Newsletter signups sync to a subscriber list in Postgres for future campaigns.
 
-## 🌟 Proud Code
+## Proud Code
 
-1. The **event filter logic** cleanly splits past and upcoming shows based on date, then animates them into a responsive grid layout with Framer Motion.
-2. The **streaming section** and **press kit** were built with future growth in mind easy to update and styled to match the artist's brand without bloating performance.
+1. The **event filter logic** cleanly splits past and upcoming shows based on the current date, then animates them into a responsive grid with Framer Motion.
+2. The **n8n backend workflow** is the real engine. A single webhook catches contact, newsletter, and booking submissions, branches by type, validates the input, sends confirmation emails through Resend, and logs everything to Postgres. Zero manual work on the artist’s end.
 `,
 
   // ───────────── countries-explorer ─────────────
@@ -172,11 +171,9 @@ The Grocery PWA needed a smart backend that could take messy voice input ("we ne
 
 An n8n workflow that receives voice transcriptions via webhook, parses them with Claude AI to extract individual items with categories, handles duplicates by updating quantity instead of creating new entries, and persists everything to Postgres.
 
-## Key Engineering Decisions
+## Proud Code
 
-1. **Claude AI for parsing** handles natural language variations gracefully. "Butter chicken sauce" correctly goes to Pantry, not Dairy.
-2. **Duplicate detection** checks existing items before inserting, updating quantity if the item already exists.
-3. **Error routing** means malformed input or API failures get logged and flagged instead of silently failing.
+The workflow itself is the code. It starts with a webhook that catches voice transcriptions from the PWA, then passes the raw text to Claude AI with a structured prompt that extracts individual items, assigns grocery categories (Produce, Dairy, Pantry, etc.), and returns clean JSON. A Postgres query checks for duplicates before inserting. If the item already exists, quantity gets updated instead of creating a duplicate. If anything fails, an error branch logs the issue and flags it instead of silently dropping the input. The whole pipeline runs in under 2 seconds per voice submission.
 `,
 
   // ───────────── personal-ai-os ─────────────
@@ -207,11 +204,9 @@ MapleLink Services needed an automated lead intake pipeline that captures inquir
 
 An n8n workflow that receives inbound inquiries from web forms and email, scores them with Claude AI for qualification, routes qualified leads to the appropriate handler, sends branded confirmation emails via Resend API, and logs every step to Postgres.
 
-## Key Engineering Decisions
+## Proud Code
 
-1. **AI-powered scoring** means the team only sees leads that have been pre-qualified, saving hours of manual triage.
-2. **Transactional email via Resend** with branded templates builds trust immediately after a lead submits.
-3. **Full audit logging** to Postgres creates an analytics trail for conversion rate tracking and pipeline optimization.
+The workflow is the product. A webhook receives inbound inquiries from the landing page form, then a Claude AI node scores each lead on budget, timeline, fit, and complexity, returning a structured qualification brief. Based on the score, an IF gate routes high-quality leads to a Resend node that fires a branded confirmation email to the prospect and a scored brief to the team. Every step writes to Postgres with timestamps, so there is a full audit trail from first touch to team handoff. Low-quality leads still get logged but skip the team notification. The whole pipeline runs 24/7 with zero manual work.
 `,
 };
 
