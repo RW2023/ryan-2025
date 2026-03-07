@@ -40,8 +40,7 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
         <a
-          href="#hero"
-          onClick={() => handleClick("#hero")}
+          href="/"
           className="font-heading text-lg font-bold text-accent tracking-tight"
         >
           RW<span className="text-text-muted">.</span>
