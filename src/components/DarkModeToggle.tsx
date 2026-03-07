@@ -2,41 +2,27 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Sun as SunIcon, Moon as MoonIcon, Laptop as SystemIcon } from "lucide-react";
-
-const modes = ["light", "dark", "system"] as const;
-type Mode = typeof modes[number];
+import { Sun, Moon } from "lucide-react";
 
 export default function DarkModeToggle() {
-    const { theme, systemTheme, setTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-    // Avoid SSR mismatch
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-    if (!mounted) return null;
+  useEffect(() => setMounted(true), []);
 
-    // Determine what’s actually showing
-    const realTheme = theme === "system" ? systemTheme : theme;
+  if (!mounted) {
+    return <div className="w-9 h-9" />;
+  }
 
-    // Choose icon
-    let Icon = realTheme === "dark" ? MoonIcon : SunIcon;
-    if (theme === "system") Icon = SystemIcon;
+  const isDark = resolvedTheme === "dark";
 
-    // Cycle through modes on click
-    const handleClick = () => {
-        const nextIndex = (modes.indexOf(theme as Mode) + 1) % modes.length;
-        setTheme(modes[nextIndex]);
-    };
-
-    return (
-        <button
-            onClick={handleClick}
-            aria-label="Toggle theme"
-            className="p-2 hover:opacity-80 transition"
-        >
-            <Icon size={20} />
-        </button>
-    );
+  return (
+    <button
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      className="relative w-9 h-9 rounded-lg border border-border flex items-center justify-center text-text-muted hover:text-accent hover:border-accent/30 transition-all duration-200"
+    >
+      {isDark ? <Sun size={16} /> : <Moon size={16} />}
+    </button>
+  );
 }

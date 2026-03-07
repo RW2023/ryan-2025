@@ -1,36 +1,54 @@
-// app/layout.tsx
 import "./globals.css";
-import { ThemeProvider } from "next-themes";
-import { Inter, Roboto } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import ThemeProvider from "@/components/ThemeProvider";
 import type { Metadata } from "next";
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["400", "700"],
   variable: "--font-heading",
   display: "swap",
 });
 
-const robotoAccent = Roboto({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-accent",
+  variable: "--font-body",
   display: "swap",
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ryanwilson.dev";
+
 export const metadata: Metadata = {
-  title: "Ryan Wilson – Portfolio",
-  description: "Full-stack web developer and creative builder.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Ryan Wilson | Full-Stack Developer",
+    template: "%s | Ryan Wilson",
+  },
+  description:
+    "Ryan Wilson is a full-stack developer and automation engineer building production web applications and AI-powered workflows with Next.js, TypeScript, n8n, Claude API, and PostgreSQL.",
+  keywords: [
+    "Ryan Wilson",
+    "full-stack developer",
+    "automation engineer",
+    "Next.js developer",
+    "React developer",
+    "TypeScript",
+    "n8n",
+    "AI integration",
+    "Claude API",
+    "workflow automation",
+    "PostgreSQL",
+    "portfolio",
+  ],
+  authors: [{ name: "Ryan Wilson", url: siteUrl }],
+  creator: "Ryan Wilson",
   manifest: "/favicon/manifest.json",
-  themeColor: "#ffffff",
   icons: {
     icon: [
       { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -39,11 +57,94 @@ export const metadata: Metadata = {
     apple: "/favicon/apple-touch-icon.png",
     other: [{ rel: "shortcut icon", url: "/favicon/favicon.ico" }],
   },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: "Ryan Wilson | Developer Portfolio",
+    title: "Ryan Wilson | Full-Stack Developer & Automation Engineer",
+    description:
+      "Full-stack developer and automation engineer building production web applications and AI-powered workflows with Next.js, TypeScript, n8n, and Claude API.",
+    images: [
+      {
+        url: "/favicon/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Ryan Wilson — Full-Stack Developer Portfolio",
+      },
+    ],
+  },
   twitter: {
     card: "summary_large_image",
-    title: "Ryan Wilson – Portfolio",
-    description: "Full-stack web developer and creative builder.",
+    title: "Ryan Wilson | Full-Stack Developer",
+    description:
+      "Full-stack developer building performant web applications with modern tools.",
     images: ["/favicon/opengraph-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: siteUrl,
+  },
+};
+
+// JSON-LD structured data for AEO
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Ryan Wilson",
+  url: siteUrl,
+  image: `${siteUrl}/profile/darkProfile.jpg`,
+  jobTitle: "Full-Stack Developer & Automation Engineer",
+  description:
+    "Full-stack developer and automation engineer specializing in Next.js, TypeScript, React, AI integration, and workflow automation with n8n and Claude API.",
+  sameAs: [
+    "https://github.com/RW2023",
+    "https://www.linkedin.com/in/ryan-e-wilson/",
+  ],
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "Tailwind CSS",
+    "n8n",
+    "Claude API",
+    "OpenAI API",
+    "PostgreSQL",
+    "Firebase",
+    "Supabase",
+    "Docker",
+    "Workflow Automation",
+    "AI Integration",
+    "REST APIs",
+    "Webhooks",
+    "Linux / VPS Administration",
+    "Framer Motion",
+    "Prisma",
+    "Web Performance",
+  ],
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Ryan Wilson | Developer Portfolio",
+  url: siteUrl,
+  description:
+    "Portfolio of Ryan Wilson, a full-stack developer building performant web applications.",
+  author: {
+    "@type": "Person",
+    name: "Ryan Wilson",
   },
 };
 
@@ -55,15 +156,21 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${roboto.variable} ${robotoAccent.variable}`}
+      suppressHydrationWarning
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body>
-        <ThemeProvider attribute="data-theme" defaultTheme="cupcake">
-          <div className="min-h-screen flex flex-col">
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([personSchema, websiteSchema]),
+          }}
+        />
+      </head>
+      <body className="bg-base text-text-primary antialiased">
+        <ThemeProvider>
+          <Navbar />
+          {children}
         </ThemeProvider>
       </body>
     </html>

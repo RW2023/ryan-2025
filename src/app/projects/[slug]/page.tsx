@@ -1,6 +1,4 @@
 // app/projects/[slug]/page.tsx
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 
 import { notFound } from "next/navigation";
 import { allProjects } from "@/data/projects";
@@ -11,8 +9,10 @@ import Button from "@/components/Button";
 import ThoughtsSection from "@/components/ThoughtsSection";
 import ReadmeDrawer from "@/components/ReadmeDrawer";
 import CodeSnippetAccordion from "@/components/CodeSnippetAccordion";
+import type { Metadata } from "next";
 
-// Utility to check if a GitHub repo is available (public + reachable)
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ryanwilson.dev";
+
 async function isRepoAvailable(url: string) {
     try {
         const res = await fetch(url, { method: "HEAD", cache: "no-store" });
@@ -26,12 +26,39 @@ export async function generateStaticParams() {
     return allProjects.map((project) => ({ slug: project.slug }));
 }
 
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+    const { slug } = await params;
+    const project = allProjects.find((p) => p.slug === slug);
+    if (!project) return {};
+
+    return {
+        title: project.title,
+        description: project.description,
+        openGraph: {
+            title: `${project.title} | Ryan Wilson`,
+            description: project.description,
+            url: `${siteUrl}/projects/${project.slug}`,
+            images: project.imageUrl
+                ? [{ url: project.imageUrl, width: 1200, height: 630, alt: `${project.title} screenshot` }]
+                : undefined,
+        },
+        alternates: {
+            canonical: `${siteUrl}/projects/${project.slug}`,
+        },
+    };
+}
+
 export default async function ProjectDetailPage({
     params,
 }: {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }) {
-    const project = allProjects.find((p) => p.slug === params.slug);
+    const { slug } = await params;
+    const project = allProjects.find((p) => p.slug === slug);
     if (!project) return notFound();
 
     const imageSrc =
@@ -40,73 +67,134 @@ export default async function ProjectDetailPage({
 
     const thoughts = projectThoughts[project.slug];
     const snippetList = snippetsBySlug[project.slug] || [];
+    const showGitHub = await isRepoAvailable(project.githubUrl);
 
-    const showGitHub = await isRepoAvailable(project.githubUrl); // 👉 Conditional GitHub check
+    const projectSchema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        name: project.title,
+        description: project.description,
+        url: project.liveUrl,
+        codeRepository: project.githubUrl,
+        programmingLanguage: project.tools,
+        author: {
+            "@type": "Person",
+            name: "Ryan Wilson",
+            url: siteUrl,
+        },
+    };
 
     return (
-        <div className="max-w-4xl mx-auto px-4 py-12">
-            <h1 className="text-4xl font-bold mb-4 text-primary">{project.title}</h1>
+        <article className="max-w-5xl mx-auto px-6 py-28">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+            />
 
-            {/* Responsive image container for fill mode */}
-            <div className="relative w-full h-[200px] md:h-[300px] mb-6">
-                <Image
-                    src={imageSrc}
-                    alt={project.title}
-                    fill
-                    className="object-cover rounded-lg shadow"
-                    priority
-                />
+            {/* Header */}
+            <header className="mb-10">
+                <span className="text-xs font-mono text-accent tracking-widest uppercase">
+                    Project
+                </span>
+                <h1 className="text-4xl md:text-5xl font-bold mt-3 font-heading text-text-bright">
+                    {project.title}
+                </h1>
+                <div className="w-16 h-0.5 bg-accent/40 mt-4" />
+            </header>
+
+            {/* Image gallery */}
+            <div className="glass-card overflow-hidden mb-10">
+                {project.images && project.images.length > 0 ? (
+                    <div className="space-y-px">
+                        {project.images.map((img, i) => (
+                            <div key={i} className="relative w-full aspect-[16/9]">
+                                <Image
+                                    src={img}
+                                    alt={`${project.title} screenshot ${i + 1}`}
+                                    fill
+                                    className="object-cover"
+                                    priority={i === 0}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="relative w-full aspect-[16/9]">
+                        <Image
+                            src={imageSrc}
+                            alt={`Screenshot of ${project.title}`}
+                            fill
+                            className="object-cover"
+                            priority
+                        />
+                    </div>
+                )}
             </div>
 
-            <div className="flex flex-wrap gap-2 mb-6">
+            {/* Tech stack pills */}
+            <div className="flex flex-wrap gap-2 mb-8" role="list" aria-label="Technologies used">
                 {project.tools.map((tag) => (
-                    <span key={tag} className="badge badge-secondary text-primary">
+                    <span
+                        key={tag}
+                        role="listitem"
+                        className="text-xs font-mono px-2.5 py-1 rounded-md bg-accent-dim text-accent/80 border border-accent/10"
+                    >
                         {tag}
                     </span>
                 ))}
             </div>
 
-            <p className="text-lg leading-relaxed mb-6">{project.description}</p>
+            {/* Description card */}
+            <div className="glass-card p-6 md:p-8 mb-8">
+                <p className="text-lg leading-relaxed text-text-muted">
+                    {project.longDescription || project.description}
+                </p>
+            </div>
 
-            {/* Code Snippet Accordion */}
             {snippetList.length > 0 && (
-                <CodeSnippetAccordion snippets={snippetList} />
+                <div className="glass-card p-6 md:p-8 mb-8">
+                    <CodeSnippetAccordion snippets={snippetList} />
+                </div>
             )}
 
-            {/* README Drawer */}
             <ReadmeDrawer githubUrl={project.githubUrl} />
 
-            <div className="flex gap-4 mt-8">
-                {showGitHub && (
+            {/* Thoughts section in glass card */}
+            {thoughts && (
+                <div className="glass-card p-6 md:p-8 mb-8">
+                    <ThoughtsSection thoughts={thoughts} />
+                </div>
+            )}
+
+            {/* Action buttons */}
+            <nav className="flex flex-wrap gap-4 mt-10" aria-label="Project links">
+                {showGitHub && project.githubUrl && (
                     <a
                         href={project.githubUrl}
-                        className="btn btn-outline"
+                        className="px-5 py-2.5 rounded-lg border border-border text-text-primary font-medium font-heading hover:border-accent/40 hover:text-accent transition-all duration-200"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
                         GitHub
                     </a>
                 )}
-                <a
-                    href={project.liveUrl}
-                    className="btn btn-success"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Live Demo
-                </a>
-            </div>
-
-            {thoughts && <ThoughtsSection thoughts={thoughts} />}
-
-            <div className="mt-8">
+                {project.liveUrl && (
+                    <a
+                        href={project.liveUrl}
+                        className="px-5 py-2.5 rounded-lg bg-accent text-accent-on font-medium font-heading hover:shadow-lg hover:shadow-accent/20 transition-all duration-200"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Live Site
+                    </a>
+                )}
                 <Button
                     href="/projects"
                     label="Back to Projects"
                     variant="outline"
                     size="lg"
                 />
-            </div>
-        </div>
+            </nav>
+        </article>
     );
 }

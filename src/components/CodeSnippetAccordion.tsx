@@ -1,4 +1,3 @@
-// components/CodeSnippetAccordion.tsx
 "use client";
 
 import { useState } from "react";
@@ -14,8 +13,8 @@ import json from "react-syntax-highlighter/dist/esm/languages/hljs/json";
 import atomOneDark from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark";
 import atomOneLight from "react-syntax-highlighter/dist/esm/styles/hljs/atom-one-light";
 
-// Register languages
 SyntaxHighlighter.registerLanguage("ts", ts);
+SyntaxHighlighter.registerLanguage("tsx", ts);
 SyntaxHighlighter.registerLanguage("js", js);
 SyntaxHighlighter.registerLanguage("jsx", jsx);
 SyntaxHighlighter.registerLanguage("html", html);
@@ -37,30 +36,30 @@ export default function CodeSnippetAccordion({
     title?: string;
 }) {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
-    const { theme } = useTheme();
+    const { resolvedTheme } = useTheme();
 
     return (
         <div className="space-y-4 mt-10">
-            <h2 className="text-2xl font-semibold text-primary mb-4 flex items-center gap-2">
+            <h2 className="text-2xl font-semibold text-accent mb-4 flex items-center gap-2 font-heading">
                 <Code className="w-5 h-5" /> {title}
             </h2>
             {snippets.map((snippet, i) => (
-                <div key={i} className="border border-foreground-muted/20 rounded-lg">
+                <div key={i} className="border border-border rounded-lg overflow-hidden">
                     <button
                         type="button"
-                        className="w-full text-left px-4 py-3 bg-surface hover:bg-[hsl(var(--card-hover))] transition-colors font-medium"
+                        className="w-full text-left px-4 py-3 bg-surface-light hover:bg-surface transition-colors font-medium text-text-primary"
                         onClick={() => setOpenIndex(openIndex === i ? null : i)}
                     >
                         {snippet.title}
                     </button>
                     {openIndex === i && (
-                        <div className="p-4 bg-card">
+                        <div className="p-4 bg-surface">
                             {snippet.description && (
-                                <p className="mb-2 text-sm text-foreground-muted">{snippet.description}</p>
+                                <p className="mb-2 text-sm text-text-muted">{snippet.description}</p>
                             )}
                             <SyntaxHighlighter
                                 language={snippet.language || "ts"}
-                                style={theme === "dark" ? atomOneDark : atomOneLight}
+                                style={resolvedTheme === "dark" ? atomOneDark : atomOneLight}
                                 wrapLongLines={true}
                                 customStyle={{
                                     borderRadius: "0.5rem",

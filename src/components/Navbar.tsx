@@ -1,81 +1,130 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
-import { Menu as MenuIcon, X as XIcon } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import DarkModeToggle from "@/components/DarkModeToggle";
+import DarkModeToggle from "./DarkModeToggle";
 
 const navItems = [
-    { name: "Projects", href: "/projects" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
-    {name: "Hire", href: "/hire"},
-    // { name: "Blog", href: "/blog" },
+  { name: "Projects", href: "#projects" },
+  { name: "About", href: "#about" },
+  { name: "Contact", href: "#contact" },
+  { name: "Hire Me", href: "/hire" },
 ];
 
 export default function Navbar() {
-    const [mobileOpen, setMobileOpen] = useState(false);
-    const toggleMobile = () => setMobileOpen((o) => !o);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
-    return (
-        <nav className="bg-[var(--card-bg,_white)] text-[var(--foreground,_black)] sticky top-0 z-50 border-b border-[var(--foreground,_#ccc)]/10 shadow-lg shadow-black/10">
-            <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-                {/* Logo / Brand */}
-                <Link href="/" className="text-xl font-bold text-primary">
-                    Ryan Wilson
-                </Link>
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-                {/* Desktop Navigation */}
-                <div className="hidden lg:flex items-center space-x-6">
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.name}
-                            href={item.href}
-                            className="py-2 px-3 font-medium hover:text-accent text-[var(--foreground,_black)]"
-                        >
-                            {item.name}
-                        </Link>
-                    ))}
-                    <DarkModeToggle />
-                </div>
+  const handleClick = (href: string) => {
+    setMobileOpen(false);
+    if (href.startsWith("#")) {
+      if (pathname !== "/") {
+        router.push("/" + href);
+        return;
+      }
+      const el = document.querySelector(href);
+      el?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-                {/* Mobile Menu Button */}
-                <button
-                    onClick={toggleMobile}
-                    className="lg:hidden p-2 focus:outline-none text-[var(--foreground,_black)]"
-                    aria-label="Toggle menu"
-                >
-                    {mobileOpen ? <XIcon size={24} /> : <MenuIcon size={24} />}
-                </button>
+  return (
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-base/80 backdrop-blur-xl border-b border-border shadow-lg shadow-black/20"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
+        <Link
+          href="/"
+          className="font-heading text-lg font-bold text-accent tracking-tight"
+        >
+          RW<span className="text-text-muted">.</span>
+        </Link>
+
+        {/* Desktop */}
+        <div className="hidden md:flex items-center gap-8">
+          {navItems.map((item) =>
+            item.href.startsWith("/") ? (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-sm font-medium text-text-muted hover:text-accent transition-colors duration-200"
+              >
+                {item.name}
+              </a>
+            ) : (
+              <button
+                key={item.name}
+                onClick={() => handleClick(item.href)}
+                className="text-sm font-medium text-text-muted hover:text-accent transition-colors duration-200"
+              >
+                {item.name}
+              </button>
+            )
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <DarkModeToggle />
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setMobileOpen((o) => !o)}
+            className="md:hidden p-2 text-text-muted hover:text-accent transition-colors"
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-surface/95 backdrop-blur-xl border-b border-border"
+          >
+            <div className="px-6 py-6 flex flex-col gap-4">
+              {navItems.map((item) =>
+                item.href.startsWith("/") ? (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="text-base font-medium text-text-muted hover:text-accent transition-colors"
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <button
+                    key={item.name}
+                    onClick={() => handleClick(item.href)}
+                    className="text-left text-base font-medium text-text-muted hover:text-accent transition-colors"
+                  >
+                    {item.name}
+                  </button>
+                )
+              )}
             </div>
-
-            {/* Mobile Slide-Out */}
-            <AnimatePresence>
-                {mobileOpen && (
-                    <motion.div
-                        initial={{ x: "100%", opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: "100%", opacity: 0 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="lg:hidden bg-[var(--card-bg,_white)] text-[var(--foreground,_black)] shadow-inner border-t border-[var(--foreground,_#ccc)]/10"
-                    >
-                        <div className="px-4 py-6 space-y-4">
-                            {navItems.map((item) => (
-                                <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    onClick={() => setMobileOpen(false)}
-                                    className="block text-lg font-medium hover:text-accent text-[var(--foreground,_black)]"
-                                >
-                                    {item.name}
-                                </Link>
-                            ))}
-                            <DarkModeToggle />
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </nav>
-    );
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
 }

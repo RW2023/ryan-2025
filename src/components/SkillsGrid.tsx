@@ -31,33 +31,45 @@ const defaultSkills: Skill[] = [
     { name: "Shopify Liquid", category: "Languages" },
 
     // Backend / Databases
+    { name: "Node.js", category: "Backend" },
     { name: "Supabase", category: "Backend" },
     { name: "Firebase", category: "Backend" },
     { name: "PostgreSQL", category: "Backend" },
+    { name: "Neon Postgres", category: "Backend" },
+    { name: "Prisma", category: "Backend" },
     { name: "MongoDB", category: "Backend" },
 
+    // AI & APIs
+    { name: "OpenAI API", category: "AI & APIs" },
+    { name: "Claude API", category: "AI & APIs" },
+    { name: "Resend", category: "AI & APIs" },
+    { name: "Shopify Storefront API", category: "AI & APIs" },
+    { name: "REST APIs", category: "AI & APIs" },
+    { name: "Webhooks", category: "AI & APIs" },
 
-    // CMS / APIs
-    { name: "Shopify Storefront API", category: "CMS / API" },
-    { name: "MDX", category: "CMS / API" },
-    { name: "OpenAI API", category: "CMS / API" },
-    { name: "Contentful", category: "CMS / API" },
+    // Automation & Infrastructure
+    { name: "n8n", category: "Automation" },
+    { name: "Docker", category: "Automation" },
+    { name: "Linux / VPS", category: "Automation" },
+    { name: "CI/CD", category: "Automation" },
+    { name: "Cron Jobs", category: "Automation" },
 
     // Dev Tools
-    { name: "GitHub", category: "Dev Tools" },
+    { name: "Git / GitHub", category: "Dev Tools" },
     { name: "Vercel", category: "Dev Tools" },
-    { name: "Docker", category: "Dev Tools" },
-    {name: "Netlify", category: "Dev Tools" },
-    { name: "pnpm", category: "Dev Tools" },
+    { name: "VS Code", category: "Dev Tools" },
+    { name: "Claude Code", category: "Dev Tools" },
     { name: "ESLint", category: "Dev Tools" },
+    { name: "pnpm", category: "Dev Tools" },
 
     // Auth & Security
     { name: "Firebase Auth", category: "Auth" },
     { name: "Supabase RLS", category: "Auth" },
+    { name: "NextAuth", category: "Auth" },
 
     // State Management
     { name: "React Context", category: "State Management" },
-    { name: "Redux Toolkit", category: "State Management" },
+    { name: "Zustand", category: "State Management" },
 
     // Testing / Linting
     { name: "Jest", category: "Testing / Linting" },

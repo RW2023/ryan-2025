@@ -1,6 +1,4 @@
-// tailwind.config.ts
 import type { Config } from "tailwindcss";
-import daisyui from "daisyui";
 
 export default {
   content: [
@@ -11,21 +9,38 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "hsl(var(--bg) / <alpha-value>)",
-        surface: "hsl(var(--surface) / <alpha-value>)",
-        foreground: "hsl(var(--foreground) / <alpha-value>)",
-        "foreground-muted": "hsl(var(--foreground-muted) / <alpha-value>)",
-        primary: "hsl(var(--primary) / <alpha-value>)",
-        secondary: "hsl(var(--secondary) / <alpha-value>)",
-        accent: "hsl(var(--accent) / <alpha-value>)",
-        card: "hsl(var(--card-bg) / <alpha-value>)",
-        "text-primary": "hsl(var(--text-primary) / <alpha-value>)",
-        "text-muted": "hsl(var(--text-muted) / <alpha-value>)",
+        base: "var(--color-base)",
+        surface: "var(--color-surface)",
+        "surface-light": "var(--color-surface-light)",
+        accent: "var(--color-accent)",
+        "accent-dim": "var(--color-accent-dim)",
+        "accent-on": "var(--color-accent-on)",
+        secondary: "var(--color-secondary)",
+        "text-primary": "var(--color-text)",
+        "text-muted": "var(--color-text-muted)",
+        "text-bright": "var(--color-text-bright)",
+        border: "var(--color-border)",
+      },
+      fontFamily: {
+        heading: ["var(--font-heading)", "sans-serif"],
+        body: ["var(--font-body)", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
+      },
+      animation: {
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        float: "float 6s ease-in-out infinite",
+      },
+      keyframes: {
+        "pulse-glow": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "1" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
       },
     },
   },
-  plugins: [daisyui],
-  daisyui: {
-    themes: ["cupcake"],
-  },
+  plugins: [],
 } satisfies Config;

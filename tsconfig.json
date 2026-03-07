@@ -2,16 +2,23 @@
   "compilerOptions": {
     /* ========= Baseline ========= */
     "target": "ES2022",
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
+    ],
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "jsx": "preserve",              // ← Next.js enforced
-    "types": ["node"],
+    "jsx": "react-jsx", // ← Next.js enforced
+    "types": [
+      "node"
+    ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
-
     /* ========= Safety ========= */
     "strict": true,
     "noImplicitReturns": true,
@@ -21,27 +28,30 @@
     "exactOptionalPropertyTypes": true,
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
-
-   /* ========= Build ========= */
-"allowJs": true,        // ← Allows .js files in the project
-"checkJs": false,       // ← (Optional) Don’t type-check JS files — keeps noise out
-"skipLibCheck": true,
-"noEmit": true,
-"incremental": true,
-
-
+    /* ========= Build ========= */
+    "allowJs": true, // ← Allows .js files in the project
+    "checkJs": false, // ← (Optional) Don’t type-check JS files — keeps noise out
+    "skipLibCheck": true,
+    "noEmit": true,
+    "incremental": true,
     /* ========= Interop ========= */
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,        // ← Next.js enforced
-    "plugins": [{ "name": "next" }]
+    "isolatedModules": true, // ← Next.js enforced
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
