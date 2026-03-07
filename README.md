@@ -1,5 +1,8 @@
 # Ryan Wilson – Portfolio Website
 
+![Screenshot](screenshot.png)
+
+
 A modern portfolio built with **Next.js 15**, **TypeScript**, and **Tailwind CSS**. The site highlights personal projects, skills and contact details with smooth animations and a clean design.
 
 ## ✨ Live Demo
