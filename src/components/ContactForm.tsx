@@ -1,36 +1,74 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { SendHorizonal } from 'lucide-react';
+import { SendHorizonal, Loader2 } from 'lucide-react';
 
-const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
-const formspreeAction = formspreeId
-    ? `https://formspree.io/f/${formspreeId}`
-    : undefined;
+const webhookUrl = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL;
+const webhookSecret = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_SECRET;
 
 const inputClass =
     "w-full px-4 py-2.5 rounded-lg bg-surface-light border border-border text-text-primary placeholder:text-text-muted/40 outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-200 text-sm";
 
 export default function ContactForm() {
-    const [submitted, setSubmitted] = useState(false);
+    const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        if (!webhookUrl) return;
+
+        setStatus("sending");
+        const form = e.currentTarget;
+        const data = new FormData(form);
+
+        if (data.get("website")) {
+            setStatus("sent");
+            return;
+        }
+
+        try {
+            const res = await fetch(webhookUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-portfolio-secret": webhookSecret || "",
+                },
+                body: JSON.stringify({
+                    name: data.get("name"),
+                    email: data.get("email"),
+                    message: data.get("message"),
+                    source_page: "hire",
+                }),
+            });
+
+            if (res.ok) {
+                setStatus("sent");
+                form.reset();
+            } else {
+                setStatus("error");
+            }
+        } catch {
+            setStatus("error");
+        }
+    }
 
     return (
         <motion.form
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            action={formspreeAction}
-            method="POST"
-            target="_blank"
-            onSubmit={() => setSubmitted(true)}
+            onSubmit={handleSubmit}
             className="max-w-xl mx-auto glass-card p-6 space-y-6"
         >
-            {!formspreeAction && (
-                <div className="rounded-lg px-4 py-3 text-sm font-medium bg-secondary/10 text-secondary border border-secondary/20">
-                    Formspree ID missing. Add <code className="font-mono">NEXT_PUBLIC_FORMSPREE_ID</code> to your <code className="font-mono">.env.local</code>.
-                </div>
-            )}
+            {/* Honeypot */}
+            <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                className="absolute opacity-0 h-0 w-0 overflow-hidden"
+                aria-hidden="true"
+            />
 
             <h2 className="text-3xl font-bold text-center font-heading text-text-bright">
                 Contact Me
@@ -80,18 +118,33 @@ export default function ContactForm() {
 
             <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-accent text-accent-on font-semibold font-heading hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 hover:-translate-y-0.5"
+                disabled={status === "sending"}
+                className="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-accent text-accent-on font-semibold font-heading hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-                Send Message <SendHorizonal size={18} />
+                {status === "sending" ? (
+                    <>Sending... <Loader2 size={18} className="animate-spin" /></>
+                ) : (
+                    <>Send Message <SendHorizonal size={18} /></>
+                )}
             </button>
 
-            {submitted && (
+            {status === "sent" && (
                 <motion.p
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center text-sm text-accent font-mono"
                 >
                     Message sent. I&apos;ll get back to you soon.
+                </motion.p>
+            )}
+
+            {status === "error" && (
+                <motion.p
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center text-sm text-red-400 font-mono"
+                >
+                    Something went wrong. Please try again.
                 </motion.p>
             )}
         </motion.form>

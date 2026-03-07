@@ -1,16 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
-import { Send, Github, Linkedin } from "lucide-react";
+import { Send, Github, Linkedin, Loader2 } from "lucide-react";
 
-const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
-const formspreeAction = formspreeId
-  ? `https://formspree.io/f/${formspreeId}`
-  : undefined;
+const webhookUrl = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL;
+const webhookSecret = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_SECRET;
 
 export default function ContactSection() {
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!webhookUrl) return;
+
+    setStatus("sending");
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    // Honeypot check (bot filled the hidden field)
+    if (data.get("website")) {
+      setStatus("sent");
+      return;
+    }
+
+    try {
+      const res = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-portfolio-secret": webhookSecret || "",
+        },
+        body: JSON.stringify({
+          name: data.get("name"),
+          email: data.get("email"),
+          message: data.get("message"),
+          source_page: "homepage",
+        }),
+      });
+
+      if (res.ok) {
+        setStatus("sent");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
 
   return (
     <section id="contact" className="relative py-32 px-6">
@@ -78,12 +116,19 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            action={formspreeAction}
-            method="POST"
-            target="_blank"
-            onSubmit={() => setSubmitted(true)}
+            onSubmit={handleSubmit}
             className="glass-card p-6 md:p-8 space-y-5"
           >
+            {/* Honeypot field - hidden from humans, bots fill it */}
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              className="absolute opacity-0 h-0 w-0 overflow-hidden"
+              aria-hidden="true"
+            />
+
             <div className="space-y-1.5">
               <label
                 htmlFor="name"
@@ -137,19 +182,39 @@ export default function ContactSection() {
 
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-accent text-accent-on font-semibold font-heading hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 hover:-translate-y-0.5"
+              disabled={status === "sending"}
+              className="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-accent text-accent-on font-semibold font-heading hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Send Message
-              <Send size={16} />
+              {status === "sending" ? (
+                <>
+                  Sending...
+                  <Loader2 size={16} className="animate-spin" />
+                </>
+              ) : (
+                <>
+                  Send Message
+                  <Send size={16} />
+                </>
+              )}
             </button>
 
-            {submitted && (
+            {status === "sent" && (
               <motion.p
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center text-sm text-accent font-mono"
               >
                 Message sent. I&apos;ll get back to you soon.
+              </motion.p>
+            )}
+
+            {status === "error" && (
+              <motion.p
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center text-sm text-red-400 font-mono"
+              >
+                Something went wrong. Please try again.
               </motion.p>
             )}
           </motion.form>
