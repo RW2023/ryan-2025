@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import DarkModeToggle from "./DarkModeToggle";
@@ -39,12 +40,12 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
-        <a
+        <Link
           href="/"
           className="font-heading text-lg font-bold text-accent tracking-tight"
         >
           RW<span className="text-text-muted">.</span>
-        </a>
+        </Link>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
