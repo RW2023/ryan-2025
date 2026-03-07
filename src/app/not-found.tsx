@@ -6,12 +6,12 @@ import { motion } from 'framer-motion';
 
 export default function NotFound() {
     return (
-        <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 bg-background text-foreground">
+        <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 bg-base text-text-primary">
             <motion.h1
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-6xl font-bold text-error mb-4"
+                className="text-6xl font-bold text-accent mb-4 font-heading"
             >
                 404
             </motion.h1>
@@ -20,7 +20,7 @@ export default function NotFound() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.5 }}
-                className="text-lg text-foreground-muted mb-6 max-w-md"
+                className="text-lg text-text-muted mb-6 max-w-md"
             >
                 Oops! The page you&apos;re looking for doesn&apos;t exist, has been moved, or likely Ryan has not created it yet.
             </motion.p>
@@ -31,14 +31,20 @@ export default function NotFound() {
                 transition={{ delay: 0.5 }}
                 className="flex gap-4 flex-wrap justify-center"
             >
-                <Link href="/" className="btn btn-outline flex items-center gap-2">
+                <Link
+                    href="/"
+                    className="px-5 py-2.5 rounded-lg border border-border text-text-primary font-medium font-heading hover:border-accent/40 hover:text-accent transition-all duration-200 flex items-center gap-2"
+                >
                     <Home className="w-4 h-4" />
                     Home
                 </Link>
-                <Link href="#" onClick={() => window.history.back()} className="btn btn-outline flex items-center gap-2">
+                <button
+                    onClick={() => window.history.back()}
+                    className="px-5 py-2.5 rounded-lg border border-border text-text-primary font-medium font-heading hover:border-accent/40 hover:text-accent transition-all duration-200 flex items-center gap-2"
+                >
                     <ArrowLeft className="w-4 h-4" />
                     Go Back
-                </Link>
+                </button>
             </motion.div>
         </section>
     );

@@ -1,5 +1,3 @@
-// data/projects.ts
-
 export type Project = {
   title: string;
   slug: string;
@@ -7,100 +5,64 @@ export type Project = {
   tools: string[];
   githubUrl: string;
   liveUrl: string;
-  category: string;
-  imageUrl?: string; // Optional property for project image
+  imageUrl?: string;
+  featured?: boolean;
 };
 
 export const allProjects: Project[] = [
   {
-    title: 'Personal Portfolio',
-    slug: "personal-portfolio",
-    description: 'My personal portfolio showcasing my skills, projects, and experience.',
-    tools: [
-      "Next.js", "TypeScript", "Tailwind CSS",
-      "DaisyUI", "Lucide React", "Framer Motion"
-    ],
-    githubUrl: "https://github.com/RW2023/ryan-2025",
-    liveUrl: 'https://ryan-2025.vercel.app/',
-    imageUrl: '/projects/portfolioDark.png',
-    category: 'Full-stack, Personal Website, Utility App, API Integration',
+    title: "JotThis",
+    slug: "jotthis",
+    description:
+      "AI-powered voice notes app with real-time transcription, intelligent analysis, and cloud sync. Record, transcribe, and extract insights from your voice.",
+    tools: ["Next.js", "TypeScript", "Firebase", "OpenAI", "Framer Motion", "Tailwind CSS"],
+    githubUrl: "https://github.com/RW2023/jotthis",
+    liveUrl: "https://jotthis.vercel.app",
+    imageUrl: "/projects/jotthis.png",
+    featured: true,
   },
   {
-    title: 'Clayton C Music',
+    title: "Clayton C Music",
     slug: "clayton-c-music",
-    description: 'Official website and store for Clayton C Music, featuring e-commerce and media content.',
-    tools: [
-      "Next.js", "TypeScript", "Tailwind CSS",
-      "DaisyUI", "Shopify", "Framer Motion"
-    ],
+    description:
+      "Official website and storefront for a reggae artist. Custom e-commerce integration with Shopify, media galleries, and streaming platform links.",
+    tools: ["Next.js", "TypeScript", "Shopify", "GSAP", "DaisyUI", "Tailwind CSS"],
     githubUrl: "https://github.com/RW2023/clayton-c",
-    liveUrl: 'https://clayton-c.vercel.app/',
-    imageUrl: '/projects/claytonC.png',
-    category: 'Full-stack, Personal Website, Utility App',
+    liveUrl: "https://www.clayton-c.com",
+    imageUrl: "/projects/claytonC.png",
+    featured: true,
   },
   {
-    title: 'Countries Explorer',
-    slug: "countries-explorer",
-    description: 'A web app to explore countries, their flags, and details using the REST Countries API.',
-    tools: [
-      "Next.js", "TypeScript", "Tailwind CSS",
-      "DaisyUI", "Lucide React", "Framer Motion"
-    ],
-    githubUrl: "https://github.com/RW2023/countries-api",
-    liveUrl: 'https://countriesapi2025.vercel.app/',
-    imageUrl: '/projects/countries.png',
-    category: 'Full-stack, Utility App, API Integration',
+    title: "ChoreStreet",
+    slug: "chorestreet",
+    description:
+      "Gamified household chore marketplace with stock-market-style pricing, surge/decay mechanics, role-based auth, and PWA support.",
+    tools: ["Next.js", "TypeScript", "Prisma", "NextAuth", "Zustand", "Tailwind CSS"],
+    githubUrl: "https://github.com/RW2023/chorestreet",
+    liveUrl: "https://chorestreet.vercel.app",
+    imageUrl: "/projects/chorestreet.png",
+    featured: true,
   },
   {
-    title: "Load Planner",
-    slug: "load-planner",
-    description: "Trucking Load Planner tool for planning loads. Allow Realtime determination of load configuration.",
-    tools: [
-      "Next.js", "TypeScript", "Tailwind CSS",
-      "DaisyUI", "FontAwesome", "Framer Motion"
-    ],
-    githubUrl: "https://github.com/RW2023/loader",
-    liveUrl: "https://lplanner.vercel.app/",
-    category: "Full-stack, Utility App, Custom Tool",
-    imageUrl: "/projects/loaderDark.png",
+    title: "LP Landing",
+    slug: "lp-landing",
+    description:
+      "High-conversion landing page with custom SVG architecture diagrams, backend pipeline integration, and a Neo-Professional design system.",
+    tools: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Custom SVG"],
+    githubUrl: "https://github.com/RW2023/lp-landing",
+    liveUrl: "https://lp-landing.vercel.app",
+    imageUrl: "/projects/lp-landing.png",
+    featured: true,
   },
   {
-    title: "Headless Shopify Store",
-    slug: "headless-shopify-store",
-    description: "A custom storefront built with Shopify Storefront API and DaisyUI.",
-    tools: [
-      "Next.js", "Shopify Storefront API", "Tailwind CSS",
-      "DaisyUI", "Lucide React", "Framer Motion"
-    ],
-    githubUrl: "https://github.com/yourusername/shopify-store",
-    liveUrl: "https://shop.anotherseeker.com",
-    imageUrl: "/projects/storeScreenshot.png",
-    category: "E-commerce, Full-stack, API Integration",
+    title: "Promptor",
+    slug: "promptor",
+    description:
+      "Prompt vault for storing, organizing, and optimizing AI prompts. Supabase backend with tag-based filtering and PWA offline access.",
+    tools: ["Next.js", "TypeScript", "Supabase", "OpenAI", "Serwist", "Tailwind CSS"],
+    githubUrl: "https://github.com/RW2023/promptor",
+    liveUrl: "https://promptor.vercel.app",
+    imageUrl: "/projects/promptor.png",
+    featured: true,
   },
-  {
-    title: "SwoleTrac Workout App",
-    slug: "swoletrac-workout-app",
-    description: "Workout tracker with Supabase backend and AI-generated summaries.",
-    tools: [
-      "Next.js", "Supabase", "OpenAI",
-      "Tailwind CSS", "DaisyUI", "Lucide React", "Chart.js"
-    ],
-    githubUrl: "https://github.com/yourusername/swoletrac",
-    liveUrl: "https://swoletrack.vercel.app/",
-    imageUrl: "/projects/swoletrack.png",
-    category: "Full-stack, AI, API Integration",
-  },
-  {
-    title: "Pet Age Calculator",
-    slug: "pet-age-calculator",
-    description: "A simple tool to calculate pet ages in human years based on veterinary guidelines.",
-    tools: [
-      "Next.js","Tailwind CSS", "DaisyUI", "Lucide React", "Chart.js"
-    ],
-    githubUrl: "https://github.com/RW2023/pet-ager",
-    liveUrl: "https://pet-ager.vercel.app/",
-    imageUrl: "/projects/pet.png",
-    category: "Full-stack, utility App,",
-  },
-
 ];

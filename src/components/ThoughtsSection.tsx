@@ -10,21 +10,14 @@ interface ThoughtsSectionProps {
 }
 
 export default function ThoughtsSection({ thoughts }: ThoughtsSectionProps) {
-    /* custom markdown → JSX renderer, theme-aware */
     const mdComponents: Components = {
         h1: ({ children }) => (
-            <h1
-                className="mt-8 mb-4 text-3xl font-bold"
-                style={{ color: 'hsl(var(--primary))' }}
-            >
+            <h1 className="mt-8 mb-4 text-3xl font-bold text-accent">
                 {children}
             </h1>
         ),
         h2: ({ children }) => (
-            <h2
-                className="mt-6 mb-3 text-2xl font-semibold"
-                style={{ color: 'hsl(var(--primary))' }}
-            >
+            <h2 className="mt-6 mb-3 text-2xl font-semibold text-accent">
                 {children}
             </h2>
         ),
@@ -33,8 +26,7 @@ export default function ThoughtsSection({ thoughts }: ThoughtsSectionProps) {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline font-medium"
-                style={{ color: 'hsl(var(--primary))' }}
+                className="underline font-medium text-accent"
             >
                 {children}
             </a>
@@ -43,15 +35,10 @@ export default function ThoughtsSection({ thoughts }: ThoughtsSectionProps) {
 
     return (
         <section className="mt-10 max-w-none">
-            <h2
-                className="text-2xl font-semibold mb-4"
-                style={{ color: 'hsl(var(--primary))' }}
-            >
+            <h2 className="text-2xl font-semibold mb-4 text-accent font-heading">
                 My Thoughts
             </h2>
-
-            {/* prose handles basic typography; overrides above tweak color */}
-            <div className="prose dark:prose-invert max-w-none">
+            <div className="prose max-w-none text-text-primary prose-headings:text-text-bright prose-strong:text-text-bright prose-p:text-text-muted">
                 <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
                     {thoughts}
                 </ReactMarkdown>
