@@ -29,7 +29,7 @@ export default function ContactSection() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-portfolio-secret": webhookSecret || "",
+          "Authorization": webhookSecret || "",
         },
         body: JSON.stringify({
           name: data.get("name"),
