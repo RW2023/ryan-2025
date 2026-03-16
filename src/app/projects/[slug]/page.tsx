@@ -11,7 +11,7 @@ import ReadmeDrawer from "@/components/ReadmeDrawer";
 import CodeSnippetAccordion from "@/components/CodeSnippetAccordion";
 import type { Metadata } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ryanwilson.dev";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ryan-w.dev";
 
 async function isRepoAvailable(url: string) {
     try {
@@ -69,6 +69,31 @@ export default async function ProjectDetailPage({
     const snippetList = snippetsBySlug[project.slug] || [];
     const showGitHub = await isRepoAvailable(project.githubUrl);
 
+    const projectBreadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: siteUrl,
+            },
+            {
+                "@type": "ListItem",
+                position: 2,
+                name: "Projects",
+                item: `${siteUrl}/projects`,
+            },
+            {
+                "@type": "ListItem",
+                position: 3,
+                name: project.title,
+                item: `${siteUrl}/projects/${project.slug}`,
+            },
+        ],
+    };
+
     const projectSchema = {
         "@context": "https://schema.org",
         "@type": "SoftwareSourceCode",
@@ -82,13 +107,17 @@ export default async function ProjectDetailPage({
             name: "Ryan Wilson",
             url: siteUrl,
         },
+        speakable: {
+            "@type": "SpeakableSpecification",
+            cssSelector: ["h1", "article p"],
+        },
     };
 
     return (
         <article className="max-w-5xl mx-auto px-6 py-28">
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify([projectBreadcrumbSchema, projectSchema]) }}
             />
 
             {/* Header */}

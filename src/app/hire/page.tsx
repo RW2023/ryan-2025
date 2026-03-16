@@ -6,7 +6,7 @@ import StatsSection from "@/components/hire/StatsSection";
 import FinalCTA from "@/components/hire/FinalCTA";
 import type { Metadata } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ryanwilson.dev";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ryan-w.dev";
 
 export const metadata: Metadata = {
     title: "Hire Me",
@@ -23,6 +23,25 @@ export const metadata: Metadata = {
     },
 };
 
+const hireBreadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+        {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+        },
+        {
+            "@type": "ListItem",
+            position: 2,
+            name: "Hire Me",
+            item: `${siteUrl}/hire`,
+        },
+    ],
+};
+
 const hireSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -36,6 +55,16 @@ const hireSchema = {
     },
     serviceType: "Web Development",
     areaServed: "Worldwide",
+    potentialAction: {
+        "@type": "CommunicateAction",
+        name: "Hire Ryan Wilson",
+        target: `${siteUrl}/hire`,
+        description: "Get in touch to discuss your web development project.",
+    },
+    speakable: {
+        "@type": "SpeakableSpecification",
+        cssSelector: ["h1", "meta[name='description']"],
+    },
 };
 
 export default function HireMePage() {
@@ -43,7 +72,7 @@ export default function HireMePage() {
         <main className="bg-base text-text-primary overflow-hidden">
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(hireSchema) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify([hireBreadcrumbSchema, hireSchema]) }}
             />
             <HireHero />
             <PainSection />

@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ryanwilson.dev";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ryan-w.dev";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -101,41 +101,47 @@ export const metadata: Metadata = {
 };
 
 // JSON-LD structured data for AEO
-const personSchema = {
+const profilePageSchema = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Ryan Wilson",
-  url: siteUrl,
-  image: `${siteUrl}/profile/darkProfile.jpg`,
-  jobTitle: "Full-Stack Developer & Automation Engineer",
-  description:
-    "Full-stack developer and automation engineer specializing in Next.js, TypeScript, React, AI integration, and workflow automation with n8n and Claude API.",
-  sameAs: [
-    "https://github.com/RW2023",
-    "https://www.linkedin.com/in/ryan-e-wilson/",
-  ],
-  knowsAbout: [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Node.js",
-    "Tailwind CSS",
-    "n8n",
-    "Claude API",
-    "OpenAI API",
-    "PostgreSQL",
-    "Firebase",
-    "Supabase",
-    "Docker",
-    "Workflow Automation",
-    "AI Integration",
-    "REST APIs",
-    "Webhooks",
-    "Linux / VPS Administration",
-    "Framer Motion",
-    "Prisma",
-    "Web Performance",
-  ],
+  "@type": "ProfilePage",
+  dateCreated: "2025-01-01",
+  dateModified: new Date().toISOString().split("T")[0],
+  mainEntity: {
+    "@type": "Person",
+    name: "Ryan Wilson",
+    url: siteUrl,
+    image: `${siteUrl}/profile/darkProfile.jpg`,
+    jobTitle: "Full-Stack Developer & Automation Engineer",
+    description:
+      "Full-stack developer and automation engineer specializing in Next.js, TypeScript, React, AI integration, and workflow automation with n8n and Claude API.",
+    sameAs: [
+      "https://github.com/RW2023",
+      "https://www.linkedin.com/in/ryan-e-wilson/",
+      "https://www.maplelinkservices.ca",
+    ],
+    knowsAbout: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "Tailwind CSS",
+      "n8n",
+      "Claude API",
+      "OpenAI API",
+      "PostgreSQL",
+      "Firebase",
+      "Supabase",
+      "Docker",
+      "Workflow Automation",
+      "AI Integration",
+      "REST APIs",
+      "Webhooks",
+      "Linux / VPS Administration",
+      "Framer Motion",
+      "Prisma",
+      "Web Performance",
+    ],
+  },
 };
 
 const websiteSchema = {
@@ -144,10 +150,14 @@ const websiteSchema = {
   name: "Ryan Wilson | Developer Portfolio",
   url: siteUrl,
   description:
-    "Portfolio of Ryan Wilson, a full-stack developer building performant web applications.",
+    "Portfolio of Ryan Wilson, a full-stack developer building performant web applications and AI-powered automation systems.",
   author: {
     "@type": "Person",
     name: "Ryan Wilson",
+  },
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: ["h1", "meta[name='description']"],
   },
 };
 
@@ -166,7 +176,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([personSchema, websiteSchema]),
+            __html: JSON.stringify([profilePageSchema, websiteSchema]),
           }}
         />
       </head>

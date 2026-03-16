@@ -4,7 +4,20 @@ import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ryanwilson.dev";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ryan-w.dev";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: siteUrl,
+    },
+  ],
+};
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -35,6 +48,10 @@ const faqSchema = {
       },
     },
   ],
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: ["h1", ".hero-description"],
+  },
 };
 
 export default function HomePage() {
@@ -42,7 +59,7 @@ export default function HomePage() {
     <main className="bg-base">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, faqSchema]) }}
       />
       <HeroSection />
       <ProjectsShowcase />
