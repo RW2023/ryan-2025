@@ -95,6 +95,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
+  verification: {
+    google: "google0d0f0710e74862e1",
+  },
 };
 
 // JSON-LD structured data for AEO
