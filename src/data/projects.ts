@@ -45,7 +45,7 @@ export const allProjects: Project[] = [
       "High-conversion landing page with AI-powered lead scoring, custom SVG architecture diagrams, and a component-driven design system.",
     tools: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Custom SVG"],
     githubUrl: "https://github.com/RW2023/lp-landing",
-    liveUrl: "https://lp-landing.vercel.app",
+    liveUrl: "https://www.maplelinkservices.ca/landing",
     imageUrl: "/projects/lp-landing.png",
     images: ["/projects/lp-landing.png"],
     longDescription: "A high-performance conversion landing page built for MapleLink Services. Features a multi-phase lead intake form with AI-powered scoring, custom SVG architecture diagrams illustrating the backend pipeline, and a component-driven design system with design tokens. Demonstrates frontend engineering skills: responsive layout, accessibility, performance optimization, and conversion-focused UX design.",
