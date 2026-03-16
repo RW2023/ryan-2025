@@ -96,7 +96,7 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   verification: {
-    google: "google0d0f0710e74862e1",
+    google: "Lvy_NzeIRbHzd_BcPZFgkqNx0jsSAuEdjK64NAGH5XA",
   },
 };
 
