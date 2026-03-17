@@ -8,29 +8,29 @@ const steps = [
   {
     number: "01",
     icon: MessageSquare,
-    title: "Tell Me About Your Business",
+    title: "Define the Problem",
     description:
-      "Send a quick message. Tell me what you do, who you serve, and what you need. That's it.",
+      "You share the challenge. I ask targeted questions to understand the workflow, the bottlenecks, and what a working solution looks like for your team.",
   },
   {
     number: "02",
     icon: PenTool,
-    title: "I Design & Build It",
+    title: "Build, Test, Iterate",
     description:
-      "I handle everything — design, code, SEO, hosting setup. You review, give feedback, and approve.",
+      "I design the system architecture, wire the integrations, and ship working code. You review progress, I refine until it fits your requirements exactly.",
   },
   {
     number: "03",
     icon: Rocket,
-    title: "Launch & Grow",
+    title: "Deploy and Document",
     description:
-      "Your site goes live. You get a fast, beautiful website that works for you around the clock.",
+      "The solution goes live in your production environment. Clean handoff with documented code, clear ownership, and a system that runs without hand-holding.",
   },
 ];
 
 export default function ProcessTimeline() {
   return (
-    <section className="relative py-24 md:py-32 px-6">
+    <section className="relative py-24 md:py-32 px-6" aria-label="How I work - from problem definition to production deployment">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -40,11 +40,14 @@ export default function ProcessTimeline() {
           className="mb-16 text-center"
         >
           <span className="text-xs font-mono text-accent tracking-widest uppercase">
-            How It Works
+            How I Work
           </span>
           <h2 className="text-3xl md:text-5xl font-heading font-bold mt-3 text-text-bright">
-            From Idea to Launch in 3 Simple Steps
+            From Problem to Production
           </h2>
+          <p className="text-text-muted mt-4 max-w-2xl mx-auto leading-relaxed">
+            Straightforward process. No surprises. You stay informed at every step.
+          </p>
         </motion.div>
 
         <motion.div

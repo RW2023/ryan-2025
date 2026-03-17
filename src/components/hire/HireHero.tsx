@@ -6,7 +6,10 @@ import { fadeUp, stagger } from "@/lib/motion";
 
 export default function HireHero() {
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-grid scanline px-6">
+    <section
+      className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-grid scanline px-6"
+      aria-label="Hire Ryan Wilson - Automation Engineer, AI Integration Specialist, Full-Stack Developer"
+    >
       {/* Radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -23,7 +26,7 @@ export default function HireHero() {
         >
           <span className="w-2 h-2 rounded-full bg-accent animate-pulse-glow" />
           <span className="text-xs font-mono text-accent tracking-wider uppercase">
-            Web Development for Small Business
+            Automation Engineer | AI Integration | Full-Stack Developer
           </span>
         </motion.div>
 
@@ -32,17 +35,18 @@ export default function HireHero() {
           variants={fadeUp}
           className="text-4xl sm:text-5xl md:text-7xl font-heading font-bold tracking-tight leading-[1.1]"
         >
-          Your Business Deserves a Website{" "}
-          <span className="text-gradient">That Actually Works</span>
+          I Ship Production Systems.{" "}
+          <span className="text-gradient">Not Prototypes.</span>
         </motion.h1>
 
-        {/* Subheadline — loss-framed */}
+        {/* Subheadline */}
         <motion.p
           variants={fadeUp}
           className="text-base md:text-xl text-text-muted max-w-2xl leading-relaxed"
         >
-          Every day without a professional website, you&apos;re invisible to the
-          customers searching for exactly what you offer.
+          Automation pipelines processing 1,500+ jobs. AI scoring engines. Full-stack
+          apps with real users. I build the systems your team needs, then I make sure
+          they keep running.
         </motion.p>
 
         {/* CTA */}
@@ -53,10 +57,10 @@ export default function HireHero() {
             }
             className="px-8 py-4 rounded-lg bg-accent text-accent-on text-lg font-semibold font-heading hover:shadow-lg hover:shadow-accent/20 shadow-[0_0_30px_rgba(0,212,255,0.1)] transition-all duration-300 hover:-translate-y-0.5"
           >
-            Let&apos;s Talk
+            Start a Conversation
           </button>
           <span className="text-sm text-text-muted font-mono">
-            No commitment. Just a conversation.
+            Available for freelance, contract, or full-time roles
           </span>
         </motion.div>
       </motion.div>
