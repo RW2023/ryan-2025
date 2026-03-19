@@ -9,6 +9,7 @@ import DarkModeToggle from "./DarkModeToggle";
 
 const navItems = [
   { name: "Projects", href: "#projects" },
+  { name: "Blog", href: "/blog" },
   { name: "About", href: "#about" },
   { name: "Contact", href: "#contact" },
   { name: "Hire Me", href: "/hire" },
