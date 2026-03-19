@@ -14,7 +14,7 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
-const roles = ["Full-Stack Developer", "UI Engineer", "AI Integrator"];
+const roles = ["Full-Stack Developer", "Automation Engineer", "AI Integrator"];
 
 export default function HeroSection() {
   return (
