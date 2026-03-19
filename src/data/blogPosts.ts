@@ -41,7 +41,7 @@ Some of what I will cover:
 
 - **How AI agents actually coordinate.** Not the marketing version. The database tables, the failure modes, the design tradeoffs.
 - **Automation with guardrails.** What it looks like to give AI real autonomy while keeping humans in control of what matters.
-- **Building in public, mid-career.** The experience of starting something new in the second half of your career, with no venture funding and no safety net.
+- **Building in public, mid-career.** What it looks like to start something new when you have experience but no institutional backing.
 - **Infrastructure as identity.** Why the systems you build reflect how you think, and why that matters more than your tech stack.
 
 ## Who This Is For
