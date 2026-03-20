@@ -39,7 +39,7 @@ export default function ProjectCard({
       >
         {/* Screenshot */}
         {imageUrl && (
-          <div className="relative aspect-[16/9] w-full">
+          <div className="relative aspect-[4/3] w-full bg-[#0a0e17]">
             <Image
               src={imageUrl}
               alt={`${title} screenshot`}
