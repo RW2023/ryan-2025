@@ -104,6 +104,19 @@ export const allProjects: Project[] = [
     featured: true,
   },
   {
+    title: "YouTube Content Pipeline",
+    slug: "youtube-content-pipeline",
+    description:
+      "One conversation becomes 5 production-ready assets: blog post, chaptered long-form script, Short script, and pillar-matched SEO metadata. $0.05-0.15 per run.",
+    tools: ["Claude Code", "n8n", "Anthropic Claude API", "Neon Postgres", "Python", "Flask"],
+    githubUrl: "",
+    liveUrl: "",
+    imageUrl: "/projects/content-pipeline.png",
+    images: ["/projects/content-pipeline.png"],
+    longDescription: "A full conversation-to-production content pipeline for a faceless YouTube channel. Starts with a brainstorm inside Claude Code, where the idea is developed and refined. The /lock-it-in command captures the finalized idea, structures an outline, and drafts an 800-1,500 word blog post. The /ship-it command sends it to an n8n webhook that makes three sequential Anthropic API calls: a chaptered long-form script (5-10 min) with B-roll cues and pacing notes, a standalone YouTube Shorts script (45-60 sec), and full SEO metadata for both formats. A pillar-aware prompt system adapts voice and framing across content categories. All outputs save to PostgreSQL with a Flask dashboard for review. Cost per run: $0.05-0.15.",
+    featured: true,
+  },
+  {
     title: "Personal AI OS",
     slug: "personal-ai-os",
     description:
