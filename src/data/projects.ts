@@ -86,7 +86,7 @@ export const allProjects: Project[] = [
     githubUrl: "",
     liveUrl: "",
     imageUrl: "/projects/nanorelay.png",
-    images: ["/projects/nanorelay.png"],
+    images: ["/projects/nanorelay.png", "/projects/nanorelay-dashboard.png"],
     longDescription: "A lightweight agent-to-agent coordination system. Two AI agents in completely separate environments (a CLI coding agent on a local workstation and a mobile operations agent on a VPS via Telegram) communicate through a single PostgreSQL table. Context tagging isolates messages by workspace so each environment only sees relevant traffic. An Agent Relay panel on the central dashboard shows both directions with color-coded context badges and unread highlighting. No message broker, no WebSocket, no orchestration layer. Just two autonomous agents leaving notes for each other in a shared notebook. The pattern is stack-agnostic and has been replicated across three workspaces.",
     featured: true,
   },
