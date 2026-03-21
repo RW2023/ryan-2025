@@ -169,9 +169,7 @@ A school district that saves 40% by switching to AI tutors isn't really choosing
 
 So the question isn't just "what should we protect?" It's "what are we willing to pay to protect it?" Because human presence is going to cost more. A human teacher will cost more than an AI tutor. A human tattoo artist will cost more than whatever machine eventually holds a needle steady. And if nobody chooses the expensive option, it stops being offered. Not because it was taken away. Because it was priced out.
 
-And I should be honest about something else. The same pressure applies to what I do. Right now there's a window where AI is powerful but hard to implement. Businesses need someone who understands the tools and the problem and can connect them. That's my value. That's what I charge for. But the tools get easier every month. The setup gets simpler. AI is starting to build its own integrations. What costs a client thousands of dollars today will be a template or a one-click setup soon enough. The implementation layer, the part I charge for, is getting commoditized by the same forces I'm describing in this essay.
-
-The part of my work that survives is the same thing this whole essay is about. Judgment. Knowing what to automate and what not to. Reading a business owner's actual problem versus what they say their problem is. Knowing what happens when you automate the wrong thing because I've done it and watched it break. That's embodied knowledge. That's the consulting layer, not the implementation layer. And that window stays open longer. But I'm not pretending I'm exempt from what I'm writing about. I'm in it.
+I'm not exempt from any of this. The same pressure applies to what I do. But that's a different essay.
 
 ---
 
