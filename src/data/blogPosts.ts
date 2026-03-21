@@ -59,7 +59,7 @@ The surgeon contrast shows me this isn't about skill level. It's about whether b
 
 ## The Enabler Frame
 
-I build AI agents and automation pipelines for small businesses. This is what I do every day through MapleLink Services. Chatbots, workflows, data pipelines, automated lead management. I have seen what these tools can actually do, not from the outside looking in, but from the inside building the systems.
+I build AI agents and automation pipelines for small businesses. This is what I do every day. Chatbots, workflows, data pipelines, automated lead management. I have seen what these tools can actually do, not from the outside looking in, but from the inside building the systems.
 
 And I am not afraid of it. Most of the time, I think it's genuinely good.
 
