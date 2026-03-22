@@ -123,7 +123,7 @@ export const allProjects: Project[] = [
       "A Claude Code workspace structured as a personal operating system. Safety hooks, subagents, persistent memory, and 20+ custom slash commands.",
     tools: ["Claude Code", "Python", "n8n", "Notion", "Shell Scripting", "SQLite"],
     githubUrl: "https://github.com/RW2023/personal-ai-os",
-    liveUrl: "",
+    liveUrl: "https://maplelinkservices.ca/ai-os",
     imageUrl: "/projects/ai-os.png",
     images: ["/projects/ai-os.png"],
     longDescription: "A Claude Code workspace architected as a full personal operating system. Features 20+ custom slash commands, PreToolUse safety guardrails that block dangerous operations, a Stop hook that auto-generates daily session logs, specialized subagents (researcher with read-only tools, content-writer with write tools), modular rules that auto-load from .claude/rules/, runtime configuration via YAML args, and persistent memory across sessions. Integrates with n8n for automation, Notion for task management, and Neon Postgres for structured data. Demonstrates advanced AI engineering: prompt architecture, tool orchestration, safety-by-design patterns, and building reliable systems on top of LLM capabilities.",

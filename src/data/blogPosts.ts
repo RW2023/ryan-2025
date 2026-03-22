@@ -59,7 +59,7 @@ The surgeon contrast shows me this isn't about skill level. It's about whether b
 
 ## The Enabler Frame
 
-I build AI agents and automation pipelines for small businesses. This is what I do every day. Chatbots, workflows, data pipelines, automated lead management. I have seen what these tools can actually do, not from the outside looking in, but from the inside building the systems.
+I [build AI agents and automation pipelines](/projects/personal-ai-os) for small businesses. This is what I do every day. Chatbots, workflows, data pipelines, automated lead management. I have seen what these tools can actually do, not from the outside looking in, but from the inside building the systems.
 
 And I am not afraid of it. Most of the time, I think it's genuinely good.
 
@@ -161,7 +161,7 @@ I'm not saying every job will survive. Some won't. But I think more jobs have a 
 
 I should be transparent about something.
 
-I'm not writing this from the outside. I build AI agents. I build chatbots. I build the automation pipelines that take tasks off people's plates. This is my work. This is how I pay my bills.
+I'm not writing this from the outside. I [build AI agents](/projects/personal-ai-os). I build chatbots. I build the automation pipelines that take tasks off people's plates. This is my work. This is how I pay my bills.
 
 So when I say "choose carefully what you automate," I'm saying it as the person who builds the thing. Not as someone afraid of it. I know what it can do because I make it do those things every day. And precisely because I'm that close to it, I can see where the line is.
 
@@ -339,7 +339,7 @@ Sometimes the simplest architecture is the right one.`,
     tags: ["AI", "PWA", "Voice", "Health", "Building"],
     content: `The meal logger already worked. That was the problem.
 
-I had \`/log-meal\` and \`/log-workout\` running as slash commands inside [my AI OS](https://maplelinkservices.ca/ai-os), the personal operating system I built with Claude Code. Natural language in, structured data out. It parsed "two cups of white rice with Jamaican curry chicken" and knew that meant bone-in thigh, no coconut milk (just coconut oil), scotch bonnet, allspice. It handled portion multipliers, matched against a saved meal library, and wrote clean rows into Postgres. The macro estimates were solid.
+I had \`/log-meal\` and \`/log-workout\` running as slash commands inside [my AI OS](/projects/personal-ai-os), the personal operating system I built with Claude Code. Natural language in, structured data out. It parsed "two cups of white rice with Jamaican curry chicken" and knew that meant bone-in thigh, no coconut milk (just coconut oil), scotch bonnet, allspice. It handled portion multipliers, matched against a saved meal library, and wrote clean rows into Postgres. The macro estimates were solid.
 
 Nobody was using it. By "nobody" I mean me. The problem was friction: it required sitting at the computer, opening a terminal, typing a slash command. That is not how you eat. You eat at the kitchen table, on the couch, standing over the stove. The AI OS had the intelligence. It just didn't have the interface for the moment it mattered.
 
