@@ -9,7 +9,16 @@ import {
   Database,
   Server,
 } from "lucide-react";
-import { fadeUp, stagger } from "@/lib/motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
 
 const services = [
   {
@@ -53,6 +62,12 @@ const services = [
 export default function ServicesGrid() {
   return (
     <section className="relative py-24 md:py-32 px-6" aria-label="Automation engineering, AI integration, and full-stack development services">
+      {/* Top separator */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.15), transparent)" }}
+      />
+
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -61,13 +76,22 @@ export default function ServicesGrid() {
           transition={{ duration: 0.6 }}
           className="mb-16 text-center"
         >
-          <span className="text-xs font-mono text-accent tracking-widest uppercase">
+          <span
+            className="text-xs font-mono tracking-widest uppercase"
+            style={{ color: "var(--color-accent)" }}
+          >
             What I Build
           </span>
-          <h2 className="text-3xl md:text-5xl font-heading font-bold mt-3 text-text-bright">
+          <h2
+            className="text-3xl md:text-5xl font-heading font-bold mt-3"
+            style={{ color: "var(--color-text-bright)" }}
+          >
             Automation, AI, and Full-Stack Systems
           </h2>
-          <p className="text-text-muted mt-4 max-w-2xl mx-auto leading-relaxed">
+          <p
+            className="mt-4 max-w-2xl mx-auto leading-relaxed"
+            style={{ color: "var(--color-text-muted)" }}
+          >
             Every service below is backed by production systems I built and operate daily. Not demos. Not tutorials. Working software.
           </p>
         </motion.div>
@@ -79,19 +103,39 @@ export default function ServicesGrid() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {services.map((service) => (
+          {services.map((service, i) => (
             <motion.div
               key={service.title}
               variants={fadeUp}
-              className="glass-card p-6 group"
+              className="glass-card p-6 group hover:border-[var(--color-border-hover)] transition-all duration-300 relative overflow-hidden"
             >
-              <div className="w-10 h-10 rounded-lg bg-accent-dim flex items-center justify-center mb-3 group-hover:bg-accent/20 transition-colors duration-200">
-                <service.icon size={20} className="text-accent" />
+              {/* Ghost number */}
+              <span
+                className="absolute top-3 right-4 text-3xl font-heading font-bold select-none"
+                style={{ color: "rgba(0, 212, 255, 0.04)" }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+
+              <div
+                className="w-10 h-10 rounded-lg flex items-center justify-center mb-3 transition-colors duration-200"
+                style={{
+                  background: "var(--color-accent-dim)",
+                  border: "1px solid rgba(0, 212, 255, 0.1)",
+                }}
+              >
+                <service.icon size={20} style={{ color: "var(--color-accent)" }} />
               </div>
-              <h3 className="text-lg font-heading font-semibold text-text-bright mb-2">
+              <h3
+                className="text-lg font-heading font-semibold mb-2"
+                style={{ color: "var(--color-text-bright)" }}
+              >
                 {service.title}
               </h3>
-              <p className="text-sm text-text-muted leading-relaxed">
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: "var(--color-text-muted)" }}
+              >
                 {service.description}
               </p>
             </motion.div>
