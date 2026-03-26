@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
-import { Send, Github, Linkedin, Loader2, Mail, MessageSquare } from "lucide-react";
+import { Send, Github, Linkedin, Loader2, MessageSquare } from "lucide-react";
 
 const webhookUrl = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL;
 const webhookSecret = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_SECRET;
@@ -124,11 +124,6 @@ export default function ContactSection() {
                   icon: Linkedin,
                   label: "linkedin.com/in/ryan-e-wilson",
                   href: "https://www.linkedin.com/in/ryan-e-wilson/",
-                },
-                {
-                  icon: Mail,
-                  label: "ryanwilson@ryan-w.dev",
-                  href: "mailto:ryanwilson@ryan-w.dev",
                 },
               ].map((link) => (
                 <a
