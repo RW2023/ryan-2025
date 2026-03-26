@@ -57,12 +57,24 @@ export default function Navbar() {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) =>
-            item.href.startsWith("/") ? (
+          {navItems.map((item) => {
+            const isHire = item.name === "Hire Me";
+            const baseClass = isHire
+              ? "text-sm font-semibold px-4 py-1.5 rounded-lg transition-all duration-200 hover:-translate-y-0.5"
+              : "text-sm font-medium text-text-muted hover:text-accent transition-colors duration-200";
+            const hireStyle = isHire
+              ? {
+                  background: "var(--color-accent)",
+                  color: "var(--color-accent-on)",
+                }
+              : undefined;
+
+            return item.href.startsWith("/") ? (
               <a
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium text-text-muted hover:text-accent transition-colors duration-200"
+                className={baseClass}
+                style={hireStyle}
               >
                 {item.name}
               </a>
@@ -70,12 +82,13 @@ export default function Navbar() {
               <button
                 key={item.name}
                 onClick={() => handleClick(item.href)}
-                className="text-sm font-medium text-text-muted hover:text-accent transition-colors duration-200"
+                className={baseClass}
+                style={hireStyle}
               >
                 {item.name}
               </button>
-            )
-          )}
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-2">
