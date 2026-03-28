@@ -6,9 +6,120 @@ export type BlogPost = {
   content: string;
   tags: string[];
   readingTime?: string;
+  audio?: string;
 };
 
 export const blogPosts: BlogPost[] = [
+  {
+    title: "How I Turned 30 Debugging Sessions Into One Script",
+    slug: "n8n-validator-gotchas-to-code",
+    date: "2026-03-27",
+    excerpt:
+      "I run 24 n8n automation workflows in production. Over eight months, I accumulated 30+ debugging gotchas in a markdown file. I turned that file into a Python validator that catches every documented failure mode before deployment.",
+    readingTime: "8 min",
+    tags: ["n8n", "Python", "Automation", "Claude Code SDK", "CI/CD"],
+    content: `I run 24 n8n automation workflows in production on a Hetzner VPS. Over about eight months of building them, I kept a markdown file called \`best-practices.md\`. Every entry was a real debugging session: the bug, the root cause, the fix, and what to check next time.
+
+Thirty-plus entries. Every one of them cost at least an hour. A few cost half a day.
+
+The problem with that file is the same problem with all debugging notes: you only read them when you're already stuck. The lesson gets written, filed, and forgotten until the same mistake shows up in a new workflow two months later. At that point you search the file, find the entry, and think "I knew this."
+
+Knowing something and having the system enforce it are different things. I wanted the system to enforce it.
+
+---
+
+## The Gotcha Library
+
+Here's a sample of what was in that file. These are the entries that eventually became validator rules.
+
+**Postgres INSERT without RETURNING.** When you run an INSERT in n8n's Postgres node without a RETURNING clause, the node outputs zero items. Every downstream node silently skips. No error, no warning, nothing. I lost a full session to this before I understood what was happening.
+
+**IF node operators are unreliable with type coercion.** The \`exists\`, \`isNotEmpty\`, and \`notExists\` operators in n8n IF nodes break when the "Convert types where required" toggle is active. \`isNotEmpty\` fails on valid non-empty strings. \`exists\` coerces undefined to truthy in ways that don't match expectations. I hit this across multiple separate incidents before I stopped trusting IF nodes for validation entirely. The fix is to validate in a Code node and output \`{ isValid: true/false }\`, then gate with a simple boolean equals check.
+
+**The mark-after-send antipattern.** If your workflow queries the database, sends a Telegram notification, and then marks the record as sent, you have a time bomb. If the mark step fails for any reason (an expression error, a data shape change from an upstream Code node), the notification fires every poll cycle until someone notices. This actually spammed my Telegram for two-plus hours before I caught it. The fix is to UPDATE and RETURNING first, then send. By the time the notification fires, the row is already marked.
+
+**Code nodes can't make HTTP calls.** \`fetch\` and \`require('https')\` are sandboxed in n8n Code nodes. You need HTTP Request nodes for outbound calls. This one is obvious in hindsight and not obvious at all when you're debugging.
+
+**Deep chain node references.** \`\$('NodeName')\` works fine from a Code node two hops away. It fails silently from four or more hops deep. The pattern that fixes it: use a Code-based Set Variables node early in the chain so everything downstream has a clean, shallow reference.
+
+**JSON.stringify in Respond to Webhook.** Putting \`={{ JSON.stringify({...}) }}\` in the Response Body field of a Respond to Webhook node produces "Invalid JSON in Response Body" errors. You have to build the JSON in a preceding Code node and pass it through.
+
+**The reimport suffix problem.** If you import an n8n workflow over an existing one instead of deleting it first, n8n appends numeric suffixes to duplicate node names. "My Node" becomes "My Node 1". Every \`\$('My Node')\` reference in the workflow breaks silently.
+
+**SplitInBatches output wiring.** Output 0 fires when all batches are done. Output 1 fires with each batch. That is the opposite of what you would expect if you're reasoning about it from scratch. I wired it wrong twice.
+
+---
+
+## The Catalyst
+
+I was reading about practical applications of Claude Code: git hooks, build scripts, CI quality gates. The pattern is the same in each case. You write rules once, then the tool enforces them automatically on every run. Nobody reads style guides consistently. Linters read them for you.
+
+That reframe made the next step obvious. My gotcha library was a ruleset. It was just written in a format that required a human to remember to consult it. Converting it to executable validation would mean the lessons compound instead of decay.
+
+---
+
+## What I Built
+
+A single Python script, zero external dependencies, stdlib only. It reads an n8n workflow JSON file, runs rules against it, and reports FAIL, WARN, or PASS per rule with the specific node name.
+
+Exit codes support CI gating: 0 for clean, 1 for FAILs, 2 for WARNs only. Flags include \`--all\` to scan every workflow in a directory, \`--strict\` to treat WARNs as FAILs, and \`--compact\` to hide PASS results.
+
+Twenty-four rules total, extracted from the gotcha library and a go-live checklist I had been maintaining separately.
+
+Some of the more interesting implementation details:
+
+**Graph traversal for ordering checks.** The mark-before-send rule requires knowing whether an UPDATE node comes before or after a send node in the execution graph. I implemented BFS from each node to determine reachability and hop distance. If a Telegram or email send node is reachable from a Postgres UPDATE node without passing through the UPDATE first, that's a flag.
+
+**Regex-based secret detection.** This one needed tuning. The initial version flagged false positives by matching \`re_\` inside words like \`require\`. The pattern needs to match the prefix at word boundaries or following specific characters, not inside arbitrary strings.
+
+**Recursive expression field scanner.** n8n node parameters are nested JSON. Expressions live in \`={{ }}\` blocks anywhere inside that structure. The scanner walks the full parameter tree recursively to find every expression field, regardless of nesting depth.
+
+**Node name suffix detection with false positive filtering.** Detecting names like "My Node 1" as reimport artifacts would be straightforward, but "Respond 400" is a legitimate node name. The detection checks whether the trailing number matches an HTTP status code pattern and skips those.
+
+---
+
+## The First Scan
+
+I ran the validator across all 24 production workflows on the first pass. Results:
+
+- **19 FAILs:** two INSERT nodes missing RETURNING clauses, seventeen Respond to Webhook nodes with JSON.stringify in the response body expression.
+- **85 WARNs:** mark-after-send antipatterns, missing error workflows, unreliable IF operators in use, deep chain node references, and others.
+- **493 PASSes.**
+
+None of these were actively breaking anything. The workflows are running. But 19 FAILs means 19 places where the documented failure mode is present and waiting for the right conditions to trigger it. The JSON.stringify issue would surface the first time any of those webhooks needed to return a complex response. The missing RETURNING clauses would silently swallow data the next time someone adjusted the downstream logic.
+
+Finding 104 issues in a five-second scan was a useful reality check. The workflows were running, but they were not clean.
+
+---
+
+## The Compounding Part
+
+The thing that makes this worth building, as opposed to just writing better workflows from the start, is what happens next.
+
+Every future debugging session that produces a new gotcha entry is a new rule in the validator. The debugging notes are no longer a passive document. They are an active test suite. The knowledge does not sit in a file waiting to be remembered. It runs automatically.
+
+The friction for adding a new rule is low. The gotcha entry already describes the condition: what to look for, what the failure mode is, how to detect it. Translating that into a validation function takes ten minutes. From that point forward, every workflow gets checked against it.
+
+That compounding effect is the actual value. Not the 24 rules that exist today, but the fact that the 30th debugging session automatically improves the quality of every future workflow without requiring me to remember anything.
+
+---
+
+## What This Demonstrates
+
+This project maps directly to several competency areas from the Claude Code SDK curriculum:
+
+**Build scripts that analyze and optimize code.** The validator is exactly this. It reads structured data (workflow JSON), applies domain-specific rules, and produces actionable output. The same pattern works for any codebase where you have documented quality standards that need enforcement.
+
+**Code quality checks in CI/CD pipelines.** The exit codes (0 = clean, 1 = FAILs, 2 = WARNs) are designed for pipeline gating. A deploy script can run the validator and halt on non-zero. The \`--strict\` flag promotes WARNs to FAILs for stricter environments. This is the same pattern used by linters, type checkers, and security scanners.
+
+**Helper commands for code maintenance.** The \`/validate-workflow\` slash command wraps the script into a natural part of the development flow. Instead of remembering to run a script, you invoke a command that runs the check, presents the results, and offers to fix the issues. That's a Claude Code SDK extension point in practice.
+
+**Turning informal knowledge into executable tooling.** The gotcha library was already the hard part. Months of production debugging, real failures with real consequences, and the discipline to document each one clearly. The validator is the final step: turning documentation into enforcement. That pattern applies anywhere you have accumulated domain knowledge and informal rules. Code review checklists, infrastructure runbooks, QA processes. If you can write down what to look for, you can automate the looking.
+
+The technical implementation is standard (graph traversal, regex, recursive tree walking). The interesting part is the framing: a markdown debugging log as a test specification. And the compounding effect: every future debugging session adds a new rule, which improves the quality of every future workflow automatically.
+
+The script is open source at [github.com/RW2023/n8n-workflow-validator](https://github.com/RW2023/n8n-workflow-validator). If you're running n8n workflows in production and want to adapt the rules to your own gotcha library, clone it and add your own rules. The structure is straightforward to extend.`,
+  },
   {
     title: "AI Can't Tattoo You",
     slug: "ai-cant-tattoo-you",

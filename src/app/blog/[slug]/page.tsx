@@ -106,6 +106,18 @@ export default async function BlogPostPage({ params }: Props) {
       "@type": "WebPage",
       "@id": `${siteUrl}/blog/${post.slug}`,
     },
+    ...(post.audio
+      ? {
+          audio: {
+            "@type": "AudioObject",
+            name: `Listen: ${post.title}`,
+            description: `Audio discussion of "${post.title}" by Ryan Wilson`,
+            contentUrl: `${siteUrl}${post.audio}`,
+            encodingFormat: "audio/mp4",
+            inLanguage: "en",
+          },
+        }
+      : {}),
     keywords: post.tags.join(", "),
     inLanguage: "en",
     speakable: {
