@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
+import { blogPosts } from "@/data/blogPosts";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ryan-w.dev";
 
@@ -56,6 +57,26 @@ const blogCollectionSchema = {
   },
 };
 
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": `${siteUrl}/blog/#blog`,
+  name: "Ryan Wilson's Dev Blog",
+  description:
+    "Technical deep-dives on automation, AI integration, and full-stack development.",
+  url: `${siteUrl}/blog`,
+  publisher: {
+    "@type": "Person",
+    name: "Ryan Wilson",
+    url: siteUrl,
+  },
+  blogPost: blogPosts.map((p) => ({
+    "@type": "BlogPosting",
+    headline: p.title,
+    url: `${siteUrl}/blog/${p.slug}`,
+  })),
+};
+
 export default function BlogLayout({
   children,
 }: {
@@ -66,7 +87,7 @@ export default function BlogLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([blogBreadcrumbSchema, blogCollectionSchema]),
+          __html: JSON.stringify([blogBreadcrumbSchema, blogCollectionSchema, blogSchema]),
         }}
       />
       <main className="min-h-screen pt-24 pb-16 px-6">{children}</main>

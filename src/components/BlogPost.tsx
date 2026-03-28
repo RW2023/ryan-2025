@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useTheme } from "next-themes";
 import { Clock, Headphones, ArrowLeft } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import sql from "react-syntax-highlighter/dist/esm/languages/hljs/sql";
 import ts from "react-syntax-highlighter/dist/esm/languages/hljs/typescript";
@@ -51,6 +52,67 @@ function ReadingProgress() {
         }}
       />
     </div>
+  );
+}
+
+function BlogFAQ({ faq }: { faq: { question: string; answer: string }[] }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggle = useCallback((i: number) => {
+    setOpenIndex((prev) => (prev === i ? null : i));
+  }, []);
+
+  return (
+    <motion.section
+      id="faq"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.3 }}
+      className="mt-12"
+    >
+      <h2
+        className="text-2xl font-heading font-semibold mb-6 flex items-center gap-3"
+        style={{ color: "var(--color-text-bright)" }}
+      >
+        <span className="w-8 h-px bg-accent/40 flex-shrink-0" />
+        Frequently Asked Questions
+      </h2>
+      <div className="space-y-3">
+        {faq.map((item, i) => (
+          <div
+            key={i}
+            className="glass-card overflow-hidden transition-all duration-200"
+          >
+            <button
+              onClick={() => toggle(i)}
+              className="w-full flex items-center justify-between p-5 text-left"
+            >
+              <span
+                className="text-base font-medium pr-4"
+                style={{ color: "var(--color-text-bright)" }}
+              >
+                {item.question}
+              </span>
+              <ChevronDown
+                size={18}
+                className={`flex-shrink-0 transition-transform duration-200 ${
+                  openIndex === i ? "rotate-180" : ""
+                }`}
+                style={{ color: "var(--color-accent)" }}
+              />
+            </button>
+            {openIndex === i && (
+              <div
+                className="px-5 pb-5 text-base leading-[1.8]"
+                style={{ color: "var(--color-text-primary)" }}
+              >
+                {item.answer}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </motion.section>
   );
 }
 
@@ -299,6 +361,10 @@ export default function BlogPost({ post }: { post: BlogPostType }) {
             {post.content}
           </ReactMarkdown>
         </motion.div>
+
+        {post.faq && post.faq.length > 0 && (
+          <BlogFAQ faq={post.faq} />
+        )}
       </article>
     </>
   );

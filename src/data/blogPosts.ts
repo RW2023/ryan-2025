@@ -7,6 +7,9 @@ export type BlogPost = {
   tags: string[];
   readingTime?: string;
   audio?: string;
+  faq?: { question: string; answer: string }[];
+  howToSteps?: { name: string; text: string }[];
+  howToName?: string;
 };
 
 export const blogPosts: BlogPost[] = [
@@ -119,6 +122,183 @@ This project maps directly to several competency areas from the Claude Code SDK 
 The technical implementation is standard (graph traversal, regex, recursive tree walking). The interesting part is the framing: a markdown debugging log as a test specification. And the compounding effect: every future debugging session adds a new rule, which improves the quality of every future workflow automatically.
 
 The script is open source at [github.com/RW2023/n8n-workflow-validator](https://github.com/RW2023/n8n-workflow-validator). If you're running n8n workflows in production and want to adapt the rules to your own gotcha library, clone it and add your own rules. The structure is straightforward to extend.`,
+    faq: [
+      {
+        question: "What is an n8n workflow validator?",
+        answer: "It is a Python script that reads n8n workflow JSON files and checks them against 24 rules extracted from real production debugging sessions. Each rule catches a specific silent failure mode that would otherwise only surface in production. It runs before deployment and reports FAIL, WARN, or PASS per rule with the specific node name that triggered the finding.",
+      },
+      {
+        question: "What kinds of issues does the validator catch?",
+        answer: "The 24 rules cover data integrity (Postgres INSERT without RETURNING, parameterized queries), security (hardcoded secrets, API tokens in node parameters), reliability (mark-after-send antipatterns, missing error workflows, unreliable IF node operators), and architecture (parallel fan-out race conditions, deep chain node references, SplitInBatches output wiring). Each rule maps to a real incident that cost at least an hour to debug.",
+      },
+      {
+        question: "Does the validator require any dependencies?",
+        answer: "No. The script uses only Python 3 standard library modules (json, re, sys, os, glob). There is no requirements.txt, no pip install, and no external packages. It is a single file you can drop into any project.",
+      },
+      {
+        question: "Can I add my own rules to the validator?",
+        answer: "Yes. Each rule is a standalone Python function that receives the workflow dictionary and a report object. You write your check logic, call report.add() with a severity level (FAIL, WARN, or PASS), and add the function to the ALL_RULES list at the bottom of the file. The README includes a template for custom rules.",
+      },
+      {
+        question: "Is the validator open source?",
+        answer: "Yes. The full source code is available at github.com/RW2023/n8n-workflow-validator under the MIT license. Clone it, adapt the rules to your own gotcha library, and use it in your deployment pipeline.",
+      },
+    ],
+  },
+  {
+    title: "I Built a Voice Health Logger and Deployed It From My Couch",
+    slug: "voice-health-logger",
+    date: "2026-03-22",
+    excerpt:
+      "I had a text-based meal logger that worked perfectly. Nobody used it. The moment I added a mic button and put it on my phone, it became real.",
+    readingTime: "7 min",
+    tags: ["AI", "PWA", "Voice", "Health", "Building"],
+    content: `The meal logger already worked. That was the problem.
+
+I had \`/log-meal\` and \`/log-workout\` running as slash commands inside [my AI OS](/projects/personal-ai-os), the personal operating system I built with Claude Code. Natural language in, structured data out. It parsed "two cups of white rice with Jamaican curry chicken" and knew that meant bone-in thigh, no coconut milk (just coconut oil), scotch bonnet, allspice. It handled portion multipliers, matched against a saved meal library, and wrote clean rows into Postgres. The macro estimates were solid.
+
+Nobody was using it. By "nobody" I mean me. The problem was friction: it required sitting at the computer, opening a terminal, typing a slash command. That is not how you eat. You eat at the kitchen table, on the couch, standing over the stove. The AI OS had the intelligence. It just didn't have the interface for the moment it mattered.
+
+So I built a voice interface, deployed it to my server, and installed it as a PWA on my phone in a single session. Here is how that went.
+
+---
+
+## The Gap Was Always the Interface
+
+The idea surfaced mid-conversation. I was already using a voice notes app for other things, and I asked: why don't we have a voice food logger? The parsing logic was proven. The database was live. The only missing piece was a mobile-first interface that would let me speak, confirm, and move on.
+
+My first instinct was to route it through my Telegram AI agent. It already handles meal queries and morning briefings, so adding voice intake seemed natural. But I paused on that. It requires a specific setup: the bot, the agent infrastructure, the webhook chain. A standalone app would be portable. Someone else could spin it up with three environment variables and a schema file.
+
+That constraint turned out to be a useful one. It forced me to build something clean instead of bolting onto existing infrastructure.
+
+---
+
+## What I Built
+
+The architecture is simple by design.
+
+**Frontend:** A single HTML file. Mobile-first layout, vanilla JavaScript, MediaRecorder API for in-browser audio capture. No build step, no framework, no node_modules. The browser records a WebM audio clip, sends it to the backend as a multipart form upload, and waits for a parsed response.
+
+**Backend:** One Python file, around 500 lines. Flask handles the routes. When audio arrives, it gets forwarded to OpenAI's Whisper API for transcription. The transcript goes to Claude Haiku with a structured prompt that extracts meal or workout data. Haiku returns JSON with calories, macros, and a type classification. The backend writes to Postgres and returns a confirmation card to the frontend.
+
+**Database:** The same Postgres instance that everything else uses. The meals, workouts, exercises, and saved meals tables were already there. Adding the voice logger required zero schema changes. It just needed a connection string.
+
+The flow from the user's perspective: tap record, speak, tap again to stop, see the parsed estimate, confirm or discard. That is the whole thing.
+
+---
+
+## The Cultural Food Problem
+
+Generic meal parsers fail on real food. If you tell a standard nutrition API "curry chicken," it will return a calories estimate for some Western interpretation of curry. It will not know that Jamaican curry chicken uses bone-in thigh, coconut oil instead of coconut milk, scotch bonnet, allspice, and potatoes.
+
+The prompt I built for Haiku carries explicit cultural context. It knows the difference between preparations. It applies portion multipliers. It checks against the saved meal library before estimating from scratch. The same logic that powered the terminal commands now runs behind the voice interface, so saying "bowl of curry chicken" from my phone produces the same result as typing \`/log-meal bowl of curry chicken\` at my desk.
+
+This matters more than it sounds. A logger that fails on the food you actually eat stops being useful within a week. Cultural accuracy is not a nice-to-have.
+
+---
+
+## The Redesign Pass
+
+The first version worked and looked like a developer made it. Dark background, plain buttons, functional. I sent a reference screenshot of a glassmorphism voice app and said something like: "something like this, but in my brand colors."
+
+The redesign happened in one pass:
+
+- An animated gradient orb that morphs and floats behind the record button, shifting between purple and blue, pulsing when recording is active
+- Frosted glass cards using \`backdrop-filter: blur()\` for the result panels
+- Ambient background glow that responds to app state
+- Inter font throughout
+- Gradient accents on action buttons
+
+The state transitions are handled by CSS class toggles. Idle state, recording state, processing state, result state. Each has distinct visual feedback so you always know where you are without reading any text. That matters on a phone when your hands might be full or greasy.
+
+---
+
+## Deployment: The Parts That Did Not Go Smoothly
+
+Getting it onto the server was mostly straightforward, except for the parts that were not.
+
+The server already runs a reverse proxy that auto-provisions SSL certificates. Adding a new subdomain is a three-line config change and a reload. Point a DNS record, wait a few minutes, and HTTPS works.
+
+The Docker container was straightforward too. But deployment is never just the happy path. Static file routing broke when I moved the project directory. The PWA refused to install because the icon files were not reachable at the expected paths. Environment variables were silently empty inside the container. Old processes were fighting over the same port.
+
+None of these took long to fix. They never do individually. But they stack up, and each one feels like a config problem until you find the actual cause. Deployment is mostly known unknowns: the same five categories of problem, in different clothing each time.
+
+---
+
+## Installing It as a PWA
+
+Once it was live, I opened the URL on my phone. Chrome prompted me to add it to the home screen. I tapped it, named it, and within thirty seconds it was installed as a standalone app: full screen, no browser chrome, its own icon, its own launch experience.
+
+![Voice Health Logger running as an installed PWA on iPhone](/images/blog/voice-health-logger-phone.png)
+
+That moment changes the relationship to the tool. A URL feels optional. An icon on your home screen, next to the camera and the messages app, feels like infrastructure. The friction drops below the threshold where you stop reaching for it.
+
+The first meal I logged with it was the curry chicken I was cooking while the deployment was still running. That felt right.
+
+---
+
+## The Stack at a Glance
+
+- **Frontend:** Single HTML file, CSS glassmorphism, MediaRecorder API, vanilla JS
+- **Backend:** Flask, psycopg2, requests, one file around 500 lines
+- **Transcription:** OpenAI Whisper API, roughly $0.006 per minute of audio
+- **Parsing:** Claude Haiku, roughly $0.01 per parse, with cultural food detection and workout set notation
+- **Database:** PostgreSQL, same instance as the rest of the system
+- **Deployment:** Docker on a VPS, reverse proxy with automatic SSL
+- **PWA:** manifest, service worker, home screen installable
+
+To adapt it for someone else: swap three environment variables, run a schema file against a Postgres database, and deploy. The cultural food context in the prompt is the only part that is personal, and it is just text.
+
+---
+
+## The Real Lesson
+
+I had the right tool for months. I was not using it because the interface did not fit where I actually was when I needed it.
+
+This is not a new insight. Interface friction kills adoption, and that applies whether the user base is one person or a million. What surprised me is how small the gap was between "works at the computer" and "works in the kitchen." A single HTML file, one Python file, a Docker container, and a proxy config entry. A few hours of work. The gap between a tool that sits unused and a tool that becomes part of your day is often not the logic. It is the last hundred meters of UX.
+
+Voice as an interface has a specific quality that text does not: it matches the cognitive state you are in when you need it. When you are cooking, your hands are occupied and your attention is split. Typing a slash command requires sitting down and switching modes. Tapping a microphone and saying "large bowl of rice and curry chicken" does not. The information flows out naturally, in the same moment it would have been lost.
+
+I have been thinking more carefully about this distinction since finishing the project. The terminal commands were for me-at-the-computer. The voice app is for me-in-my-life. Both talk to the same database. Only one of them actually gets used.
+
+The next thing I build, I am asking that question first.`,
+    faq: [
+      {
+        question: "What is the Voice Health Logger?",
+        answer: "It is a progressive web app (PWA) that lets you log meals and workouts by speaking into your phone. Tap a microphone button, say what you ate or what exercise you did, and the app transcribes your speech, parses it into structured nutrition or workout data using AI, and saves it to a database. It runs on a VPS behind a reverse proxy with auto-SSL.",
+      },
+      {
+        question: "How does it handle cultural food accurately?",
+        answer: "The AI prompt carries explicit cultural context. It knows the difference between Jamaican curry chicken (bone-in thigh, coconut oil, scotch bonnet, allspice, potatoes) and generic curry. It checks against a saved meal library before estimating from scratch, and applies portion multipliers based on the specific preparation described. A logger that fails on the food you actually eat stops being useful within a week.",
+      },
+      {
+        question: "What tech stack does it use?",
+        answer: "Frontend: a single HTML file with vanilla JavaScript and the MediaRecorder API for in-browser audio capture. Backend: one Python file running Flask, with OpenAI Whisper for transcription and Claude Haiku for structured parsing. Database: PostgreSQL (Neon). Deployed via Docker on a Hetzner VPS behind Caddy with auto-provisioned SSL. Installable as a PWA on iOS and Android home screens.",
+      },
+      {
+        question: "Why voice instead of text input?",
+        answer: "The text-based version worked perfectly but nobody used it. It required sitting at a computer and typing a slash command. You eat at the kitchen table, on the couch, standing over the stove. Voice matches the cognitive state you are in when you need it: hands occupied, attention split, information that would otherwise be lost. The mic button is the entire product.",
+      },
+    ],
+    howToName: "How to Build a Voice Health Logger",
+    howToSteps: [
+      {
+        name: "Build a mobile-first voice capture UI",
+        text: "Create a single HTML file with a microphone button using the MediaRecorder API. Record audio as WebM, send it to the backend as a multipart form upload. No framework needed. The UI should be a PWA with a manifest file so it can be installed on a phone home screen.",
+      },
+      {
+        name: "Set up transcription and AI parsing",
+        text: "Route audio to OpenAI Whisper for transcription. Send the transcript to Claude Haiku with a structured prompt that extracts meal data (calories, protein, carbs, fat) or workout data (exercise, sets, reps, weight). Include cultural food context in the prompt for accurate estimates.",
+      },
+      {
+        name: "Connect to your database",
+        text: "Write parsed results to PostgreSQL tables for meals, workouts, and exercises. Use the same schema your existing tracking system uses so all data flows into one place. Return a confirmation card to the frontend showing what was logged.",
+      },
+      {
+        name: "Deploy as a PWA on a VPS",
+        text: "Package the Flask backend in a Docker container. Deploy to a VPS with a reverse proxy (Caddy for auto-SSL). Add a manifest.json and service worker for PWA install. The app should work offline for the UI and sync when connected.",
+      },
+    ],
   },
   {
     title: "AI Can't Tattoo You",
@@ -303,51 +483,24 @@ That's still a person's job.
 ---
 
 *What would you refuse to hand off to a machine, even if it could do it better than you?*`,
-  },
-  {
-    title: "Why I Started Writing",
-    slug: "why-i-started-writing",
-    date: "2026-03-19",
-    excerpt:
-      "I build things at the intersection of humanity and technology. This blog is where I document what that actually looks like.",
-    readingTime: "4 min",
-    tags: ["Personal", "Building", "AI"],
-    content: `I have been building things with computers for most of my life. But this past year changed everything about how I think about what building means.
-
-I am not a Silicon Valley founder. I did not study computer science at Stanford. I am a self-taught developer in Ontario, Canada who spent years doing the kind of work that does not get written about. Help desks. Infrastructure. Troubleshooting systems that other people built and walked away from.
-
-Then AI got good enough to work with, not just talk to. And something shifted.
-
-## What Changed
-
-I started building systems where AI is not a feature. It is a collaborator. I have agents that monitor my business while I sleep. I have workflows that score leads, draft proposals, and flag problems before I see them. I built a personal operating system that gives me the kind of leverage that used to require a team.
-
-None of this is theoretical. It is running right now on a VPS I maintain myself.
-
-But here is the thing nobody talks about: the interesting part is not the technology. The interesting part is the decisions. When do you let the machine act on its own? When do you keep a human in the loop? Where is the line between automation and abdication?
-
-## What This Blog Is About
-
-This is a blog about building at the intersection of humanity and technology.
-
-I will write about the systems I build, but not in a way that reads like a product launch. I will write about what worked, what broke, and what I learned. I will write about the architectural choices that sound boring on paper but determine whether a system survives contact with reality.
-
-Some of what I will cover:
-
-- **How AI agents actually coordinate.** Not the marketing version. The database tables, the failure modes, the design tradeoffs.
-- **Automation with guardrails.** What it looks like to give AI real autonomy while keeping humans in control of what matters.
-- **Building in public, mid-career.** What it looks like to start something new when you have experience but no institutional backing.
-- **Infrastructure as identity.** Why the systems you build reflect how you think, and why that matters more than your tech stack.
-
-## Who This Is For
-
-If you are a developer who builds things alone or in a small team, this might resonate. If you are curious about AI but skeptical of the hype, you will find something honest here. If you are in the second half of your career and wondering whether it is too late to reinvent yourself, I can tell you it is not.
-
-I am not going to pretend I have it figured out. I am going to document what it looks like to figure it out in real time.
-
-That is the whole premise. No manifesto. No five-step framework. Just a builder writing about what he is building and why.
-
-Welcome.`,
+    faq: [
+      {
+        question: "What does 'AI-resistant' mean in the context of jobs?",
+        answer: "AI-resistant does not mean technically impossible for AI to attempt. It means the job requires embodied knowledge, the kind of understanding that comes from having a physical body, experiencing pain, reading micro-expressions, and making real-time adjustments based on felt experience. AI can process descriptions of these things but cannot experience them.",
+      },
+      {
+        question: "Can AI generate tattoo designs?",
+        answer: "Yes. AI can generate visual designs, and some tattoo artists already use AI tools for reference imagery and concept exploration. The design is not the AI-resistant part. The resistant part is the execution: managing a conscious person's experience of pain across a multi-hour session, reading their body language, adjusting technique in real time, and making judgment calls that require having felt pain yourself.",
+      },
+      {
+        question: "What other jobs share this AI-resistant quality?",
+        answer: "Any job where the core skill is reading and responding to another person's embodied experience in real time. Massage therapy, midwifery, certain forms of physical therapy, grief counseling, and skilled trades that require adapting to unpredictable physical conditions all share this quality. The common thread is that the knowledge comes from having a body, not from processing data.",
+      },
+      {
+        question: "Is this argument against AI replacing jobs?",
+        answer: "No. The argument is that AI will replace many jobs, and already is. The interesting question is where the boundary is, and whether that boundary is technical or experiential. Some roles survive not because AI cannot do the task, but because the task requires being a certain kind of thing. That distinction matters for how we think about automation strategy.",
+      },
+    ],
   },
   {
     title: "NanoRelay: How Two AI Agents Coordinate Without a Server",
@@ -439,124 +592,88 @@ This is not a framework or a library. It is a pattern: two agents, one table, co
 The interesting part is not the technology. It is the organizational design. Each agent has a defined role, defined capabilities, and a defined communication channel. That is it. No orchestration layer. No central controller. Just two autonomous agents leaving notes for each other in a shared notebook.
 
 Sometimes the simplest architecture is the right one.`,
+    faq: [
+      {
+        question: "What is NanoRelay?",
+        answer: "NanoRelay is a lightweight message relay pattern that lets two AI agents communicate through a shared PostgreSQL table. One agent inserts a message row, the other polls for unread messages on a schedule. No WebSocket, no pub/sub broker, no shared filesystem required. Just one table with from_agent, to_agent, message, context, and read columns.",
+      },
+      {
+        question: "Why use a database table instead of a message queue?",
+        answer: "Because both agents already had database access. Adding Redis, RabbitMQ, or a webhook relay would have introduced new infrastructure to maintain. The database table approach uses existing connections, supports context tagging for multi-workspace routing, and provides a built-in audit trail of every message exchanged.",
+      },
+      {
+        question: "How do the agents avoid processing the same message twice?",
+        answer: "Each agent marks messages as read after processing them. The query filters for read = false and the agent's own name in the to_agent column. Context tags further scope which messages each workspace sees. The UPDATE happens in the same query batch as the SELECT, so there is no race condition window.",
+      },
+      {
+        question: "Can this pattern work with more than two agents?",
+        answer: "Yes. The table supports any number of agents. Each agent writes with its own from_agent identifier and reads messages addressed to its to_agent value. Context tags allow topic-based routing across multiple workspaces. The pattern scales horizontally without any changes to the schema.",
+      },
+    ],
+    howToName: "How to Set Up a Two-Agent Message Relay",
+    howToSteps: [
+      {
+        name: "Create the agent_messages table",
+        text: "Create a PostgreSQL table with columns: id (serial primary key), sent_at (timestamptz), from_agent (text), to_agent (text), message (text), context (text), and read (boolean default false). Both agents need connection access to this database.",
+      },
+      {
+        name: "Add send logic to each agent",
+        text: "Each agent inserts a row with its own name as from_agent, the target agent name as to_agent, the message content, and a context tag indicating the topic or workspace scope.",
+      },
+      {
+        name: "Add receive logic with polling",
+        text: "Each agent queries for unread messages on a schedule (e.g., every 5 minutes). Filter by to_agent matching the agent's name and read = false. Mark messages as read after processing. Context tags allow filtering by workspace.",
+      },
+      {
+        name: "Build a dashboard for visibility",
+        text: "Add a messages panel to your monitoring dashboard that shows recent exchanges, unread counts, and delivery status. This turns the invisible relay into an observable system.",
+      },
+    ],
   },
   {
-    title: "I Built a Voice Health Logger and Deployed It From My Couch",
-    slug: "voice-health-logger",
-    date: "2026-03-22",
+    title: "Why I Started Writing",
+    slug: "why-i-started-writing",
+    date: "2026-03-19",
     excerpt:
-      "I had a text-based meal logger that worked perfectly. Nobody used it. The moment I added a mic button and put it on my phone, it became real.",
-    readingTime: "7 min",
-    tags: ["AI", "PWA", "Voice", "Health", "Building"],
-    content: `The meal logger already worked. That was the problem.
+      "I build things at the intersection of humanity and technology. This blog is where I document what that actually looks like.",
+    readingTime: "4 min",
+    tags: ["Personal", "Building", "AI"],
+    content: `I have been building things with computers for most of my life. But this past year changed everything about how I think about what building means.
 
-I had \`/log-meal\` and \`/log-workout\` running as slash commands inside [my AI OS](/projects/personal-ai-os), the personal operating system I built with Claude Code. Natural language in, structured data out. It parsed "two cups of white rice with Jamaican curry chicken" and knew that meant bone-in thigh, no coconut milk (just coconut oil), scotch bonnet, allspice. It handled portion multipliers, matched against a saved meal library, and wrote clean rows into Postgres. The macro estimates were solid.
+I am not a Silicon Valley founder. I did not study computer science at Stanford. I am a self-taught developer in Ontario, Canada who spent years doing the kind of work that does not get written about. Help desks. Infrastructure. Troubleshooting systems that other people built and walked away from.
 
-Nobody was using it. By "nobody" I mean me. The problem was friction: it required sitting at the computer, opening a terminal, typing a slash command. That is not how you eat. You eat at the kitchen table, on the couch, standing over the stove. The AI OS had the intelligence. It just didn't have the interface for the moment it mattered.
+Then AI got good enough to work with, not just talk to. And something shifted.
 
-So I built a voice interface, deployed it to my server, and installed it as a PWA on my phone in a single session. Here is how that went.
+## What Changed
 
----
+I started building systems where AI is not a feature. It is a collaborator. I have agents that monitor my business while I sleep. I have workflows that score leads, draft proposals, and flag problems before I see them. I built a personal operating system that gives me the kind of leverage that used to require a team.
 
-## The Gap Was Always the Interface
+None of this is theoretical. It is running right now on a VPS I maintain myself.
 
-The idea surfaced mid-conversation. I was already using a voice notes app for other things, and I asked: why don't we have a voice food logger? The parsing logic was proven. The database was live. The only missing piece was a mobile-first interface that would let me speak, confirm, and move on.
+But here is the thing nobody talks about: the interesting part is not the technology. The interesting part is the decisions. When do you let the machine act on its own? When do you keep a human in the loop? Where is the line between automation and abdication?
 
-My first instinct was to route it through my Telegram AI agent. It already handles meal queries and morning briefings, so adding voice intake seemed natural. But I paused on that. It requires a specific setup: the bot, the agent infrastructure, the webhook chain. A standalone app would be portable. Someone else could spin it up with three environment variables and a schema file.
+## What This Blog Is About
 
-That constraint turned out to be a useful one. It forced me to build something clean instead of bolting onto existing infrastructure.
+This is a blog about building at the intersection of humanity and technology.
 
----
+I will write about the systems I build, but not in a way that reads like a product launch. I will write about what worked, what broke, and what I learned. I will write about the architectural choices that sound boring on paper but determine whether a system survives contact with reality.
 
-## What I Built
+Some of what I will cover:
 
-The architecture is simple by design.
+- **How AI agents actually coordinate.** Not the marketing version. The database tables, the failure modes, the design tradeoffs.
+- **Automation with guardrails.** What it looks like to give AI real autonomy while keeping humans in control of what matters.
+- **Building in public, mid-career.** What it looks like to start something new when you have experience but no institutional backing.
+- **Infrastructure as identity.** Why the systems you build reflect how you think, and why that matters more than your tech stack.
 
-**Frontend:** A single HTML file. Mobile-first layout, vanilla JavaScript, MediaRecorder API for in-browser audio capture. No build step, no framework, no node_modules. The browser records a WebM audio clip, sends it to the backend as a multipart form upload, and waits for a parsed response.
+## Who This Is For
 
-**Backend:** One Python file, around 500 lines. Flask handles the routes. When audio arrives, it gets forwarded to OpenAI's Whisper API for transcription. The transcript goes to Claude Haiku with a structured prompt that extracts meal or workout data. Haiku returns JSON with calories, macros, and a type classification. The backend writes to Postgres and returns a confirmation card to the frontend.
+If you are a developer who builds things alone or in a small team, this might resonate. If you are curious about AI but skeptical of the hype, you will find something honest here. If you are in the second half of your career and wondering whether it is too late to reinvent yourself, I can tell you it is not.
 
-**Database:** The same Postgres instance that everything else uses. The meals, workouts, exercises, and saved meals tables were already there. Adding the voice logger required zero schema changes. It just needed a connection string.
+I am not going to pretend I have it figured out. I am going to document what it looks like to figure it out in real time.
 
-The flow from the user's perspective: tap record, speak, tap again to stop, see the parsed estimate, confirm or discard. That is the whole thing.
+That is the whole premise. No manifesto. No five-step framework. Just a builder writing about what he is building and why.
 
----
-
-## The Cultural Food Problem
-
-Generic meal parsers fail on real food. If you tell a standard nutrition API "curry chicken," it will return a calories estimate for some Western interpretation of curry. It will not know that Jamaican curry chicken uses bone-in thigh, coconut oil instead of coconut milk, scotch bonnet, allspice, and potatoes.
-
-The prompt I built for Haiku carries explicit cultural context. It knows the difference between preparations. It applies portion multipliers. It checks against the saved meal library before estimating from scratch. The same logic that powered the terminal commands now runs behind the voice interface, so saying "bowl of curry chicken" from my phone produces the same result as typing \`/log-meal bowl of curry chicken\` at my desk.
-
-This matters more than it sounds. A logger that fails on the food you actually eat stops being useful within a week. Cultural accuracy is not a nice-to-have.
-
----
-
-## The Redesign Pass
-
-The first version worked and looked like a developer made it. Dark background, plain buttons, functional. I sent a reference screenshot of a glassmorphism voice app and said something like: "something like this, but in my brand colors."
-
-The redesign happened in one pass:
-
-- An animated gradient orb that morphs and floats behind the record button, shifting between purple and blue, pulsing when recording is active
-- Frosted glass cards using \`backdrop-filter: blur()\` for the result panels
-- Ambient background glow that responds to app state
-- Inter font throughout
-- Gradient accents on action buttons
-
-The state transitions are handled by CSS class toggles. Idle state, recording state, processing state, result state. Each has distinct visual feedback so you always know where you are without reading any text. That matters on a phone when your hands might be full or greasy.
-
----
-
-## Deployment: The Parts That Did Not Go Smoothly
-
-Getting it onto the server was mostly straightforward, except for the parts that were not.
-
-The server already runs a reverse proxy that auto-provisions SSL certificates. Adding a new subdomain is a three-line config change and a reload. Point a DNS record, wait a few minutes, and HTTPS works.
-
-The Docker container was straightforward too. But deployment is never just the happy path. Static file routing broke when I moved the project directory. The PWA refused to install because the icon files were not reachable at the expected paths. Environment variables were silently empty inside the container. Old processes were fighting over the same port.
-
-None of these took long to fix. They never do individually. But they stack up, and each one feels like a config problem until you find the actual cause. Deployment is mostly known unknowns: the same five categories of problem, in different clothing each time.
-
----
-
-## Installing It as a PWA
-
-Once it was live, I opened the URL on my phone. Chrome prompted me to add it to the home screen. I tapped it, named it, and within thirty seconds it was installed as a standalone app: full screen, no browser chrome, its own icon, its own launch experience.
-
-![Voice Health Logger running as an installed PWA on iPhone](/images/blog/voice-health-logger-phone.png)
-
-That moment changes the relationship to the tool. A URL feels optional. An icon on your home screen, next to the camera and the messages app, feels like infrastructure. The friction drops below the threshold where you stop reaching for it.
-
-The first meal I logged with it was the curry chicken I was cooking while the deployment was still running. That felt right.
-
----
-
-## The Stack at a Glance
-
-- **Frontend:** Single HTML file, CSS glassmorphism, MediaRecorder API, vanilla JS
-- **Backend:** Flask, psycopg2, requests, one file around 500 lines
-- **Transcription:** OpenAI Whisper API, roughly $0.006 per minute of audio
-- **Parsing:** Claude Haiku, roughly $0.01 per parse, with cultural food detection and workout set notation
-- **Database:** PostgreSQL, same instance as the rest of the system
-- **Deployment:** Docker on a VPS, reverse proxy with automatic SSL
-- **PWA:** manifest, service worker, home screen installable
-
-To adapt it for someone else: swap three environment variables, run a schema file against a Postgres database, and deploy. The cultural food context in the prompt is the only part that is personal, and it is just text.
-
----
-
-## The Real Lesson
-
-I had the right tool for months. I was not using it because the interface did not fit where I actually was when I needed it.
-
-This is not a new insight. Interface friction kills adoption, and that applies whether the user base is one person or a million. What surprised me is how small the gap was between "works at the computer" and "works in the kitchen." A single HTML file, one Python file, a Docker container, and a proxy config entry. A few hours of work. The gap between a tool that sits unused and a tool that becomes part of your day is often not the logic. It is the last hundred meters of UX.
-
-Voice as an interface has a specific quality that text does not: it matches the cognitive state you are in when you need it. When you are cooking, your hands are occupied and your attention is split. Typing a slash command requires sitting down and switching modes. Tapping a microphone and saying "large bowl of rice and curry chicken" does not. The information flows out naturally, in the same moment it would have been lost.
-
-I have been thinking more carefully about this distinction since finishing the project. The terminal commands were for me-at-the-computer. The voice app is for me-in-my-life. Both talk to the same database. Only one of them actually gets used.
-
-The next thing I build, I am asking that question first.`,
+Welcome.`,
   },
 ];
 
