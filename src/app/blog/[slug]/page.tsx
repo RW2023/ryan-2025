@@ -1,6 +1,4 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { getPostBySlug, getAllSlugs } from "@/data/blogPosts";
 import BlogPost from "@/components/BlogPost";
 import BlogCTA from "@/components/BlogCTA";
@@ -158,13 +156,6 @@ export default async function BlogPostPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="max-w-4xl mx-auto">
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-accent transition-colors mb-8"
-        >
-          <ArrowLeft size={16} />
-          Back to blog
-        </Link>
         <BlogPost post={post} />
         <BlogCTA postSlug={post.slug} />
         <BlogComments slug={post.slug} />
