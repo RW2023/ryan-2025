@@ -10,9 +10,171 @@ export type BlogPost = {
   faq?: { question: string; answer: string }[];
   howToSteps?: { name: string; text: string }[];
   howToName?: string;
+  cta?: {
+    title?: string;
+    body?: string;
+  };
 };
 
 export const blogPosts: BlogPost[] = [
+  {
+    title: "Five Kinds of AI. A Short Guide for Dad.",
+    slug: "five-kinds-of-ai-for-dad",
+    date: "2026-04-30",
+    excerpt:
+      "My dad is 71, already curious about AI, and wanted a sharper sense of which tool to reach for when. So I made him this short reference. Five kinds of AI tools in plain English, with a real-life example for each, plus a starter prompt you can copy.",
+    readingTime: "5 min",
+    tags: [
+      "AI for Beginners",
+      "Plain English",
+      "ChatGPT",
+      "Family",
+      "Guides",
+    ],
+    cta: {
+      title: "Want help making one for your family?",
+      body: "If you have a parent, partner, or anyone in your life who is curious about AI but tired of the jargon, I can draft a version of this guide tailored to them. Different example moments, their specific tools, walked through how to bookmark it on their phone. Send me a note below and we can talk.",
+    },
+    content: `My dad is 71. He has poked at ChatGPT a couple of times, the way you do when something is everywhere and you want to see what the fuss is about. The other day he asked me a real question. Not "what is AI" but "how do I keep these straight in my head." Which one is for what.
+
+That is a better question than most. It is also the one the marketing around AI works hard to obscure, because every tool wants to be everything. So I sat down and wrote him a short reference. Five kinds of AI tools, in plain English, with a real example for each, so he could feel out which one to reach for in a given moment.
+
+I am publishing it here because I suspect a lot of people have a parent in the same spot. If that is you, this is yours. Copy it, adapt the examples to your dad or mum or aunt, send it as a link they can keep on their phone. The only thing it asks of the reader is curiosity, and Dad already had that.
+
+---
+
+## The conversation tools
+
+*Type what you want. Get words back.*
+
+**Good for.** Writing things, working through ideas, getting plain-English explanations, drafting almost any piece of text. The Swiss Army knife.
+
+**A moment from your life.** You want to write a thank-you card to a nurse on the dialysis floor but the words are not coming. Or a birthday note to a grandkid that does not sound stiff.
+
+**Try this tool.** ChatGPT at [chat.openai.com](https://chat.openai.com), or Claude at [claude.ai](https://claude.ai). Both have free tiers, no credit card.
+
+**Say this to it.**
+
+> Help me write a short, warm thank-you note to my dialysis nurse. About four sentences. Mention that she has been kind on hard days. Not flowery.
+
+**Watch out for.** It can sound confident even when it is wrong. If a fact matters (a date, a phone number, a medical term), check it before you trust it.
+
+---
+
+## The picture makers
+
+*Describe a picture. Get the picture.*
+
+**Good for.** Turning what you have in your head into an image. Useful when you want to see something before you build it, plant it, or buy it.
+
+**A moment from your life.** You are thinking about replanting the front bed and want to see a couple of options before you spend money. Tell it the plants, the light, the style. It draws you a few versions to compare.
+
+**Try this tool.** ChatGPT (image button at the bottom of the chat box) at [chat.openai.com](https://chat.openai.com), or Google Gemini (just say "draw me...") at [gemini.google.com](https://gemini.google.com).
+
+**Say this to it.**
+
+> Show me a small front-yard garden bed in soft afternoon light. Hostas and ferns. Brick edging. Cottage style.
+
+**Watch out for.** Hands and small text often look strange. Real people's faces often look slightly off. Use it for ideas, not for accurate portraits.
+
+---
+
+## The voice tools
+
+*Talk to it instead of typing.*
+
+**Good for.** Asking a quick question without typing. Hands-free. Good in the kitchen, in the car, while you are folding laundry, or when typing on a phone is annoying.
+
+**A moment from your life.** You are between dialysis runs, you cannot remember whether grapefruit is on the list of things to avoid with your meds, and your hands are full. You ask out loud.
+
+**Try this tool.** The ChatGPT app on your phone has a voice button in the lower-right corner, free tier covers it. Siri on iPhone and Google Assistant on Android are already there.
+
+**Say this to it.**
+
+> What are common side effects of [your medication name]? And is there anything I should not eat or drink with it?
+
+**Watch out for.** It can mishear names, numbers, and anything pronounced quietly. For medical questions treat the answer as a starting point and run it past your doctor or pharmacist before acting.
+
+---
+
+## The smart search tools
+
+*Get an answer, not ten links.*
+
+**Good for.** Asking a real question and getting a written answer back, with sources. Faster than scrolling through a page of search results. Best for current events and fact-finding.
+
+**A moment from your life.** A headline is everywhere this morning and you want a calm, balanced summary in three short paragraphs, not a hot take. Or you want to know who won last night's game and what the standings look like now.
+
+**Try this tool.** Google's AI answer (the box that appears at the top of normal Google results) at [google.com](https://www.google.com), or Perplexity at [perplexity.ai](https://www.perplexity.ai). Free tiers cover everyday use.
+
+**Say this to it.**
+
+> Give me a balanced summary of [news topic] in three short paragraphs. Tell me what is broadly agreed and what is still disputed.
+
+**Watch out for.** Even smart search can get things wrong on fast-breaking news. Glance at the sources it cites at the bottom. If you do not recognize them, dig a little further before trusting the answer.
+
+---
+
+## The "look at this for me" tools
+
+*Point your phone at it. Find out what it is.*
+
+**Good for.** Pointing a phone camera at something and getting told what it is. Plants, parts, animals, packaging, a spot on the wall, anything you can take a picture of.
+
+**A moment from your life.** A piece fell off the inside of the dryer door and you have no idea what to call it. Or you see a flower at the park and want to know what it is so you can plant it next year.
+
+**Try this tool.** Google Lens. On Android it is the camera icon in the search bar; on iPhone, open the Google app and tap the camera icon. Or ChatGPT on your phone: tap the photo icon in the chat box, attach the picture, then ask in plain English.
+
+**Say this to it.**
+
+> What is this? If it is a part, tell me its name and where I would buy a replacement. If it is a plant, tell me how to take care of it.
+
+**Watch out for.** It guesses. The guess is often right but not always, especially with similar-looking plants or generic parts. Use it as a strong hint, then verify before you spend money or eat anything.
+
+---
+
+## A note about the list
+
+I left a lot off this list on purpose. Agents, code assistants, retrieval-augmented systems, all the inside-baseball categories. None of it is wrong, none of it is going away, but none of it is a 71-year-old's first concern. The five categories above will cover almost any moment where AI could be useful in a normal life, and that is enough to start with.
+
+If you have a parent in this spot, you are welcome to take this and rewrite the example moments to match what they actually do. The structure holds whether they are still working, retired, dealing with a chronic condition, taking care of grandkids, or just curious. The examples are interchangeable. The five categories are not.
+
+Made for Dad. Shared because someone else is probably writing the same note.`,
+    faq: [
+      {
+        question: "What are the five kinds of AI in this guide?",
+        answer:
+          "Conversation tools (ChatGPT, Claude), picture makers (image generation in ChatGPT or Gemini), voice tools (ChatGPT voice mode, Siri, Google Assistant), smart search tools (Google's AI answer, Perplexity), and 'look at this for me' tools (Google Lens, ChatGPT photo input). Five plain-English categories that cover almost any moment where AI could be useful in a normal life.",
+      },
+      {
+        question: "Why only five categories?",
+        answer:
+          "Five fits working memory and maps cleanly to distinct daily moments. Three feels thin and forces over-broad buckets. Seven or ten overwhelms a first-time user building intuition. The point of the guide is not exhaustive taxonomy. It is a working mental model someone can keep in their head and reach for when they need it.",
+      },
+      {
+        question: "Is this written for technical readers?",
+        answer:
+          "No. It is written for an intelligent non-technical adult who is curious about AI but wants to skip the jargon. The original audience was my 71-year-old father. The examples are anchored in everyday moments (writing a thank-you note, identifying a plant, getting a balanced news summary) rather than coding, agents, or developer tooling.",
+      },
+      {
+        question: "Can I copy this for a parent or relative?",
+        answer:
+          "Yes. The five categories are the structure; the example 'moments' are interchangeable. Rewrite the moments to match what your parent or relative actually does, send them the link, walk them through 'add to home screen' on their phone so it becomes a one-tap reference. That is the entire intended use.",
+      },
+      {
+        question:
+          "What is the difference between ChatGPT, Google's AI answer, and Perplexity?",
+        answer:
+          "ChatGPT is a conversation tool, best for writing and working through ideas without needing fresh information from the web. Google's AI answer (the box at the top of normal search results) and Perplexity are both smart-search tools, designed to look across current sources and give a written answer with citations. For a thank-you note, reach for ChatGPT. For 'who won last night, what are the standings now,' reach for a smart-search tool.",
+      },
+      {
+        question:
+          "Which AI tool should an older or less technical person start with?",
+        answer:
+          "Start with one of the conversation tools (ChatGPT or Claude). Both have free tiers, both work in any web browser, and both are forgiving about typos and casual phrasing. Once that feels familiar, layer in voice mode (talk instead of type) and the camera-based 'look at this for me' tools. Picture makers and smart search are useful, but conversation comes first.",
+      },
+    ],
+  },
   {
     title: "How I Turned 30 Debugging Sessions Into One Script",
     slug: "n8n-validator-gotchas-to-code",

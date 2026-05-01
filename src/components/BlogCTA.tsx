@@ -7,7 +7,19 @@ import { Send, Loader2, ArrowUpRight } from "lucide-react";
 const webhookUrl = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL;
 const webhookSecret = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_SECRET;
 
-export default function BlogCTA({ postSlug }: { postSlug?: string }) {
+export default function BlogCTA({
+  postSlug,
+  title,
+  body,
+}: {
+  postSlug?: string;
+  title?: string;
+  body?: string;
+}) {
+  const headline = title || "Want to work together?";
+  const description =
+    body ||
+    "I'm Ryan. I build full-stack apps, AI integrations, and the infrastructure that connects them. If something here caught your eye, reach out.";
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
@@ -67,13 +79,9 @@ export default function BlogCTA({ postSlug }: { postSlug?: string }) {
               About the author
             </span>
             <h3 className="text-2xl font-heading font-bold text-text-bright">
-              Want to work together?
+              {headline}
             </h3>
-            <p className="text-text-muted leading-relaxed">
-              I&apos;m Ryan. I build full-stack apps, AI integrations, and
-              the infrastructure that connects them. If something here
-              caught your eye, reach out.
-            </p>
+            <p className="text-text-muted leading-relaxed">{description}</p>
             <div className="flex gap-4 pt-2">
               <a
                 href="/hire"

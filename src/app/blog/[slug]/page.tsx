@@ -157,7 +157,11 @@ export default async function BlogPostPage({ params }: Props) {
       />
       <div className="max-w-4xl mx-auto">
         <BlogPost post={post} />
-        <BlogCTA postSlug={post.slug} />
+        <BlogCTA
+          postSlug={post.slug}
+          {...(post.cta?.title ? { title: post.cta.title } : {})}
+          {...(post.cta?.body ? { body: post.cta.body } : {})}
+        />
         <BlogComments slug={post.slug} />
       </div>
     </>
