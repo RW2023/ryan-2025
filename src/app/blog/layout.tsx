@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 import { blogPosts } from "@/data/blogPosts";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.ryan-w.dev";
@@ -91,6 +92,7 @@ export default function BlogLayout({
         }}
       />
       <main className="min-h-screen pt-24 pb-16 px-6">{children}</main>
+      <ScrollToTop />
       <Footer />
     </>
   );

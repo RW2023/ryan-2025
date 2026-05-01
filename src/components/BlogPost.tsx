@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { useTheme } from "next-themes";
 import { Clock, Headphones, ArrowLeft } from "lucide-react";
 import { ChevronDown } from "lucide-react";
+import BlogAccordion from "./BlogAccordion";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import sql from "react-syntax-highlighter/dist/esm/languages/hljs/sql";
 import ts from "react-syntax-highlighter/dist/esm/languages/hljs/typescript";
@@ -361,6 +362,15 @@ export default function BlogPost({ post }: { post: BlogPostType }) {
             {post.content}
           </ReactMarkdown>
         </motion.div>
+
+        {post.accordion && post.accordion.sections.length > 0 && (
+          <BlogAccordion
+            sections={post.accordion.sections}
+            {...(post.accordion.afterContent
+              ? { afterContent: post.accordion.afterContent }
+              : {})}
+          />
+        )}
 
         {post.faq && post.faq.length > 0 && (
           <BlogFAQ faq={post.faq} />

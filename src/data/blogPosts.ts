@@ -14,6 +14,10 @@ export type BlogPost = {
     title?: string;
     body?: string;
   };
+  accordion?: {
+    sections: { title: string; teaser?: string; body: string }[];
+    afterContent?: string;
+  };
 };
 
 export const blogPosts: BlogPost[] = [
@@ -22,7 +26,7 @@ export const blogPosts: BlogPost[] = [
     slug: "five-kinds-of-ai-for-dad",
     date: "2026-04-30",
     excerpt:
-      "My dad is 71, already curious about AI, and wanted a sharper sense of which tool to reach for when. So I made him this short reference. Five kinds of AI tools in plain English, with a real-life example for each, plus a starter prompt you can copy.",
+      "My dad is 70+, already curious about AI, and wanted a sharper sense of which tool to reach for when. So I made him this short reference. Five kinds of AI tools in plain English, with a real-life example for each, plus a starter prompt you can copy.",
     readingTime: "5 min",
     tags: [
       "AI for Beginners",
@@ -32,22 +36,22 @@ export const blogPosts: BlogPost[] = [
       "Guides",
     ],
     cta: {
-      title: "Want help making one for your family?",
-      body: "If you have a parent, partner, or anyone in your life who is curious about AI but tired of the jargon, I can draft a version of this guide tailored to them. Different example moments, their specific tools, walked through how to bookmark it on their phone. Send me a note below and we can talk.",
+      title: "Want help making sense of AI?",
+      body: "If you read this and want a one-on-one call to apply it to something real in your own life or work, book a thirty-minute session below. I will use a task from your day, show you the right tool for it, and walk you through the prompt so you can keep using it after the call. Practical, calm, no jargon.",
     },
-    content: `My dad is 71. He has poked at ChatGPT a couple of times, the way you do when something is everywhere and you want to see what the fuss is about. The other day he asked me a real question. Not "what is AI" but "how do I keep these straight in my head." Which one is for what.
+    content: `My dad is 70+. He has poked at ChatGPT a couple of times, the way you do when something is everywhere and you want to see what the fuss is about. The other day he asked me a real question. Not "what is AI" but "how do I keep these straight in my head." Which one is for what.
 
 That is a better question than most. It is also the one the marketing around AI works hard to obscure, because every tool wants to be everything. So I sat down and wrote him a short reference. Five kinds of AI tools, in plain English, with a real example for each, so he could feel out which one to reach for in a given moment.
 
-I am publishing it here because I suspect a lot of people have a parent in the same spot. If that is you, this is yours. Copy it, adapt the examples to your dad or mum or aunt, send it as a link they can keep on their phone. The only thing it asks of the reader is curiosity, and Dad already had that.
+I am publishing it here because I suspect a lot of people have someone in their life in the same spot. If that is you, this is yours. Copy it, adapt the examples to your dad or mum or aunt, send it as a link they can keep on their phone. The only thing it asks of the reader is curiosity, and Dad already had that.
 
----
-
-## The conversation tools
-
-*Type what you want. Get words back.*
-
-**Good for.** Writing things, working through ideas, getting plain-English explanations, drafting almost any piece of text. The Swiss Army knife.
+Tap any section below to open it. There is an "open all" button at the top right if you would rather scan everything at once.`,
+    accordion: {
+      sections: [
+        {
+          title: "The conversation tools",
+          teaser: "Type what you want. Get words back.",
+          body: `**Good for.** Writing things, working through ideas, getting plain-English explanations, drafting almost any piece of text. The Swiss Army knife.
 
 **A moment from your life.** You want to write a thank-you card to a nurse on the dialysis floor but the words are not coming. Or a birthday note to a grandkid that does not sound stiff.
 
@@ -57,15 +61,12 @@ I am publishing it here because I suspect a lot of people have a parent in the s
 
 > Help me write a short, warm thank-you note to my dialysis nurse. About four sentences. Mention that she has been kind on hard days. Not flowery.
 
-**Watch out for.** It can sound confident even when it is wrong. If a fact matters (a date, a phone number, a medical term), check it before you trust it.
-
----
-
-## The picture makers
-
-*Describe a picture. Get the picture.*
-
-**Good for.** Turning what you have in your head into an image. Useful when you want to see something before you build it, plant it, or buy it.
+**Watch out for.** It can sound confident even when it is wrong. If a fact matters (a date, a phone number, a medical term), check it before you trust it.`,
+        },
+        {
+          title: "The picture makers",
+          teaser: "Describe a picture. Get the picture.",
+          body: `**Good for.** Turning what you have in your head into an image. Useful when you want to see something before you build it, plant it, or buy it.
 
 **A moment from your life.** You are thinking about replanting the front bed and want to see a couple of options before you spend money. Tell it the plants, the light, the style. It draws you a few versions to compare.
 
@@ -75,15 +76,12 @@ I am publishing it here because I suspect a lot of people have a parent in the s
 
 > Show me a small front-yard garden bed in soft afternoon light. Hostas and ferns. Brick edging. Cottage style.
 
-**Watch out for.** Hands and small text often look strange. Real people's faces often look slightly off. Use it for ideas, not for accurate portraits.
-
----
-
-## The voice tools
-
-*Talk to it instead of typing.*
-
-**Good for.** Asking a quick question without typing. Hands-free. Good in the kitchen, in the car, while you are folding laundry, or when typing on a phone is annoying.
+**Watch out for.** Hands and small text often look strange. Real people's faces often look slightly off. Use it for ideas, not for accurate portraits.`,
+        },
+        {
+          title: "The voice tools",
+          teaser: "Talk to it instead of typing.",
+          body: `**Good for.** Asking a quick question without typing. Hands-free. Good in the kitchen, in the car, while you are folding laundry, or when typing on a phone is annoying.
 
 **A moment from your life.** You are between dialysis runs, you cannot remember whether grapefruit is on the list of things to avoid with your meds, and your hands are full. You ask out loud.
 
@@ -93,15 +91,12 @@ I am publishing it here because I suspect a lot of people have a parent in the s
 
 > What are common side effects of [your medication name]? And is there anything I should not eat or drink with it?
 
-**Watch out for.** It can mishear names, numbers, and anything pronounced quietly. For medical questions treat the answer as a starting point and run it past your doctor or pharmacist before acting.
-
----
-
-## The smart search tools
-
-*Get an answer, not ten links.*
-
-**Good for.** Asking a real question and getting a written answer back, with sources. Faster than scrolling through a page of search results. Best for current events and fact-finding.
+**Watch out for.** It can mishear names, numbers, and anything pronounced quietly. For medical questions treat the answer as a starting point and run it past your doctor or pharmacist before acting.`,
+        },
+        {
+          title: "The smart search tools",
+          teaser: "Get an answer, not ten links.",
+          body: `**Good for.** Asking a real question and getting a written answer back, with sources. Faster than scrolling through a page of search results. Best for current events and fact-finding.
 
 **A moment from your life.** A headline is everywhere this morning and you want a calm, balanced summary in three short paragraphs, not a hot take. Or you want to know who won last night's game and what the standings look like now.
 
@@ -111,15 +106,12 @@ I am publishing it here because I suspect a lot of people have a parent in the s
 
 > Give me a balanced summary of [news topic] in three short paragraphs. Tell me what is broadly agreed and what is still disputed.
 
-**Watch out for.** Even smart search can get things wrong on fast-breaking news. Glance at the sources it cites at the bottom. If you do not recognize them, dig a little further before trusting the answer.
-
----
-
-## The "look at this for me" tools
-
-*Point your phone at it. Find out what it is.*
-
-**Good for.** Pointing a phone camera at something and getting told what it is. Plants, parts, animals, packaging, a spot on the wall, anything you can take a picture of.
+**Watch out for.** Even smart search can get things wrong on fast-breaking news. Glance at the sources it cites at the bottom. If you do not recognize them, dig a little further before trusting the answer.`,
+        },
+        {
+          title: 'The "look at this for me" tools',
+          teaser: "Point your phone at it. Find out what it is.",
+          body: `**Good for.** Pointing a phone camera at something and getting told what it is. Plants, parts, animals, packaging, a spot on the wall, anything you can take a picture of.
 
 **A moment from your life.** A piece fell off the inside of the dryer door and you have no idea what to call it. Or you see a flower at the park and want to know what it is so you can plant it next year.
 
@@ -129,17 +121,17 @@ I am publishing it here because I suspect a lot of people have a parent in the s
 
 > What is this? If it is a part, tell me its name and where I would buy a replacement. If it is a plant, tell me how to take care of it.
 
-**Watch out for.** It guesses. The guess is often right but not always, especially with similar-looking plants or generic parts. Use it as a strong hint, then verify before you spend money or eat anything.
+**Watch out for.** It guesses. The guess is often right but not always, especially with similar-looking plants or generic parts. Use it as a strong hint, then verify before you spend money or eat anything.`,
+        },
+      ],
+      afterContent: `## A note about the list
 
----
+I left a lot off this list on purpose. Agents, code assistants, retrieval-augmented systems, all the inside-baseball categories. None of it is wrong, none of it is going away, but none of it is what someone newly curious is trying to figure out. The five categories above will cover almost any moment where AI could be useful in a normal life, and that is enough to start with.
 
-## A note about the list
-
-I left a lot off this list on purpose. Agents, code assistants, retrieval-augmented systems, all the inside-baseball categories. None of it is wrong, none of it is going away, but none of it is a 71-year-old's first concern. The five categories above will cover almost any moment where AI could be useful in a normal life, and that is enough to start with.
-
-If you have a parent in this spot, you are welcome to take this and rewrite the example moments to match what they actually do. The structure holds whether they are still working, retired, dealing with a chronic condition, taking care of grandkids, or just curious. The examples are interchangeable. The five categories are not.
+If you have someone in your life in this spot, you are welcome to take this and rewrite the example moments to match what they actually do. The structure holds whether they are still working, retired, dealing with a chronic condition, taking care of grandkids, or just curious. The examples are interchangeable. The five categories are not.
 
 Made for Dad. Shared because someone else is probably writing the same note.`,
+    },
     faq: [
       {
         question: "What are the five kinds of AI in this guide?",
@@ -154,7 +146,7 @@ Made for Dad. Shared because someone else is probably writing the same note.`,
       {
         question: "Is this written for technical readers?",
         answer:
-          "No. It is written for an intelligent non-technical adult who is curious about AI but wants to skip the jargon. The original audience was my 71-year-old father. The examples are anchored in everyday moments (writing a thank-you note, identifying a plant, getting a balanced news summary) rather than coding, agents, or developer tooling.",
+          "No. It is written for an intelligent non-technical adult who is curious about AI but wants to skip the jargon. The original audience was my father, who is curious but tired of the marketing language around AI. The examples are anchored in everyday moments (writing a thank-you note, identifying a plant, getting a balanced news summary) rather than coding, agents, or developer tooling.",
       },
       {
         question: "Can I copy this for a parent or relative?",

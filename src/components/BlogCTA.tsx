@@ -75,9 +75,13 @@ export default function BlogCTA({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left: Who I am */}
           <div className="space-y-4">
-            <span className="text-xs font-mono text-accent tracking-widest uppercase">
+            <a
+              href="/about"
+              className="inline-flex items-center gap-1 text-xs font-mono text-accent tracking-widest uppercase hover:underline underline-offset-2 transition-colors"
+            >
               About the author
-            </span>
+              <ArrowUpRight size={11} className="opacity-60" />
+            </a>
             <h3 className="text-2xl font-heading font-bold text-text-bright">
               {headline}
             </h3>
