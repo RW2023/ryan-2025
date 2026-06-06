@@ -1,6 +1,7 @@
 import HireHero from "@/components/hire/HireHero";
 import IdentitySection from "@/components/hire/IdentitySection";
 import ServicesGrid from "@/components/hire/ServicesGrid";
+import SupportSection from "@/components/hire/SupportSection";
 import ProcessTimeline from "@/components/hire/ProcessTimeline";
 import ProofSection from "@/components/hire/ProofSection";
 import FinalCTA from "@/components/hire/FinalCTA";
@@ -239,6 +240,7 @@ export default function HireMePage() {
             <HireHero />
             <IdentitySection />
             <ServicesGrid />
+            <SupportSection />
             <ProcessTimeline />
             <ProofSection />
             <FinalCTA />
